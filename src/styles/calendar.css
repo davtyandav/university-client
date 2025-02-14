@@ -1,0 +1,56 @@
+.year-calendar {
+    padding: 20px;
+}
+
+.month-calendar {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.month-calendar table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.month-calendar th,
+.month-calendar td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    vertical-align: middle;
+}
+
+.month-calendar .empty {
+    background-color: #f5f5f5;
+}
+
+.month-calendar .weekend {
+    background-color: #e0e0e0;
+}
+
+td.today {
+    border: 5px solid yellow;
+}
+
+.cell-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.cell-content .status-icon {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.completed .status-icon {
+    color: green;
+}
+
+.not-completed .status-icon {
+    color: red;
+}
