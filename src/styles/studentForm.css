@@ -1,0 +1,19 @@
+.student-form {
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+}
+
+.student-form h2 {
+    margin-bottom: 10px;
+}
+
+.student-form input {
+    display: block;
+    margin: 10px 0;
+    padding: 5px;
+}
+
+.student-form button {
+    margin-right: 10px;
+}
