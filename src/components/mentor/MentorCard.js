@@ -3,7 +3,7 @@ import avatar from '../../assets/user.png';
 
 const MentorCard = ({mentor, onEdit, onDelete, onClick}) => {
     return (
-        <div className="student-card" onClick={() => onClick(mentor.id)}>
+        <div className="card" onClick={() => onClick(mentor.id)}>
             <img src={avatar} alt="User Avatar"/>
             <div>{mentor.name} {mentor.lastName}</div>
             <button className="btn edit-btn" onClick={(e) => {

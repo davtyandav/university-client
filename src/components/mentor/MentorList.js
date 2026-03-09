@@ -1,7 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import '../../styles/studentList.css';
-import '../../styles/student.css';
-import '../../styles/app.css';
 import Modal from "../Modal";
 import avatar from '../../assets/user.png';
 import MentorCard from "./MentorCard";
@@ -81,11 +78,11 @@ const MentorList = () => {
     };
 
     return (
-        <div className="student-list">
+        <div className="list">
             <h2>Mentors</h2>
             <button onClick={handleAddMentor}>Add Mentor</button>
 
-            <div className="student-grid">
+            <div className="grid">
                 {mentors.map((mentor) => (
                     <MentorCard
                         key={mentor.id}
@@ -114,6 +111,8 @@ const MentorList = () => {
                         <div>birthDate: {mentorInfo.birthDate}</div>
                         <div>Students
                             Assigned: {mentorInfo.students?.map(s => s.name + ' ' + s.lastName).join(', ') || 'None'}</div>
+                        <div>Lesson
+                            info: {mentorInfo.lessonDescriptors?.map(s => s.type + ' ' + s.title).join(', ') || 'None'}</div>
                     </div>
                 </Modal>
             )}

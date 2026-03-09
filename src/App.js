@@ -1,6 +1,6 @@
 import React from 'react';
 import StudentList from './components/student/StudentList';
-import LessonList from './components/LessonList';
+import LessonList from './components/lesson/LessonList';
 import MentorList from './components/mentor/MentorList';
 import './styles/app.css';
 import {NavLink, Route, Routes} from "react-router-dom";

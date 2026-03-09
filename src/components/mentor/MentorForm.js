@@ -46,7 +46,7 @@ const MentorForm = ({mentor, onClose}) => {
     };
 
     return (
-        <div className="mentor-form">
+        <div className="form">
             <h2>{mentor ? 'Edit Mentor' : 'Add Mentor'}</h2>
             <form onSubmit={handleSubmit}>
                 <input

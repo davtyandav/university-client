@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {deleteStudent, getStudentById, getStudents} from '../../services/api';
 import {calculateAge} from '../../services/utils';
-import '../../styles/studentList.css';
-import '../../styles/student.css';
-import '../../styles/app.css';
 import Modal from "../Modal";
 import StudentForm from "./StudentForm";
 import avatar from '../../assets/user.png';
@@ -18,7 +15,7 @@ const StudentList = () => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
-    let {lessonDescriptor} = studentInfo?.lessonDescriptor || {};
+    let lessonDescriptor = studentInfo?.lessonDescriptor;
 
     useEffect(() => {
         fetchStudents();
@@ -87,11 +84,11 @@ const StudentList = () => {
     };
 
     return (
-        <div className="student-list">
+        <div className="list">
             <h2>Students</h2>
             <button onClick={handleAddStudent}>Add Student</button>
 
-            <div className="student-grid">
+            <div className="grid">
                 {students.map((student) => (
                     <StudentCard
                         key={student.id}
@@ -102,6 +99,7 @@ const StudentList = () => {
                     />
                 ))}
             </div>
+
             <Modal isOpen={isEditModalOpen} onClose={handleCloseModal}>
                 <StudentForm student={editingStudent} onClose={handleCloseModal}/>
             </Modal>
@@ -118,10 +116,10 @@ const StudentList = () => {
                         <div>Age: {calculateAge(studentInfo.birthDate)}</div>
                         <div>Email: {studentInfo.email}</div>
                         <div>Lesson
-                            Type: {lessonDescriptor ? lessonDescriptor.type : "None"}</div>
+                            Info: {lessonDescriptor ? lessonDescriptor.type + " " + lessonDescriptor.title : "None"}</div>
                         <div>Mentor: {studentInfo.mentor ? studentInfo.mentor.name + " " + studentInfo.mentor.lastName : "None"}</div>
                         {lessonDescriptor && lessonDescriptor.lessons && (
-                            <YearCalendar year={2025} lessons={lessonDescriptor.lessons}></YearCalendar>)}
+                            <YearCalendar year={2026} lessons={lessonDescriptor.lessons}></YearCalendar>)}
                     </div>
                 </Modal>
             )}

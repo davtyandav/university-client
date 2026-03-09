@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {createStudent, getMentors, updateStudent} from '../../services/api';
-import '../../styles/studentForm.css';
+import '../../styles/form.css';
 import FileUploader from "../FileUploader";
 
 const StudentForm = ({student, onClose}) => {
@@ -63,32 +63,30 @@ const StudentForm = ({student, onClose}) => {
     const currentMentor = mentors.find((mentor) => mentor.id === formData.mentorId);
 
     return (
-        <div className="student-form">
+        <div className="form">
             <h2>{student ? 'Edit Student' : 'Add Student'}</h2>
-            <form onSubmit={handleSubmit}>
-                <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" required/>
-                <input name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name"
-                       required/>
-                <input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Email"
-                       required/>
-                <input type="date" name="birthDate" value={formData.birthDate} onChange={handleChange} required/>
+            <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" required/>
+            <input name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name"
+                   required/>
+            <input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Email"
+                   required/>
+            <input type="date" name="birthDate" value={formData.birthDate} onChange={handleChange} required/>
 
-                <select name="mentorId" value={formData.mentor.id} onChange={handleChange} required>
-                    <option
-                        value={formData.mentor.id}>{currentMentor ? `${currentMentor.name} ${currentMentor.lastName}` : "No mentor"}</option>
-                    {mentors.map(({id, name, lastName}) => (
-                        <option key={id} value={id}>
-                            {name} {lastName}
-                        </option>
-                    ))}
-                </select>
+            <select name="mentorId" value={formData.mentor.id} onChange={handleChange} required>
+                <option
+                    value={formData.mentor.id}>{currentMentor ? `${currentMentor.name} ${currentMentor.lastName}` : "No mentor"}</option>
+                {mentors.map(({id, name, lastName}) => (
+                    <option key={id} value={id}>
+                        {name} {lastName}
+                    </option>
+                ))}
+            </select>
 
-                <div className="section-btn">
-                    <button type="submit">Save</button>
-                    <button type="button" onClick={onClose}>Cancel</button>
-                </div>
-                <FileUploader></FileUploader>
-            </form>
+            <div className="section-btn">
+                <button type="button" onClick={handleSubmit}>Save</button>
+                <button type="button" onClick={onClose}>Cancel</button>
+            </div>
+            <FileUploader></FileUploader>
         </div>
     );
 };
