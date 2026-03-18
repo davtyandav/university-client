@@ -8,7 +8,7 @@ import {NavLink, Route, Routes} from "react-router-dom";
 const App = () => {
 
     return (
-        <div className="app-container">
+        <div className="app-container" >
             <nav className="navbar">
                 <NavLink to="/students" className="nav-link" activeclassname="active">
                     Students
