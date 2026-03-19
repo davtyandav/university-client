@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
-// Добавляем импорт модалки и, предположим, формы (создай ее по аналогии с MentorForm)
 import Modal from "../Modal";
-import LessonForm from "./LessonForm"; // Тебе нужно будет создать этот компонент
-import { getLessonDescriptor, getStudentsByLessonDescriptor } from "../../services/api";
+import LessonForm from "./LessonForm";
+import {getLessonDescriptor, getStudentsByLessonDescriptor} from "../../services/api";
 import MonthForm from "../../customComponents/MonthForm";
 
 const LessonList = () => {
     const [lessonsDescriptor, setLessonsDescriptor] = useState([]);
     const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    // --- НОВЫЕ СОСТОЯНИЯ ДЛЯ МОДАЛКИ ---
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDescriptorId, setSelectedDescriptorId] = useState(null);
     const [isMonthModalOpen, setIsMonthModalOpen] = useState(false);
-    // -----------------------------------
 
     useEffect(() => {
         fetchLessons();
@@ -46,7 +42,7 @@ const LessonList = () => {
 
     const handleCloseAddModal = () => {
         setIsModalOpen(false);
-        fetchLessons(); // Обновляем список после закрытия (если добавили)
+        fetchLessons();
     };
 
     const fetchStudents = (lessonDescriptorId, lessonId) => {
@@ -72,11 +68,7 @@ const LessonList = () => {
     };
 
     if (loading) {
-        return <div style={{ padding: '20px' }}>Загрузка данных...</div>;
-    }
-
-    function getCompleted(lesson) {
-        return lesson.completed;
+        return <div style={{padding: '20px'}}>Загрузка данных...</div>;
     }
 
     function infoLesson(lessonDescriptorId, lessonId) {
@@ -88,7 +80,7 @@ const LessonList = () => {
             <h1 style={styles.mainTitle}>Учебный план: Дескрипторы</h1>
 
             {/* НОВАЯ КНОПКА ДОБАВЛЕНИЯ */}
-            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+            <div style={{textAlign: 'center', marginBottom: '20px'}}>
                 <button onClick={handleAddLesson} style={styles.addButton}>
                     Добавить дескриптор
                 </button>
@@ -100,7 +92,7 @@ const LessonList = () => {
                 lessonsDescriptor.map((descriptor) => (
 
                     <div key={descriptor.id} style={styles.card}>
-                        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                        <div style={{textAlign: 'center', marginBottom: '20px'}}>
                             <button onClick={() => handleGenerateLessons(descriptor.id)} style={styles.addButton}>
                                 generate lessons
                             </button>
@@ -124,24 +116,30 @@ const LessonList = () => {
                         </div>
 
                         <div style={styles.subListSection}>
-                            <h4 style={styles.subTitle}>Занятия (Lessons):</h4>
-                            {descriptor.lessons && descriptor.lessons.length > 0 ? (
-                                <div style={styles.lessonGrid}>
-                                    {descriptor.lessons.map((lesson) => (
-                                        <div key={lesson.id} style={styles.lessonItem}
-                                            onClick={() => infoLesson(descriptor.id, lesson.id)}>
-                                            <div style={styles.statusIcon}>
-                                                {getCompleted(lesson) ? '✅' : '⏳'}
-                                            </div>
-                                            <div style={styles.lessonData}>
-                                                <span
-                                                    style={lesson.completed ? styles.completedText : styles.pendingText}>
-                                                    {formatDate(lesson.data)}
-                                                </span>
-                                            </div>
+                            {descriptor.lessonInfo && descriptor.lessonInfo.length > 0 ? (
+                                descriptor.lessonInfo.map((info, index) => (
+                                    <div key={index} style={{marginBottom: '25px'}}>
+                                        <h3 style={styles.monthHeader}>{info.monthType}</h3>
+
+                                        <div style={styles.lessonGrid}>
+                                            {info.lessons && info.lessons.map((lesson) => (
+                                                <div key={lesson.id} style={styles.lessonItem}
+                                                     onClick={() => infoLesson(descriptor.id, lesson.id)}>
+                                                    <div style={styles.statusIcon}>
+                                                        {lesson.completed ? '✅' : '⏳'}
+                                                    </div>
+                                                    <div style={styles.lessonData}>
+                                                     <span style={lesson.completed
+                                                         ? styles.completedText
+                                                         : styles.pendingText}>
+                                                         {formatDate(lesson.data)}
+                                                     </span>
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
-                                    ))}
-                                </div>
+                                    </div>
+                                ))
                             ) : (
                                 <p style={styles.emptyText}>Уроки не запланированы</p>
                             )}
@@ -152,21 +150,19 @@ const LessonList = () => {
 
             {/* НОВАЯ МОДАЛКА */}
             <Modal isOpen={isModalOpen} onClose={handleCloseAddModal}>
-                <LessonForm onClose={handleCloseAddModal} />
+                <LessonForm onClose={handleCloseAddModal}/>
             </Modal>
 
             <Modal isOpen={isMonthModalOpen} onClose={handleCloseAddModal}>
                 {selectedDescriptorId && (
-                    <MonthForm descriptorId={selectedDescriptorId} onClose={handleCloseAddModal} />
+                    <MonthForm descriptorId={selectedDescriptorId} onClose={handleCloseAddModal}/>
                 )}
             </Modal>
         </div>
     );
 }
 
-// ДОБАВИЛ СТИЛЬ ДЛЯ КНОПКИ
 const styles = {
-    // ... твои старые стили без изменений ...
     container: {
         padding: '30px',
         fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif',
@@ -265,7 +261,7 @@ const styles = {
         border: '1px solid #ebebeb',
         borderRadius: '6px',
         gap: '10px',
-        cursor: 'pointer' // добавил курсор, так как есть onClick
+        cursor: 'pointer'
     },
     statusIcon: {
         fontSize: '1.2rem'

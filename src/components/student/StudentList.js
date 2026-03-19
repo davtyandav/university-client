@@ -118,8 +118,15 @@ const StudentList = () => {
                         <div>Lesson
                             Info: {lessonDescriptor ? lessonDescriptor.type + " " + lessonDescriptor.title : "None"}</div>
                         <div>Mentor: {studentInfo.mentor ? studentInfo.mentor.name + " " + studentInfo.mentor.lastName : "None"}</div>
-                        {lessonDescriptor && lessonDescriptor.lessons && (
-                            <YearCalendar year={2026} lessons={lessonDescriptor.lessons}></YearCalendar>)}
+                        {lessonDescriptor && lessonDescriptor.lessonInfo && (
+                            <div className="lessons-summary">
+                                <h4>Расписание:</h4>
+                                <YearCalendar
+                                    year={2026}
+                                    lessons={lessonDescriptor.lessonInfo.flatMap(info => info.lessons)}
+                                />
+                            </div>
+                        )}
                     </div>
                 </Modal>
             )}
