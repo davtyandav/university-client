@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+
 // Добавляем импорт модалки и, предположим, формы (создай ее по аналогии с MentorForm)
 import Modal from "../Modal";
 import LessonForm from "./LessonForm"; // Тебе нужно будет создать этот компонент
-import {getLessonDescriptor, getStudentsByLessonDescriptor} from "../../services/api";
+import { getLessonDescriptor, getStudentsByLessonDescriptor } from "../../services/api";
+import MonthForm from "../../customComponents/MonthForm";
 
 const LessonList = () => {
     const [lessonsDescriptor, setLessonsDescriptor] = useState([]);
@@ -11,6 +13,8 @@ const LessonList = () => {
 
     // --- НОВЫЕ СОСТОЯНИЯ ДЛЯ МОДАЛКИ ---
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedDescriptorId, setSelectedDescriptorId] = useState(null);
+    const [isMonthModalOpen, setIsMonthModalOpen] = useState(false);
     // -----------------------------------
 
     useEffect(() => {
@@ -21,6 +25,7 @@ const LessonList = () => {
         setLoading(true);
         getLessonDescriptor()
             .then(data => {
+                console.log(data)
                 setLessonsDescriptor(data);
                 setLoading(false);
             })
@@ -32,6 +37,11 @@ const LessonList = () => {
 
     const handleAddLesson = () => {
         setIsModalOpen(true);
+    };
+
+    const handleGenerateLessons = (descriptorId) => {
+        setSelectedDescriptorId(descriptorId);
+        setIsMonthModalOpen(true);
     };
 
     const handleCloseAddModal = () => {
@@ -62,7 +72,7 @@ const LessonList = () => {
     };
 
     if (loading) {
-        return <div style={{padding: '20px'}}>Загрузка данных...</div>;
+        return <div style={{ padding: '20px' }}>Загрузка данных...</div>;
     }
 
     function getCompleted(lesson) {
@@ -88,7 +98,14 @@ const LessonList = () => {
                 <p>Список пуст.</p>
             ) : (
                 lessonsDescriptor.map((descriptor) => (
+
                     <div key={descriptor.id} style={styles.card}>
+                        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                            <button onClick={() => handleGenerateLessons(descriptor.id)} style={styles.addButton}>
+                                generate lessons
+                            </button>
+                        </div>
+
                         <div style={styles.header}>
                             <div>
                                 <h2 style={styles.title}>{descriptor.title}</h2>
@@ -112,14 +129,14 @@ const LessonList = () => {
                                 <div style={styles.lessonGrid}>
                                     {descriptor.lessons.map((lesson) => (
                                         <div key={lesson.id} style={styles.lessonItem}
-                                             onClick={() => infoLesson(descriptor.id, lesson.id)}>
+                                            onClick={() => infoLesson(descriptor.id, lesson.id)}>
                                             <div style={styles.statusIcon}>
                                                 {getCompleted(lesson) ? '✅' : '⏳'}
                                             </div>
                                             <div style={styles.lessonData}>
-                                                   <span
-                                                       style={lesson.completed ? styles.completedText : styles.pendingText}>
-                                                      {formatDate(lesson.data)}
+                                                <span
+                                                    style={lesson.completed ? styles.completedText : styles.pendingText}>
+                                                    {formatDate(lesson.data)}
                                                 </span>
                                             </div>
                                         </div>
@@ -136,6 +153,12 @@ const LessonList = () => {
             {/* НОВАЯ МОДАЛКА */}
             <Modal isOpen={isModalOpen} onClose={handleCloseAddModal}>
                 <LessonForm onClose={handleCloseAddModal} />
+            </Modal>
+
+            <Modal isOpen={isMonthModalOpen} onClose={handleCloseAddModal}>
+                {selectedDescriptorId && (
+                    <MonthForm descriptorId={selectedDescriptorId} onClose={handleCloseAddModal} />
+                )}
             </Modal>
         </div>
     );

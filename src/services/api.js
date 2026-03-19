@@ -2,14 +2,19 @@ import axios from 'axios';
 
 const STUDENTS = '/students';
 const MENTORS = '/mentors';
+const GENERATED = '/generate';
+
 const LESSON_DESCRIPTOR = '/lessonDescriptor';
 const LESSON = '/lesson';
+const LESSONS = '/lessons';
+
 const BASE_URL = 'http://localhost:8080/api/v1'
 
 const API_STUDENTS = BASE_URL + STUDENTS;
 const API_MENTORS = BASE_URL + MENTORS;
 const API_LESSON = BASE_URL + LESSON;
 const API_LESSON_DESCRIPTOR = BASE_URL + LESSON_DESCRIPTOR;
+const API_GENERATED = BASE_URL + LESSONS + GENERATED;
 const API_STUDENTS_LESSON_DESCRIPTOR = API_STUDENTS + LESSON_DESCRIPTOR;
 
 export const getStudents = async () => {
@@ -77,5 +82,10 @@ export const getLessonDescriptor = async () => {
 
 export const createLessonDescriptor = async (lessonDescriptor) => {
     const response = await axios.post(API_LESSON_DESCRIPTOR, lessonDescriptor);
+    return response.data;
+};
+
+export const generateMount = async (lessonDescriptor) => {
+    const response = await axios.post(API_GENERATED, lessonDescriptor);
     return response.data;
 };
