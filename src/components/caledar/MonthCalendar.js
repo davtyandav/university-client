@@ -25,7 +25,7 @@ const MonthCalendar = ({month, year, lessons}) => {
 
     return (
         <div className="month-calendar">
-            <h3>{new Date(year, month).toLocaleString("en-US", {month: "long"})}</h3>
+            {/*<h3>{new Date(year, month).toLocaleString("en-US", {month: "long"})}</h3>*/}
             <table>
                 <thead>
                 <tr>
