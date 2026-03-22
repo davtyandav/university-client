@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { createLessonDescriptor, getMentors } from '../../services/api';
+import React, {useEffect, useState, useCallback} from 'react';
+import {createLessonDescriptor, getMentors} from '../../services/api';
 
-const LessonForm = ({ onClose }) => {
+const LessonForm = ({onClose}) => {
     const [mentors, setMentors] = useState([]);
     const [formData, setFormData] = useState({
         title: '',
@@ -18,8 +18,8 @@ const LessonForm = ({ onClose }) => {
     }, []);
 
     const handleChange = useCallback((e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({ ...prevState, [name]: value }));
+        const {name, value} = e.target;
+        setFormData(prevState => ({...prevState, [name]: value}));
     }, []);
 
     const handleSubmit = async (e) => {
@@ -96,7 +96,7 @@ const LessonForm = ({ onClose }) => {
                     ))}
                 </select>
 
-                <div className="section-btn" style={{ marginTop: '20px' }}>
+                <div className="section-btn" style={{marginTop: '20px'}}>
                     <button type="submit" style={btnStyles.save}>Сохранить</button>
                     <button type="button" onClick={onClose} style={btnStyles.cancel}>Отмена</button>
                 </div>

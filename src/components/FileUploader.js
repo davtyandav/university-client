@@ -61,7 +61,7 @@ const FileUploader = () => {
     };
 
     return (
-        <div style={{padding: "20px", maxWidth: "500px", margin: "0 auto"}}>
+        <div className="uploader">
             <h2>Загрузка файлов</h2>
             <input type="file" onChange={handleFileChange}/>
             <button onClick={handleUpload} disabled={!selectedFile}>
@@ -75,7 +75,7 @@ const FileUploader = () => {
                         {uploadedFiles.map((file) => (
                             <li key={file.id}>
                                 {file.originalName} ({Math.round(file.size / 1024)} KB)
-                                <button style={{marginLeft: "10px"}} onClick={() => handleDownload(file)}>
+                                <button className="ml-2" onClick={() => handleDownload(file)}>
                                     Скачать
                                 </button>
                             </li>

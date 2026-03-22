@@ -3,13 +3,13 @@ import React from 'react';
 export default function DeleteButton({ id, onDelete }) {
     return (
         <button
-            className="w-full bg-red-500"
+            className="deletebutton bg-red-100 text-white p-2 rounded hover:bg-red-600"
             onClick={(e) => {
-                e.stopPropagation();
-                onDelete(id);
+                e.stopPropagation(); // kardal card click-ic propagation
+                onDelete(id);        // delete karel nkar@
             }}
         >
-            Delete
+            <span className="text-white text-1 " >🗑️ Delete</span>
         </button>
     );
 }

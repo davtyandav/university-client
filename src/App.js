@@ -2,32 +2,39 @@ import React from 'react';
 import StudentList from './components/student/StudentList';
 import LessonList from './components/lesson/LessonList';
 import MentorList from './components/mentor/MentorList';
-import './styles/app.css';
-import {NavLink, Route, Routes} from "react-router-dom";
+import { NavLink, Route, Routes } from "react-router-dom";
 
 const App = () => {
-
     return (
-        <div className="app-container" >
+        <div>
+
+
+            {/* NAVBAR */}
             <nav className="navbar">
-                <NavLink to="/students" className="nav-link" activeclassname="active">
+                <div className="p-4 "><img src="logo.png" alt="Logo" /></div>
+                <NavLink to="/students" className="navlink">
                     Students
                 </NavLink>
-                <NavLink to="/lessons" className="nav-link" activeclassname="active">
+
+                <NavLink to="/lessons" className="navlink">
                     Lessons
                 </NavLink>
-                <NavLink to="/mentors" className="nav-link" activeclassname="active">
+
+                <NavLink to="/mentors" className="navlink">
                     Mentors
                 </NavLink>
+
             </nav>
 
-            <div className="content">
-                <Routes>
-                    <Route path="/students" element={<StudentList/>}/>
-                    <Route path="/lessons" element={<LessonList/>}/>
-                    <Route path="/mentors" element={<MentorList/>}/>
-                </Routes>
-            </div>
+            {/* CONTENT */}
+
+            <Routes>
+                <Route path="/students" element={<StudentList />} />
+                <Route path="/lessons" element={<LessonList />} />
+                <Route path="/mentors" element={<MentorList />} />
+            </Routes>
+
+
         </div>
     );
 };

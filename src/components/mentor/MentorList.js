@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from "../Modal";
 import avatar from '../../assets/user.png';
 import MentorCard from "./MentorCard";
 import MentorForm from "./MentorForm";
-import {deleteMentor, getMentorById, getMentors} from '../../services/api';
+import { deleteMentor, getMentorById, getMentors } from '../../services/api';
+import '../../styles/list.css';
+import { calculateAge } from '../../services/utils';
 
 const MentorList = () => {
     const [mentors, setMentors] = useState([]);
@@ -23,6 +25,7 @@ const MentorList = () => {
 
     const handleCloseAddModal = () => {
         setIsModalOpen(false);
+        fetchMentors();
     };
 
     const updateMentor = (id) => {
@@ -78,11 +81,11 @@ const MentorList = () => {
     };
 
     return (
-        <div className="list">
+        <div className="panel">
             <h2>Mentors</h2>
             <button onClick={handleAddMentor}>Add Mentor</button>
 
-            <div className="grid">
+            <div className="list">
                 {mentors.map((mentor) => (
                     <MentorCard
                         key={mentor.id}
@@ -95,20 +98,20 @@ const MentorList = () => {
             </div>
 
             <Modal isOpen={isEditModalOpen} onClose={handleCloseModal}>
-                <MentorForm mentor={editingMentor} onClose={handleCloseModal}/>
+                <MentorForm mentor={editingMentor} onClose={handleCloseModal} />
             </Modal>
 
             <Modal isOpen={isModalOpen} onClose={handleCloseAddModal}>
-                <MentorForm mentor={null} onClose={handleCloseAddModal}/>
+                <MentorForm mentor={null} onClose={handleCloseAddModal} />
             </Modal>
 
             {mentorInfo && (
                 <Modal isOpen={isInfoModalOpen} onClose={handleCloseInfoModal} width="600px">
                     <div>
-                        <img src={avatar} alt="User Avatar"/>
+                        <img src={avatar} alt="User Avatar" />
                         <div>{mentorInfo.name} {mentorInfo.lastName}</div>
                         <div>Email: {mentorInfo.email}</div>
-                        <div>birthDate: {mentorInfo.birthDate}</div>
+                        <div>birthDate: {calculateAge(mentorInfo.birthDate)}</div>
                         <div>Students
                             Assigned: {mentorInfo.students?.map(s => s.name + ' ' + s.lastName).join(', ') || 'None'}</div>
                         <div>Lesson
