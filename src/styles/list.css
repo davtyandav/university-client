@@ -1,8 +1,146 @@
+body {
+    @apply m-0 font-sans;
+    @apply bg-gray-200;
+}
+
+
+.panel {
+    @apply fixed top-0 right-0;
+    @apply h-full;
+    @apply w-[90%];
+    @apply flex flex-col;
+    @apply py-10;
+    @apply text-black;
+    @apply shadow-lg;
+}
+
 .list {
-    padding: 20px;
+    @apply grid;
+    @apply grid-cols-4;
+    @apply gap-6;
 }
 
-.list h2 {
-    margin-bottom: 10px;
+/* Navbar Styles */
+.navbar {
+    @apply fixed;
+    @apply top-0;
+    @apply left-0;
+    @apply h-full;
+    @apply w-[10%];
+    @apply bg-blue-900;
+    @apply flex;
+    @apply flex-col;
+    @apply items-center;
+    @apply py-10;
+    @apply gap-6;
+    @apply space-y-6;
+    @apply text-white;
+    @apply text-lg;
+    @apply shadow-lg;
+}
+svg{
+
+    @apply w-6 h-6;
+    @apply text-white;
 }
 
+.navlink {
+    @apply hover:text-blue-400;
+}
+
+.content {
+    @apply flex-1;
+    @apply p-2;
+    @apply mr-[10px];
+}
+
+/* uploader */
+.uploader {
+    @apply p-5;
+    @apply max-w-md;
+    @apply mx-auto;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    @apply fixed inset-0;
+    @apply bg-black bg-opacity-50;
+    @apply flex justify-center items-center;
+    @apply z-[1000];
+}
+
+.modal-content {
+    @apply bg-white p-5 rounded-lg relative;
+    @apply w-1/2 max-w-[1000px];
+    @apply max-h-[60vh] overflow-y-auto;
+}
+
+.modal-close {
+    @apply absolute top-2 right-2;
+    @apply bg-transparent border-none;
+    @apply text-xl cursor-pointer;
+}
+
+
+.deletebutton {
+    @apply flex items-center gap-2 px-4 py-2 text-sm font-medium bg-red-500 text-white rounded-lg hover:bg-red-600 transition;
+}
+
+
+.editbutton {
+    @apply bg-green-500 text-white;
+    @apply mr-10;
+    @apply px-5 py-3 rounded-lg;
+    @apply cursor-pointer;
+    @apply hover:bg-green-600 transition;
+}
+
+.month-select {
+    @apply border px-2;
+    @apply py-1;
+    @apply rounded;
+}
+
+/* student card */
+.card {
+    @apply flex;
+    @apply items-center;
+    @apply gap-5 p-5 bg-white shadow-sm border rounded-lg;
+    @apply hover:shadow-md transition-all duration-200 cursor-pointer;
+}
+
+.card-avatar {
+    @apply w-16 h-16 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center;
+}
+
+.card-avatar img {
+    @apply w-full h-full object-cover;
+}
+
+.card-info {
+    @apply flex flex-col flex-1;
+}
+
+.card-name {
+    @apply text-lg font-semibold text-gray-800;
+}
+
+.card-id {
+    @apply text-sm text-gray-500 mt-1;
+}
+
+.card-actions {
+    @apply flex gap-3 mt-4;
+}
+
+.edit-button {
+    @apply flex items-center gap-2 px-4 py-2 text-sm font-medium bg-green-500 text-white rounded-lg hover:bg-green-600 transition;
+}
+
+.arrow {
+    @apply text-gray-400 transition;
+}
+
+.student-card:hover .arrow {
+    @apply translate-x-1;
+}

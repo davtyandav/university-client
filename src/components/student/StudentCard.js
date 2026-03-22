@@ -1,22 +1,9 @@
 import React from 'react';
-import avatar from '../../assets/user.png';
-import DeleteButton from "../../customComponents/DeleteButton";
+import Card from '../../customComponents/Card';
 
 const StudentCard = ({ student, onEdit, onDelete, onClick }) => {
     return (
-        <div className="card" onClick={() => onClick(student.id)}>
-            <img src={avatar} alt="User Avatar" />
-            <div>{student.name} {student.lastName}</div>
-            <button className="btn edit-btn" onClick={(e) => {
-                e.stopPropagation();
-                onEdit(student.id);
-            }}>Edit
-            </button>
-            <DeleteButton
-                id={student.id}
-                onDelete={onDelete}
-            />
-        </div>
+        <Card student={student} onEdit={onEdit} onDelete={onDelete} onClick={onClick} />
     );
 };
 

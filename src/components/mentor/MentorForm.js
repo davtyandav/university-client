@@ -1,7 +1,7 @@
-import React, {useEffect, useState, useCallback} from 'react';
-import {createMentor, updateMentor} from '../../services/api';
+import React, { useEffect, useState, useCallback } from 'react';
+import { createMentor, updateMentor } from '../../services/api';
 
-const MentorForm = ({mentor, onClose}) => {
+const MentorForm = ({ mentor, onClose }) => {
     const [formData, setFormData] = useState({
         name: '',
         lastName: '',
@@ -18,13 +18,13 @@ const MentorForm = ({mentor, onClose}) => {
                 birthDate: mentor.birthDate ? mentor.birthDate.split('T')[0] : '',
             });
         } else {
-            setFormData({name: '', lastName: '', email: '', birthDate: ''});
+            setFormData({ name: '', lastName: '', email: '', birthDate: '' });
         }
     }, [mentor]);
 
     const handleChange = useCallback((e) => {
-        const {name, value} = e.target;
-        setFormData(prevState => ({...prevState, [name]: value}));
+        const { name, value } = e.target;
+        setFormData(prevState => ({ ...prevState, [name]: value }));
     }, []);
 
     const handleSubmit = async (e) => {

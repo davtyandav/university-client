@@ -44,6 +44,9 @@ const LessonList = () => {
         setIsModalOpen(false);
         fetchLessons();
     };
+    const handleCloseMonthModal = () => {
+    setIsMonthModalOpen(false);
+};
 
     const fetchStudents = (lessonDescriptorId, lessonId) => {
         setLoading(true);
@@ -153,11 +156,14 @@ const LessonList = () => {
                 <LessonForm onClose={handleCloseAddModal}/>
             </Modal>
 
-            <Modal isOpen={isMonthModalOpen} onClose={handleCloseAddModal}>
-                {selectedDescriptorId && (
-                    <MonthForm descriptorId={selectedDescriptorId} onClose={handleCloseAddModal}/>
-                )}
-            </Modal>
+          <Modal isOpen={isMonthModalOpen} onClose={handleCloseMonthModal}>
+    {selectedDescriptorId && (
+        <MonthForm
+            descriptorId={selectedDescriptorId}
+            onClose={handleCloseMonthModal}
+        />
+    )}
+</Modal>
         </div>
     );
 }
