@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
-
+import React, { useEffect, useState } from 'react';
 import Modal from "../Modal";
 import LessonForm from "./LessonForm";
-import {getLessonDescriptor, getStudentsByLessonDescriptor} from "../../services/api";
+import { getLessonDescriptor, getStudentsByLessonDescriptor } from "../../services/api";
 import MonthForm from "../../customComponents/MonthForm";
+//  import './list.css'; // Tailwind + @apply    
 
 const LessonList = () => {
     const [lessonsDescriptor, setLessonsDescriptor] = useState([]);
@@ -21,70 +21,34 @@ const LessonList = () => {
         setLoading(true);
         getLessonDescriptor()
             .then(data => {
-                console.log(data)
                 setLessonsDescriptor(data);
                 setLoading(false);
             })
-            .catch(error => {
-                console.error("Ошибка при загрузке данных:", error);
-                setLoading(false);
-            });
+            .catch(() => setLoading(false));
     };
-
-    const handleAddLesson = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleGenerateLessons = (descriptorId) => {
-        setSelectedDescriptorId(descriptorId);
-        setIsMonthModalOpen(true);
-    };
-
-    const handleCloseAddModal = () => {
-        setIsModalOpen(false);
-        fetchLessons();
-    };
-    const handleCloseMonthModal = () => {
-    setIsMonthModalOpen(false);
-};
 
     const fetchStudents = (lessonDescriptorId, lessonId) => {
         setLoading(true);
         getStudentsByLessonDescriptor(lessonDescriptorId, lessonId)
             .then(data => {
-                console.log(data)
                 setStudents(data);
                 setLoading(false);
             })
-            .catch(error => {
-                console.error("Ошибка при загрузке данных:", error);
-                setLoading(false);
-            });
+            .catch(() => setLoading(false));
     };
 
     const formatDate = (dateString) => {
-        return new Date(dateString).toLocaleString('ru-RU', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
+        return new Date(dateString).toLocaleDateString('ru-RU');
     };
 
-    if (loading) {
-        return <div style={{padding: '20px'}}>Загрузка данных...</div>;
-    }
-
-    function infoLesson(lessonDescriptorId, lessonId) {
-        fetchStudents(lessonDescriptorId, lessonId)
-    }
+    if (loading) return <div className="p-5">Загрузка данных...</div>;
 
     return (
-        <div style={styles.container}>
-            <h1 style={styles.mainTitle}>Учебный план: Дескрипторы</h1>
+        <div className="container">
+            <h1 className="mainTitle">Учебный план: Дескрипторы</h1>
 
-            {/* НОВАЯ КНОПКА ДОБАВЛЕНИЯ */}
-            <div style={{textAlign: 'center', marginBottom: '20px'}}>
-                <button onClick={handleAddLesson} style={styles.addButton}>
+            <div className="text-center mb-5">
+                <button onClick={() => setIsModalOpen(true)} className="addButton">
                     Добавить дескриптор
                 </button>
             </div>
@@ -93,206 +57,82 @@ const LessonList = () => {
                 <p>Список пуст.</p>
             ) : (
                 lessonsDescriptor.map((descriptor) => (
+                    <div key={descriptor.id} className="card">
 
-                    <div key={descriptor.id} style={styles.card}>
-                        <div style={{textAlign: 'center', marginBottom: '20px'}}>
-                            <button onClick={() => handleGenerateLessons(descriptor.id)} style={styles.addButton}>
+                        <div className="text-center mb-5">
+                            <button
+                                onClick={() => {
+                                    setSelectedDescriptorId(descriptor.id);
+                                    setIsMonthModalOpen(true);
+                                }}
+                                className="addButton"
+                            >
                                 generate lessons
                             </button>
                         </div>
 
-                        <div style={styles.header}>
+                        <div className="header">
                             <div>
-                                <h2 style={styles.title}>{descriptor.title}</h2>
-                                <div style={styles.badgeContainer}>
-                                    <span style={styles.typeBadge}>{descriptor.type}</span>
-                                    <span style={styles.dayBadge}>{descriptor.dayType}</span>
+                                <h2 className="title">{descriptor.title}</h2>
+
+                                <div className="badgeContainer">
+                                    <span className="typeBadge">{descriptor.type}</span>
+                                    <span className="dayBadge">{descriptor.dayType}</span>
                                 </div>
                             </div>
-                            <div style={styles.mentorInfo}>
+
+                            <div className="mentorInfo">
                                 <strong>Ментор:</strong> {descriptor.mentorResponse?.name || 'Не назначен'}
                             </div>
                         </div>
 
-                        <div style={styles.details}>
-                            <p><strong>Дата создания:</strong> {formatDate(descriptor.data)}</p>
+                        <div className="details">
+                            <p><strong>Дата:</strong> {formatDate(descriptor.data)}</p>
                         </div>
 
-                        <div style={styles.subListSection}>
-                            {descriptor.lessonInfo && descriptor.lessonInfo.length > 0 ? (
-                                descriptor.lessonInfo.map((info, index) => (
-                                    <div key={index} style={{marginBottom: '25px'}}>
-                                        <h3 style={styles.monthHeader}>{info.monthType}</h3>
+                        <div className="subListSection">
+                            {descriptor.lessonInfo?.map((info, index) => (
+                                <div key={index} className="mb-6">
+                                    <h3 className="monthHeader">{info.monthType}</h3>
 
-                                        <div style={styles.lessonGrid}>
-                                            {info.lessons && info.lessons.map((lesson) => (
-                                                <div key={lesson.id} style={styles.lessonItem}
-                                                     onClick={() => infoLesson(descriptor.id, lesson.id)}>
-                                                    <div style={styles.statusIcon}>
-                                                        {lesson.completed ? '✅' : '⏳'}
-                                                    </div>
-                                                    <div style={styles.lessonData}>
-                                                     <span style={lesson.completed
-                                                         ? styles.completedText
-                                                         : styles.pendingText}>
-                                                         {formatDate(lesson.data)}
-                                                     </span>
-                                                    </div>
+                                    <div className="lessonGrid">
+                                        {info.lessons?.map((lesson) => (
+                                            <div
+                                                key={lesson.id}
+                                                className="lessonItem"
+                                                onClick={() => fetchStudents(descriptor.id, lesson.id)}
+                                            >
+                                                <div className="statusIcon">
+                                                    {lesson.completed ? '✅' : '⏳'}
                                                 </div>
-                                            ))}
-                                        </div>
+
+                                                <span className={lesson.completed ? 'completedText' : 'pendingText'}>
+                                                    {formatDate(lesson.data)}
+                                                </span>
+                                            </div>
+                                        ))}
                                     </div>
-                                ))
-                            ) : (
-                                <p style={styles.emptyText}>Уроки не запланированы</p>
-                            )}
+                                </div>
+                            ))}
                         </div>
                     </div>
                 ))
             )}
 
-            {/* НОВАЯ МОДАЛКА */}
-            <Modal isOpen={isModalOpen} onClose={handleCloseAddModal}>
-                <LessonForm onClose={handleCloseAddModal}/>
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <LessonForm onClose={() => setIsModalOpen(false)} />
             </Modal>
 
-          <Modal isOpen={isMonthModalOpen} onClose={handleCloseMonthModal}>
-    {selectedDescriptorId && (
-        <MonthForm
-            descriptorId={selectedDescriptorId}
-            onClose={handleCloseMonthModal}
-        />
-    )}
-</Modal>
+            <Modal isOpen={isMonthModalOpen} onClose={() => setIsMonthModalOpen(false)}>
+                {selectedDescriptorId && (
+                    <MonthForm
+                        descriptorId={selectedDescriptorId}
+                        onClose={() => setIsMonthModalOpen(false)}
+                    />
+                )}
+            </Modal>
         </div>
     );
-}
-
-const styles = {
-    container: {
-        padding: '30px',
-        fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif',
-        backgroundColor: '#f4f7f6',
-        minHeight: '100vh'
-    },
-    mainTitle: {
-        textAlign: 'center',
-        color: '#34495e',
-        marginBottom: '30px'
-    },
-    addButton: {
-        padding: '10px 20px',
-        backgroundColor: '#2ecc71',
-        color: 'white',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        fontSize: '16px',
-        fontWeight: 'bold'
-    },
-    card: {
-        border: 'none',
-        borderRadius: '12px',
-        padding: '25px',
-        marginBottom: '25px',
-        boxShadow: '0 8px 16px rgba(0,0,0,0.05)',
-        backgroundColor: '#fff',
-        maxWidth: '800px',
-        margin: '0 auto 25px auto'
-    },
-    header: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        borderBottom: '2px solid #f0f0f0',
-        paddingBottom: '15px',
-        marginBottom: '15px'
-    },
-    title: {
-        margin: 0,
-        fontSize: '1.5rem',
-        color: '#2c3e50'
-    },
-    badgeContainer: {
-        marginTop: '8px',
-        display: 'flex',
-        gap: '10px'
-    },
-    typeBadge: {
-        backgroundColor: '#3498db',
-        color: 'white',
-        padding: '3px 10px',
-        borderRadius: '12px',
-        fontSize: '0.75rem',
-        textTransform: 'uppercase'
-    },
-    dayBadge: {
-        backgroundColor: '#95a5a6',
-        color: 'white',
-        padding: '3px 10px',
-        borderRadius: '12px',
-        fontSize: '0.75rem'
-    },
-    mentorInfo: {
-        fontSize: '0.9rem',
-        color: '#7f8c8d',
-        textAlign: 'right'
-    },
-    details: {
-        fontSize: '0.95rem',
-        color: '#444',
-        marginBottom: '20px'
-    },
-    subListSection: {
-        backgroundColor: '#fdfdfd',
-        padding: '15px',
-        borderRadius: '8px',
-        border: '1px solid #f1f1f1'
-    },
-    subTitle: {
-        margin: '0 0 10px 0',
-        fontSize: '1rem',
-        color: '#34495e'
-    },
-    lessonGrid: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
-        gap: '12px'
-    },
-    lessonItem: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: '10px',
-        backgroundColor: '#fff',
-        border: '1px solid #ebebeb',
-        borderRadius: '6px',
-        gap: '10px',
-        cursor: 'pointer'
-    },
-    statusIcon: {
-        fontSize: '1.2rem'
-    },
-    lessonData: {
-        display: 'flex',
-        flexDirection: 'column'
-    },
-    lessonDate: {
-        fontSize: '0.75rem',
-        color: '#999'
-    },
-    completedText: {
-        fontWeight: 'bold',
-        color: '#27ae60'
-    },
-    pendingText: {
-        fontWeight: 'bold',
-        color: '#e67e22'
-    },
-    emptyText: {
-        fontSize: '0.9rem',
-        color: '#bdc3c7',
-        fontStyle: 'italic'
-    }
 };
 
 export default LessonList;
