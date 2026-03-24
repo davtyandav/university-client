@@ -3,6 +3,14 @@ body {
     @apply bg-gray-200;
 }
 
+.app-container {
+    @apply flex;
+    @apply flex-col;
+    @apply items-center;
+    @apply p-5;
+    @apply bg-gray-500;
+    @apply min-h-screen
+}
 
 .panel {
     @apply fixed top-0 right-0;
@@ -12,6 +20,7 @@ body {
     @apply py-10;
     @apply text-black;
     @apply shadow-lg;
+
 }
 
 .list {
@@ -37,16 +46,33 @@ body {
     @apply text-white;
     @apply text-lg;
     @apply shadow-lg;
+    /* @apply hover:text-blue-400; */
+
 }
-svg{
+
+a {
+    @apply text-white;
+    @apply hover:text-blue-400;
+    @apply font-medium;
+    @apply transition-colors;
+    @apply duration-200;
+    @apply font-medium;
+    @apply hover:bg-slate-300;
+    @apply px-4 py-2;
+    @apply rounded-lg;
+
+}
+
+svg {
 
     @apply w-6 h-6;
     @apply text-white;
 }
 
-.navlink {
+/* .navlink {
+
     @apply hover:text-blue-400;
-}
+} */
 
 .content {
     @apply flex-1;
@@ -101,7 +127,7 @@ svg{
     @apply rounded;
 }
 
-/* student card */
+/* card */
 .card {
     @apply flex;
     @apply items-center;
@@ -143,4 +169,193 @@ svg{
 
 .student-card:hover .arrow {
     @apply translate-x-1;
+}
+
+/* Login Styles */
+.login-wrapper {
+    @apply flex items-center justify-center min-h-screen;
+}
+
+.login-form {
+    @apply bg-white p-8 rounded-lg shadow-md;
+    @apply w-full max-w-md;
+}
+
+.login-title {
+    @apply text-2xl font-bold text-center text-gray-800 mb-2;
+}
+
+.login-subtitle {
+    @apply text-gray-600 text-center mb-6;
+}
+
+.login-input {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.login-button {
+    @apply w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition;
+}
+
+.login-footer {
+    @apply text-center mt-4;
+}
+
+.login-link {
+    @apply text-blue-500 hover:text-blue-700;
+}
+
+/* Register Styles */
+.register-wrapper {
+    @apply flex items-center justify-center min-h-screen;
+}
+
+.register-form {
+    @apply bg-white p-8 rounded-lg shadow-md;
+    @apply w-full max-w-md;
+}
+
+.register-title {
+    @apply text-2xl font-bold text-center text-gray-800 mb-2;
+}
+
+.register-subtitle {
+    @apply text-gray-600 text-center mb-6;
+}
+
+.register-input {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.register-button {
+    @apply w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition;
+}
+
+.register-footer {
+    @apply text-center mt-4;
+}
+
+.register-link {
+    @apply text-blue-500 hover:text-blue-700;
+}
+
+/* Monthform  */
+.mentor-panel {
+    @apply p-6 bg-gray-50 min-h-screen;
+}
+
+.mentor-header {
+    @apply flex justify-between items-center mb-6;
+}
+
+.mentor-title {
+    @apply text-2xl font-bold text-gray-800;
+}
+
+.mentor-btn {
+    @apply bg-blue-600 text-white px-4 py-2 rounded-xl shadow hover:bg-blue-700 transition;
+}
+
+.mentor-list {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+/* INFO MODAL */
+
+.mentor-info {
+    @apply flex flex-col items-center text-center space-y-3;
+}
+
+.mentor-avatar {
+    @apply w-24 h-24 rounded-full border-2 border-gray-200;
+}
+
+.mentor-name {
+    @apply text-xl font-semibold text-gray-800;
+}
+
+.mentor-info p {
+    @apply text-gray-600;
+}
+
+.mentor-info span {
+    @apply font-medium text-gray-800;
+}
+
+/* lesson form */
+.container {
+    @apply p-8 font-sans bg-gray-100 h-screen overflow-y-auto;
+}
+
+.mainTitle {
+    @apply text-center text-gray-700 text-2xl mb-8;
+}
+
+.addButton {
+    @apply px-5 py-2 bg-green-500 text-white rounded-md cursor-pointer text-base font-bold hover:bg-green-600 transition;
+}
+
+.card {
+    @apply bg-blue-100 rounded-xl p-10 mb-6 shadow-md max-w-3xl mx-auto flex flex-col items-center gap-4;
+}
+
+.header {
+    @apply flex justify-between items-start border-b-2 border-gray-100 pb-4 mb-4;
+}
+
+.title {
+    @apply text-xl text-gray-800 font-semibold;
+}
+
+.badgeContainer {
+    @apply flex gap-2 mt-2;
+}
+
+.typeBadge {
+    @apply bg-blue-500 text-white px-3 py-1 rounded-full text-xs uppercase;
+}
+
+.dayBadge {
+    @apply bg-gray-400 text-white px-3 py-1 rounded-full text-xs;
+}
+
+.mentorInfo {
+    @apply text-sm text-gray-500 text-right;
+}
+
+.details {
+    @apply text-sm text-gray-700 mb-5;
+}
+
+.subListSection {
+    @apply bg-gray-50 w-full rounded-lg border border-gray-100;
+}
+
+.monthHeader {
+    @apply text-base text-gray-700 font-semibold mb-2;
+}
+
+.lessonGrid {
+    @apply grid -m-1;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+.lessonItem {
+    @apply flex items-center p-3 bg-white border border-gray-200 rounded-md gap-2 cursor-pointer hover:shadow transition;
+}
+
+.statusIcon {
+    @apply text-lg;
+}
+
+.completedText {
+    @apply font-bold text-green-600;
+}
+
+.pendingText {
+    @apply font-bold text-orange-500;
+}
+
+.emptyText {
+    @apply text-sm text-gray-400 italic;
 }
