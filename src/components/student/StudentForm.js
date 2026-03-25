@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { createStudent, getMentors, updateStudent } from '../../services/api';
-import '../../styles/form.css';
 import FileUploader from "../FileUploader";
 
 const StudentForm = ({ student, onClose }) => {

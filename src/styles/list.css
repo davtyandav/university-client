@@ -359,3 +359,99 @@ svg {
 .emptyText {
     @apply text-sm text-gray-400 italic;
 }
+
+
+.modalWrapper {
+  @apply fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm;
+}
+
+.modalCard {
+  @apply w-full max-w-lg bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl p-8 relative border border-gray-200;
+}
+
+.closeBtn {
+  @apply absolute top-5 right-5 text-gray-400 hover:text-gray-700 text-2xl cursor-pointer transition;
+}
+
+.title {
+  @apply text-2xl font-semibold text-gray-800 mb-6;
+}
+
+.divider {
+  @apply border-b border-gray-200 mb-6;
+}
+
+.formGroup {
+  @apply flex flex-col gap-2 mb-4;
+}
+
+.label {
+  @apply text-gray-600 text-base;
+}
+
+.select {
+  @apply w-full border border-gray-200 bg-white rounded-xl px-4 py-3 text-gray-700 outline-none transition focus:ring-2 focus:ring-green-400 focus:border-transparent;
+}
+
+.error {
+  @apply text-red-500 text-sm mt-1;
+}
+
+.btnGroup {
+  @apply flex gap-4 mt-6;
+}
+
+.saveBtn {
+  @apply px-6 py-3 rounded-xl text-white font-medium shadow-md transition;
+  background: linear-gradient(135deg, #6b8f7a, #4e6e5d);
+}
+
+.saveBtn:hover {
+  @apply opacity-90;
+}
+
+.cancelBtn {
+  @apply px-6 py-3 rounded-xl text-white font-medium shadow-md transition;
+  background: linear-gradient(135deg, #d96c6c, #b94b4b);
+}
+
+.cancelBtn:hover {
+  @apply opacity-90;
+}
+
+
+
+
+
+/* student form */
+.studentSelect {
+    @apply w-full max-w-md bg-gray-100 p-6 rounded-2xl shadow-lg;
+}
+
+.title {
+    @apply text-xl font-semibold mb-4 text-gray-800;
+}
+
+.studentList {
+    @apply max-h-60 overflow-y-auto flex flex-col gap-2 border rounded-xl p-3;
+}
+
+.studentItem {
+    @apply flex items-center gap-3 cursor-pointer p-2 rounded-lg transition hover:bg-gray-100;
+}
+
+.studentItem input {
+    @apply w-4 h-4;
+}
+
+.btnGroup {
+    @apply flex justify-end gap-3 mt-5;
+}
+
+.saveBtn {
+    @apply px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition;
+}
+
+.cancelBtn {
+    @apply px-5 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition;
+}

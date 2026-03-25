@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Modal from "../Modal";
 import LessonForm from "./LessonForm";
 import { getLessonDescriptor, getStudentsByLessonDescriptor } from "../../services/api";
-import MonthForm from "../../customComponents/MonthForm";
+import MountSelect from "../../customComponents/MonthForm";
+import StudentSelect from "../../customComponents/StudentSelect";
 //  import './list.css'; // Tailwind + @apply    
 
 const LessonList = () => {
@@ -12,6 +13,8 @@ const LessonList = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDescriptorId, setSelectedDescriptorId] = useState(null);
     const [isMonthModalOpen, setIsMonthModalOpen] = useState(false);
+    const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
+
 
     useEffect(() => {
         fetchLessons();
@@ -58,6 +61,17 @@ const LessonList = () => {
             ) : (
                 lessonsDescriptor.map((descriptor) => (
                     <div key={descriptor.id} className="card">
+
+                        <div className="text-center mb-5">
+                            <button
+                                onClick={() => {
+                                    setIsStudentModalOpen(true);
+                                }}
+                                className="addButton"
+                            >
+                                atache students
+                            </button>
+                        </div>
 
                         <div className="text-center mb-5">
                             <button
@@ -125,12 +139,19 @@ const LessonList = () => {
 
             <Modal isOpen={isMonthModalOpen} onClose={() => setIsMonthModalOpen(false)}>
                 {selectedDescriptorId && (
-                    <MonthForm
+                    <MountSelect
                         descriptorId={selectedDescriptorId}
                         onClose={() => setIsMonthModalOpen(false)}
                     />
                 )}
             </Modal>
+
+            <Modal isOpen={isStudentModalOpen} onClose={() => setIsStudentModalOpen(false)}>
+                <StudentSelect
+                    onClose={() => setIsStudentModalOpen(false)}
+                />
+            </Modal>
+
         </div>
     );
 };
