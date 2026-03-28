@@ -13,6 +13,20 @@ export const calculateAge = (birthDateString) => {
     return age;
 };
 
+export const isBirthDate = (birthDateString) => {
+    const birthDate = new Date(birthDateString);
+    const today = new Date();
+
+    if (isNaN(birthDate.getTime())) {
+        return false;
+    }
+
+    return (
+        birthDate.getDate() === today.getDate() &&
+        birthDate.getMonth() === today.getMonth()
+    );
+};
+
 export const getMonthDays = (month, year) => {
     const firstDayOfMonth = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { deleteStudent, getStudentById, getStudents } from '../../services/api';
-import { calculateAge } from '../../services/utils';
+import { isBirthDate, calculateAge } from '../../services/utils';
 import Modal from "../Modal";
 import StudentForm from "./StudentForm";
 import avatar from '../../assets/user.png';
@@ -106,7 +106,7 @@ const StudentList = () => {
                 </div>
             </div>
 
-            <Modal isOpen={isEditModalOpen} onClose={handleCloseModal}>
+            <Modal isOpen={isEditModalOpen} onClose={handleCloseModal} width="1000px">
                 <StudentForm student={editingStudent} onClose={handleCloseModal} />
             </Modal>
 
@@ -115,7 +115,7 @@ const StudentList = () => {
             </Modal>
 
             {studentInfo && (
-                <Modal isOpen={isInfoModalOpen} onClose={handleCloseInfoModal}>
+                <Modal isOpen={isInfoModalOpen} onClose={handleCloseInfoModal} width="1000px">
                     <div className="flex items-start mb-6">
                         <img
                             src={avatar}
@@ -130,6 +130,7 @@ const StudentList = () => {
                             <p className="text-gray-400 text-sm text-center">
                                 {calculateAge(studentInfo.birthDate)} years old
                             </p>
+                            <p>{isBirthDate(studentInfo.birthDate) ? "ha cnundas" : "cnunds chi"}</p>
                         </div>
                     </div>
 

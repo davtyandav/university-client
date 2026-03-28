@@ -1,98 +1,88 @@
 import React, { useState, useCallback } from 'react';
 import { generateMount } from '../services/api';
+import '../styles/form.css';
 
-const MountForm = ({ descriptorId, onClose }) => {
+const MonthSelect = ({ descriptorId, onClose }) => {
     const [formData, setFormData] = useState({
         lessonDescriptorId: descriptorId,
         monthType: ''
     });
 
-    const months = [
-        "JANUARY",
-        "FEBRUARY",
-        "MARCH",
-        "APRIL",
-        "MAY",
-        "JUNE",
-        "JULY",
-        "AUGUST",
-        "SEPTEMBER",
-        "OCTOBER",
-        "NOVEMBER",
-        "DECEMBER"
-    ];
+    const [error, setError] = useState('');
 
+    const months = [
+        "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+        "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+    ];
 
     const handleChange = useCallback((e) => {
         const { name, value } = e.target;
-        setFormData(prevState => ({ ...prevState, [name]: value }));
+        setFormData(prev => ({ ...prev, [name]: value }));
+        setError('');
     }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.lessonDescriptorId || !formData.monthType) {
-            alert("Выберите занятие и месяц");
+        if (!formData.monthType) {
+            setError("Выберите месяц");
             return;
         }
 
         try {
-            console.log(formData)
-             await generateMount(formData);
-            alert("Mount успешно сгенерирован");
+            await generateMount(formData);
             onClose();
         } catch (error) {
-            console.error("Ошибка генерации mount:", error.response?.data);
-            const serverMessage = error.response?.data?.message || "Ошибка сервера";
-            alert("Сервер не принял данные: " + serverMessage);
+            setError("Ошибка сервера");
         }
     };
 
     return (
-        <div className="form">
-            <h2>Генерация Mount</h2>
-            <form onSubmit={handleSubmit}>
+        <div className="modalWrapper">
+            <div className="modalCard">
 
-                <label>Выберите месяц</label>
-                <select
-                    name="monthType"
-                    value={formData.monthType}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value="">Выберите месяц...</option>
-                    {months.map(m => (
-                        <option key={m} value={m}>{m}</option>
-                    ))}
-                </select>
+                {/* ❌ close */}
+                <div className="closeBtn" onClick={onClose}>✕</div>
 
-                <div className="section-btn" style={{ marginTop: '20px' }}>
-                    <button type="submit" style={btnStyles.save}>Сгенерировать</button>
-                    <button type="button" onClick={onClose} style={btnStyles.cancel}>Отмена</button>
-                </div>
-            </form>
+                {/* 🧾 title */}
+                <h2 className="title">Генерация Mount</h2>
+
+                <div className="divider"></div>
+
+                <form onSubmit={handleSubmit}>
+
+                    <div className="formGroup">
+                        <label className="label">Выберите месяц</label>
+
+                        <select
+                            name="monthType"
+                            value={formData.monthType}
+                            onChange={handleChange}
+                            className="select"
+                        >
+                            <option value="">Выберите месяц...</option>
+                            {months.map(m => (
+                                <option key={m} value={m}>{m}</option>
+                            ))}
+                        </select>
+
+                        {error && <span className="error">{error}</span>}
+                    </div>
+
+                    <div className="btnGroup">
+                        <button type="submit" className="saveBtn">
+                            Сгенерировать
+                        </button>
+
+                        <button type="button" onClick={onClose} className="cancelBtn">
+                            Отмена
+                        </button>
+                    </div>
+
+                </form>
+            </div>
         </div>
     );
 };
 
-const btnStyles = {
-    save: {
-        backgroundColor: '#2ecc71',
-        color: 'white',
-        padding: '10px 20px',
-        border: 'none',
-        borderRadius: '4px',
-        cursor: 'pointer',
-        marginRight: '10px'
-    },
-    cancel: {
-        backgroundColor: '#e74c3c',
-        color: 'white',
-        padding: '10px 20px',
-        border: 'none',
-        borderRadius: '4px',
-        cursor: 'pointer'
-    }
-};
-
-export default MountForm;
+export default MonthSelect;

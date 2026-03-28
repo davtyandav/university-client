@@ -94,10 +94,16 @@ const LessonForm = ({ onClose }) => {
                     ))}
                 </select>
 
-                <div className="lesson-form-buttons">
-                    <button type="submit" className="btn-save">Сохранить</button>
-                    <button type="button" onClick={onClose} className="btn-cancel">Отмена</button>
+                <div className="btnGroup">
+                    <button type="submit" className="saveBtn">
+                        Сохранить
+                    </button>
+
+                    <button type="button" onClick={onClose} className="cancelBtn">
+                        Отмена
+                    </button>
                 </div>
+
             </form>
         </div>
     );
