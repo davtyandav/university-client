@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Modal from "../Modal";
 import avatar from '../../assets/user.png';
 import MentorCard from "./MentorCard";
 import MentorForm from "./MentorForm";
-import { deleteMentor, getMentorById, getMentors } from '../../services/api';
-import '../../styles/list.css';
-import { isBirthDate, calculateAge } from '../../services/utils';
+import {deleteMentor, getMentorById, getMentors} from '../../services/api';
+import '../../styles/app.css';
+import {isBirthDate, calculateAge} from '../../services/utils';
 
 const MentorList = () => {
     const [mentors, setMentors] = useState([]);
@@ -82,27 +82,31 @@ const MentorList = () => {
 
     return (
         <div className="panel">
-            <h2>Mentors</h2>
-            <button onClick={handleAddMentor}>Add Mentor</button>
+            <div className="p-5 m-5 bg-white">Mentors</div>
+            <div className="p-2 m-5 bg-white">
+                <button className="btn btn-primary p-2 bg-blue-900 text-white " onClick={handleAddMentor}>
+                    Add Mentor
+                </button>
 
-            <div className="list">
-                {mentors.map((mentor) => (
-                    <MentorCard
-                        key={mentor.id}
-                        mentor={mentor}
-                        onEdit={updateMentor}
-                        onDelete={handleDelete}
-                        onClick={openMentorInfo}
-                    />
-                ))}
+                <div className="list">
+                    {mentors.map((mentor) => (
+                        <MentorCard
+                            key={mentor.id}
+                            mentor={mentor}
+                            onEdit={updateMentor}
+                            onDelete={handleDelete}
+                            onClick={openMentorInfo}
+                        />
+                    ))}
+                </div>
             </div>
 
             <Modal isOpen={isEditModalOpen} onClose={handleCloseModal}>
-                <MentorForm mentor={editingMentor} onClose={handleCloseModal} />
+                <MentorForm mentor={editingMentor} onClose={handleCloseModal}/>
             </Modal>
 
             <Modal isOpen={isModalOpen} onClose={handleCloseAddModal}>
-                <MentorForm mentor={null} onClose={handleCloseAddModal} />
+                <MentorForm mentor={null} onClose={handleCloseAddModal}/>
             </Modal>
 
             {mentorInfo && (
@@ -117,7 +121,7 @@ const MentorList = () => {
 
                             <div className="flex-1 flex flex-col justify-center items-center">
                                 <h2 className="text-xl font-semibold text-center">
-                                    {mentorInfo.name} {mentorInfo.lastName}
+                                    {mentorInfo.user.name} {mentorInfo.user.lastName}
                                 </h2>
                                 <p className="text-gray-400 text-sm text-center">
                                     {calculateAge(mentorInfo.birthDate)} years old
@@ -131,7 +135,7 @@ const MentorList = () => {
                             <div className="flex justify-between items-center p-4">
                                 <span className="text-gray-500">Email</span>
                                 <div className="flex items-center gap-2">
-                                    <span>{mentorInfo.email}</span>
+                                    <span>{mentorInfo.user.email}</span>
                                     <span className="text-gray-300">›</span>
                                 </div>
                             </div>
@@ -140,9 +144,9 @@ const MentorList = () => {
                                 <span className="text-gray-500">Lesson Info</span>
                                 <div className="flex items-center gap-2">
                                     <span>
-                                        {mentorInfo.lessonDescriptors
-                                            ? mentorInfo.lessonDescriptors[0].type + " " + mentorInfo.lessonDescriptors[0].title
-                                            : "None"}
+                                     {mentorInfo.lessonDescriptors && mentorInfo.lessonDescriptors.length > 0
+                                         ? `${mentorInfo.lessonDescriptors[0].type} ${mentorInfo.lessonDescriptors[0].title}`
+                                         : "None"}
                                     </span>
                                     <span className="text-gray-300">›</span>
                                 </div>
@@ -154,8 +158,9 @@ const MentorList = () => {
                             <div className="flex flex-col gap-2">
                                 {mentorInfo.students && mentorInfo.students.length > 0 ? (
                                     mentorInfo.students.map((student, index) => (
-                                        <div key={index} className="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
-                                            <span>{student.name + " " + student.lastName}</span>
+                                        <div key={index}
+                                             className="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
+                                            <span>{student.user.name + " " + student.user.lastName}</span>
                                             <span className="text-gray-300">›</span>
                                         </div>
                                     ))

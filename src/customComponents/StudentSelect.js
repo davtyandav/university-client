@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getStudents } from '../services/api';
-import '../styles/list.css';
+import '../styles/app.css';
 
 const StudentSelect = ({ descriptorId, onClose }) => {
 
@@ -48,7 +48,7 @@ const StudentSelect = ({ descriptorId, onClose }) => {
                                 onChange={() => handleCheckboxChange(student.id)}
                             />
                             <span>
-                                {student.name} {student.lastName}
+                                {student.user.name} {student.user.lastName}
                             </span>
                         </label>
                     ))}

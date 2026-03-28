@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Modal from "../Modal";
 import LessonForm from "./LessonForm";
-import { getLessonDescriptor, getStudentsByLessonDescriptor } from "../../services/api";
+import {getLessonDescriptor, getStudentsByLessonDescriptor} from "../../services/api";
 import MountSelect from "../../customComponents/MonthForm";
 import StudentSelect from "../../customComponents/StudentSelect";
-//  import './list.css'; // Tailwind + @apply    
 
 const LessonList = () => {
     const [lessonsDescriptor, setLessonsDescriptor] = useState([]);
@@ -134,7 +133,7 @@ const LessonList = () => {
             )}
 
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <LessonForm onClose={() => setIsModalOpen(false)} />
+                <LessonForm onClose={() => setIsModalOpen(false)}/>
             </Modal>
 
             <Modal isOpen={isMonthModalOpen} onClose={() => setIsMonthModalOpen(false)}>

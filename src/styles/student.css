@@ -24,6 +24,13 @@
     margin-top: 10px;
 }
 
+
+.list {
+    @apply grid;
+    @apply grid-cols-4;
+    @apply gap-6;
+}
+
 .edit-btn {
     background-color: #4CAF50;
     color: white;

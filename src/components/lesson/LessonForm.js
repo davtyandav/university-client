@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { createLessonDescriptor, getMentors } from '../../services/api';
-import '../../styles/list.css';
+import React, {useEffect, useState, useCallback} from 'react';
+import {createLessonDescriptor, getMentors} from '../../services/api';
+import '../../styles/app.css';
 
-const LessonForm = ({ onClose }) => {
+const LessonForm = ({onClose}) => {
     const [mentors, setMentors] = useState([]);
     const [formData, setFormData] = useState({
         title: '',
@@ -19,16 +19,16 @@ const LessonForm = ({ onClose }) => {
     }, []);
 
     const handleChange = useCallback((e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        const {name, value} = e.target;
+        setFormData(prev => ({...prev, [name]: value}));
     }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!formData.title || !formData.startDate || !formData.mentorId) {
-            alert("Заполните все поля");
-            return;
-        }
+        // if (!formData.title || !formData.startDate || !formData.mentorId) {
+        //     alert("Заполните все поля");
+        //     return;
+        // }
 
         const requestData = {
             title: formData.title,
@@ -69,7 +69,8 @@ const LessonForm = ({ onClose }) => {
                 </select>
 
                 <label>DayType</label>
-                <select name="lessonDayType" value={formData.lessonDayType} onChange={handleChange} className="input-field">
+                <select name="lessonDayType" value={formData.lessonDayType} onChange={handleChange}
+                        className="input-field">
                     <option value="ODD_DAY">ODD_DAY</option>
                     <option value="EVEN_DAY">EVEN_DAY</option>
                 </select>
@@ -85,11 +86,12 @@ const LessonForm = ({ onClose }) => {
                 />
 
                 <label>Назначить ментора</label>
-                <select name="mentorId" value={formData.mentorId} onChange={handleChange} required className="input-field">
+                <select name="mentorId" value={formData.mentorId} onChange={handleChange} required
+                        className="input-field">
                     <option value="">Выберите ментора...</option>
                     {mentors.map(m => (
                         <option key={m.id} value={m.id}>
-                            {m.name} {m.lastName}
+                            {m.user.name} {m.user.lastName}
                         </option>
                     ))}
                 </select>

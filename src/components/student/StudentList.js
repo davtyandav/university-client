@@ -6,7 +6,7 @@ import StudentForm from "./StudentForm";
 import avatar from '../../assets/user.png';
 import YearCalendar from "../caledar/YearCalendar";
 import StudentCard from "./StudentCard";
-import '../../styles/list.css';
+import '../../styles/app.css';
 
 const StudentList = () => {
     const [students, setStudents] = useState([]);
@@ -125,7 +125,7 @@ const StudentList = () => {
 
                         <div className="flex-1 flex flex-col justify-center items-center">
                             <h2 className="text-xl font-semibold text-center">
-                                {studentInfo.name} {studentInfo.lastName}
+                                {studentInfo.user.name} {studentInfo.user.lastName}
                             </h2>
                             <p className="text-gray-400 text-sm text-center">
                                 {calculateAge(studentInfo.birthDate)} years old
@@ -139,7 +139,7 @@ const StudentList = () => {
                         <div className="flex justify-between items-center p-4">
                             <span className="text-gray-500">Email</span>
                             <div className="flex items-center gap-2">
-                                <span>{studentInfo.email}</span>
+                                <span>{studentInfo.user.email}</span>
                                 <span className="text-gray-300">›</span>
                             </div>
                         </div>
@@ -161,7 +161,7 @@ const StudentList = () => {
                             <div className="flex items-center gap-2">
                                 <span>
                                     {studentInfo.mentor
-                                        ? studentInfo.mentor.name + " " + studentInfo.mentor.lastName
+                                        ? studentInfo.mentor.user.name + " " + studentInfo.mentor.user.lastName
                                         : "None"}
                                 </span>
                                 <span className="text-gray-300">›</span>
