@@ -6,7 +6,7 @@ export default function Card({ student, onEdit, onDelete, onClick }) {
   return (
      <div
             className="card"
-            onClick={() => onClick(student.id)}
+            onClick={() => onClick(student.user.id)}
         >
             <div className="card-avatar">
                 <img src={avatar} alt="User Avatar" />
@@ -14,7 +14,7 @@ export default function Card({ student, onEdit, onDelete, onClick }) {
 
             <div className="card-info">
                 <h3 className="card-name">
-                    {student.name} {student.lastName}
+                    {student.user.name} {student.user.lastName}
                 </h3>
 
                 {/* <p className="student-id">
@@ -26,14 +26,14 @@ export default function Card({ student, onEdit, onDelete, onClick }) {
                         className="edit-button"
                         onClick={(e) => {
                             e.stopPropagation();
-                            onEdit(student.id);
+                            onEdit(student.user.id);
                         }}
                     >
                         ✏️ Edit
                     </button>
 
                     <div onClick={(e) => e.stopPropagation()}>
-                        <DeleteButton id={student.id} onDelete={onDelete} />
+                        <DeleteButton id={student.user.id} onDelete={onDelete} />
                     </div>
                 </div>
             </div>
