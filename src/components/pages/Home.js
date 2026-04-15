@@ -1,18 +1,13 @@
-import React from 'react';
+import Slider from "./Slider";
+import Footer from "./Footer";
 
-const Home = () => {
-    return (
-        <div style={{padding: '40px', textAlign: 'center'}}>
-            <h1>Welcome to University Center</h1>
-            <p>Manage your students, mentors, and lessons in one place.</p>
+export default function Home() {
+  return (
+    <div className="w-full">
 
-            <div className="contacts-section" style={{marginTop: '50px'}}>
-                <h2>Our Contacts</h2>
-                <p>Email: support@university.com</p>
-                <p>Phone: +1 234 567 890</p>
-            </div>
-        </div>
-    );
-};
+      <Slider />
+      <Footer />
 
-export default Home;
+    </div>
+  );
+}

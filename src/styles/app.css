@@ -1,31 +1,30 @@
 body {
-    @apply m-0 font-sans;
-    @apply bg-gray-200;
+    
+    /* @apply h-screen;
+    @apply m-0 p-0 font-sans;
+    @apply bg-black; */
 }
+
+.header {
+    @apply flex justify-between items-center text-xl text-white bg-[#0a0a0a] px-6 py-4;
+}
+
 .panel {
-    @apply fixed top-[60px] left-[200px]; /* Сдвиг вправо на ширину навигации */
+    @apply fixed  left-[200px]; 
     @apply h-[calc(100vh-60px)] right-0;
     @apply bg-gray-200 overflow-y-auto;
-    @apply z-[1000]; /* Она НИЖЕ навигации */
+    @apply z-[1000]; 
 }
 
 .content {
-    @apply p-6;
-}
-/* Основная обертка всего приложения */
-.app-wrapper {
-    @apply min-h-screen w-full flex flex-col;
-    @apply bg-gray-200; /* Цвет фона страницы */
-}
-
-/* Стили для тега main в App.js */
-/* Мы даем ему padding-top, чтобы контент не заезжал ПОД фиксированный хедер */
-.app-wrapper .content {
     @apply flex-1 w-full;
-    @apply pt-[60px]; /* Высота твоего хедера */
+
 }
 
-/* Твой основной горизонтальный хедер */
+.app-wrapper {
+    @apply  w-full flex flex-col bg-gray-100;
+}
+
 .main-header {
     @apply fixed top-0 left-0 right-0;
     @apply h-[60px] flex justify-between items-center;
@@ -37,18 +36,17 @@ body {
     @apply flex items-center gap-6;
 }
 
-/* Логотип */
 .logo img {
     @apply h-10 w-auto;
 }
 
-/* Navbar Styles */
 .navbar {
-    @apply fixed top-[60px] left-0;
+    @apply fixed top-[110px] left-0;
     @apply h-[calc(100vh-60px)] w-[200px];
-    @apply bg-blue-900 flex flex-col items-center py-10 gap-6;
+    @apply bg-[#0a0a0a] flex flex-col items-center py-10 gap-6;
     @apply text-white text-lg shadow-lg;
-    @apply z-[1500]; /* Она должна быть ВЫШЕ панели, чтобы кликаться */
+    @apply z-[1500]; 
+  
 }
 
 a {
@@ -70,8 +68,6 @@ svg {
     @apply text-white;
 }
 
-
-/* uploader */
 .uploader {
     @apply p-5;
     @apply max-w-md;
@@ -81,7 +77,6 @@ svg {
 .deletebutton {
     @apply flex items-center gap-2 px-4 py-2 text-sm font-medium bg-red-500 text-white rounded-lg hover:bg-red-600 transition;
 }
-
 
 .editbutton {
     @apply bg-green-500 text-white;
@@ -269,9 +264,7 @@ svg {
     @apply bg-blue-100 rounded-xl p-10 mb-6 shadow-md max-w-3xl mx-auto flex flex-col items-center gap-4;
 }
 
-.header {
-    @apply flex justify-between items-start border-b-2 border-gray-100 pb-4 mb-4;
-}
+
 
 .title {
     @apply text-xl text-gray-800 font-semibold;

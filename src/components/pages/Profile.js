@@ -25,7 +25,7 @@ const Profile = () => {
     const {role, name, lastName, email, id} = profileData;
 
     return (
-        <div className="panel max-w-4xl mx-auto mt-10 px-4">
+        <div className="max-w-4xl mx-auto mt-10 px-4">
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
                 <div className="flex items-center gap-6 mb-8 border-b pb-6">
                     <img src={avatarPlaceholder} className="w-24 h-24 rounded-full border shadow-sm" alt="avatar"/>

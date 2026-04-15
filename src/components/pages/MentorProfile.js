@@ -10,7 +10,6 @@ const MentorProfile = ({userId}) => {
     useEffect(() => {
         if (userId) {
             setLoading(true);
-            // Запрашиваем расширенную информацию ментора
             getMentorById(userId)
                 .then(data => {
                     setMentorData(data);
