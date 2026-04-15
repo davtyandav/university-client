@@ -1,0 +1,51 @@
+.slider-container {
+    @apply w-full h-full  bg-[#0a0a0a] text-white;
+}
+
+.slider{
+  @apply relative w-full h-[50vh] overflow-hidden flex items-center justify-center ;
+}
+
+.slider img {
+    @apply w-5/12 h-[50vh]  object-cover object-center ;
+}
+
+.slid-cont{
+    @apply w-full h-full absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-[#0a0a0a];
+}
+
+.slid-content {
+    @apply absolute inset-0 flex flex-col justify-center items-center text-center px-4;
+}
+
+.slid-content h1 {
+    @apply text-4xl md:text-6xl font-semibold mb-4;
+}
+
+.slid-content p {
+    @apply text-lg md:text-2xl text-gray-300;
+}
+
+.slid-content button {
+    @apply mt-6 px-6 py-3 bg-white text-black rounded-lg hover:bg-blue-700 transition;
+}
+
+.slid-content button:hover {
+    @apply bg-gray-400 text-black;
+}
+
+.slid-buttons {
+  @apply absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3;
+}
+
+.dot {
+  @apply h-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out;
+}
+
+.dot-active {
+  @apply w-10 bg-white;
+}
+
+.dot-inactive {
+  @apply w-2 bg-gray-500;
+}

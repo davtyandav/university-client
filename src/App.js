@@ -41,7 +41,7 @@ const App = () => {
 
     return (
         <div className="app-wrapper">
-            <header className="main-header">
+            <header className="header h-40 w-full bg-[#0a0a0a] text-white flex justify-between items-center">
                 <div className="header-left">
                     <div className="logo">
                         <img src="/logo.png" alt="Logo" style={{height: '40px'}}/>
