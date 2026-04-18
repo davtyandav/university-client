@@ -1,0 +1,29 @@
+.footer {
+  @apply w-full bg-black text-white pt-16;
+}
+
+.footer-container {
+  @apply max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10 ;
+}
+
+.footer-title {
+  @apply text-xl font-semibold mb-4;
+}
+
+.footer-text {
+  @apply text-gray-400 mb-2 leading-relaxed;
+}
+
+
+.footer-links {
+  @apply space-y-2 text-gray-400;
+}
+
+.footer-links li {
+  @apply cursor-pointer transition hover:text-white;
+}
+
+
+.footer-bottom {
+  @apply border-t border-white/10 text-center py-6 text-gray-500 text-sm;
+}

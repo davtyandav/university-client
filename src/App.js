@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from "react";
-import {Routes, Route, NavLink, Navigate, useNavigate} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Routes, Route, NavLink, Navigate, useNavigate } from "react-router-dom";
 import Home from "./components/pages/Home";
 import Admin from "./components/pages/Admin";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import UserList from "./components/user/UserList";
 import Profile from "./components/pages/Profile";
+
 
 const App = () => {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ const App = () => {
         const savedToken = localStorage.getItem('token');
         const savedRole = localStorage.getItem('role');
 
-        console.log("Login Success! Updating App state:", {savedToken, savedRole});
+        console.log("Login Success! Updating App state:", { savedToken, savedRole });
 
         setToken(savedToken);
         setRole(savedRole);
@@ -41,10 +42,10 @@ const App = () => {
 
     return (
         <div className="app-wrapper">
-            <header className="header h-40 w-full bg-[#0a0a0a] text-white flex justify-between items-center">
+            <header >
                 <div className="header-left">
                     <div className="logo">
-                        <img src="/logo.png" alt="Logo" style={{height: '40px'}}/>
+                        <img src="/logo.png" alt="Logo" style={{ height: '40px' }} />
                     </div>
                     <nav className="header-nav">
                         <NavLink to="/">Home</NavLink>
@@ -61,7 +62,7 @@ const App = () => {
                     {token ? (
                         <>
                             {isAdmin && (
-                                <NavLink to="/register" style={{marginRight: '15px'}}>Register User</NavLink>
+                                <NavLink to="/register" style={{ marginRight: '15px' }}>Register User</NavLink>
                             )}
                             <NavLink to="/profile">My Profile</NavLink>
                             <button onClick={handleLogout} className="logout-btn">Logout</button>
@@ -74,36 +75,36 @@ const App = () => {
                 </div>
             </header>
 
-            <main className="content">
+            <main className="content pt-40">
                 <Routes>
-                    <Route path="/" element={<Home/>}/>
+                    <Route path="/" element={<Home />} />
 
                     <Route
                         path="/login"
-                        element={<Login onLoginSuccess={handleLoginSuccess}/>}
+                        element={<Login onLoginSuccess={handleLoginSuccess} />}
                     />
 
                     <Route
                         path="/register"
-                        element={isAdmin ? <Register/> : <Navigate to="/"/>}
+                        element={isAdmin ? <Register /> : <Navigate to="/" />}
                     />
 
                     <Route
                         path="/profile"
-                        element={token ? <Profile/> : <Navigate to="/login"/>}
+                        element={token ? <Profile /> : <Navigate to="/login" />}
                     />
 
                     <Route
                         path="/admin/*"
-                        element={isAdmin ? <Admin/> : <Navigate to="/"/>}
+                        element={isAdmin ? <Admin /> : <Navigate to="/" />}
                     />
 
                     <Route
                         path="/users/*"
-                        element={<UserList/>}
+                        element={<UserList />}
                     />
 
-                    <Route path="*" element={<Navigate to="/"/>}/>
+                    <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </main>
         </div>

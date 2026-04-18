@@ -1,0 +1,35 @@
+/* .modal-overlay {
+    @apply fixed inset-0 bg-black/60 flex items-center justify-center z-50
+  
+} */
+.lesson-form-container {
+    @apply pt-2 w-[500px] max-w-full mb-32 bg-white/95 backdrop-blur-xl shadow-2xl border border-gray-100;
+}
+
+.lesson-form-title {
+    @apply text-2xl font-semibold mb-2 text-center text-gray-800;
+}
+
+.lesson-form {
+    @apply flex flex-col gap-4;
+}
+
+.lesson-form label {
+    @apply text-sm text-gray-500 ml-1;
+}
+
+.input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400/50 transition;
+}
+
+.btnGroup {
+    @apply flex gap-4 mt-6;
+}
+
+.saveBtn {
+    @apply flex-1 py-3 rounded-xl text-white font-medium bg-green-500 hover:bg-green-600 transition duration-300 shadow-md;
+}
+
+.cancelBtn {
+    @apply flex-1 py-3 rounded-xl text-white font-medium bg-red-500 hover:bg-red-600 transition duration-300 shadow-md;
+}
