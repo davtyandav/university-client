@@ -5,28 +5,34 @@ body {
     @apply bg-black; */
 }
 
-.header {
-    @apply flex justify-between items-center text-xl text-white bg-[#0a0a0a] px-6 py-4;
+header {
+    @apply fixed top-0 left-0 z-50 h-40 w-full bg-[#0a0a0a] text-white flex justify-between items-center p-4;
 }
 
 .panel {
-    @apply fixed  left-[200px]; 
-    @apply h-[calc(100vh-60px)] right-0;
-    @apply bg-gray-200 overflow-y-auto;
-    @apply z-[1000]; 
+    @apply fixed left-[200px] h-[calc(100vh-60px)] right-0
+    bg-gray-200 z-[1000];
 }
 
 .content {
-    @apply flex-1 w-full;
+    @apply  w-full 
+    px-10 mt-6
+    bg-white/70 backdrop-blur-xl
+    rounded-3xl
+    shadow-[0_20px_50px_rgba(0,0,0,0.1)]
+    border border-white/40;
+
 
 }
+
+
 
 .app-wrapper {
     @apply  w-full flex flex-col bg-gray-100;
 }
 
 .main-header {
-    @apply fixed top-0 left-0 right-0;
+    @apply sticky top-0 left-0 right-0;
     @apply h-[60px] flex justify-between items-center;
     @apply px-8 bg-blue-900 text-white;
     @apply z-[2000] shadow-md;
@@ -42,14 +48,16 @@ body {
 
 .navbar {
     @apply fixed top-[110px] left-0;
-    @apply h-[calc(100vh-60px)] w-[200px];
+    @apply h-full w-[200px];
     @apply bg-[#0a0a0a] flex flex-col items-center py-10 gap-6;
     @apply text-white text-lg shadow-lg;
     @apply z-[1500]; 
   
 }
 
+
 a {
+
     @apply text-white;
     @apply hover:text-blue-400;
     @apply font-medium;
