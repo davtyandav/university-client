@@ -30,8 +30,6 @@ const FileUploader = () => {
         const formData = new FormData();
         formData.append("file", selectedFile);
 
-        console.log(selectedFile)
-
         try {
             const res = await axios.post(`${API_URL}/upload`, formData);
             await fetchFiles();

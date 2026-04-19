@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {getRoles, register} from "../../services/api";
+import "../../styles/registration.css"
 
 const Register = () => {
     const [name, setName] = useState("");
@@ -24,9 +25,9 @@ const Register = () => {
         //     })
 
         const staticRoles = [
-            { id: 1, name: 'STUDENT', label: 'Студент' },
-            { id: 2, name: 'MENTOR', label: 'Ментор' },
-            { id: 3, name: 'ADMIN', label: 'Администратор' }
+            {id: 1, name: 'STUDENT', label: 'Студент'},
+            {id: 2, name: 'MENTOR', label: 'Ментор'},
+            {id: 3, name: 'ADMIN', label: 'Администратор'}
         ];
 
         setRoles(staticRoles);

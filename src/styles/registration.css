@@ -1,0 +1,33 @@
+/* Register Styles */
+.register-wrapper {
+    @apply flex items-center justify-center min-h-screen;
+}
+
+.register-form {
+    @apply bg-white p-8 rounded-lg shadow-md;
+    @apply w-full max-w-md;
+}
+
+.register-title {
+    @apply text-2xl font-bold text-center text-gray-800 mb-2;
+}
+
+.register-subtitle {
+    @apply text-gray-600 text-center mb-6;
+}
+
+.register-input {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.register-button {
+    @apply w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition;
+}
+
+.register-footer {
+    @apply text-center mt-4;
+}
+
+.register-link {
+    @apply text-blue-500 hover:text-blue-700;
+}

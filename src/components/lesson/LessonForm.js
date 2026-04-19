@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { createLessonDescriptor, getMentors } from "../../services/api";
+import React, {useEffect, useState, useCallback} from "react";
+import {createLessonDescriptor, getMentors} from "../../services/api";
 import "../../styles/lessonsForm.css";
 
-const LessonForm = ({ onClose }) => {
+const LessonForm = ({onClose}) => {
     const [mentors, setMentors] = useState([]);
     const [lessons, setLessons] = useState([]);
 
@@ -30,8 +30,8 @@ const LessonForm = ({ onClose }) => {
     }, []);
 
     const handleChange = useCallback((e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        const {name, value} = e.target;
+        setFormData(prev => ({...prev, [name]: value}));
     }, []);
 
     const handleCheckboxChange = (value) => {
@@ -82,13 +82,6 @@ const LessonForm = ({ onClose }) => {
                 className="lesson-form-container relative"
                 onClick={(e) => e.stopPropagation()}
             >
-                <button
-                    onClick={onClose}
-                    className="absolute top-3 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-red-500 hover:text-white"
-                >
-                    ✕
-                </button>
-
                 <h2 className="lesson-form-title">
                     Добавить учебный план
                 </h2>
@@ -119,6 +112,14 @@ const LessonForm = ({ onClose }) => {
                             </label>
                         ))}
                     </div>
+
+                    <button
+                        type="button"
+                        onClick={handleAddLessonsToTitle}
+                        className="mt-2 px-4 py-2 rounded-lg bg-indigo-500 text-white hover:bg-indigo-600 transition"
+                    >
+                        OK
+                    </button>
 
                     <label>Type</label>
                     <select
@@ -161,16 +162,6 @@ const LessonForm = ({ onClose }) => {
                         className="input-field"
                         required
                     />
-
-
-                    {/* ✅ OK BUTTON */}
-                    <button
-                        type="button"
-                        onClick={handleAddLessonsToTitle}
-                        className="mt-2 px-4 py-2 rounded-lg bg-indigo-500 text-white hover:bg-indigo-600 transition"
-                    >
-                        OK
-                    </button>
 
                     <label>Mentor</label>
                     <select

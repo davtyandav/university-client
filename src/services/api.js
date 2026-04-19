@@ -73,6 +73,14 @@ export const deleteStudent = async (id) => {
     await API.delete(`${API_STUDENTS}/${id}`);
 };
 
+export const assignDescriptorToStudents = async (descriptorId, studentIds) => {
+    // POST http://localhost:8080/api/v1/students/lessonDescriptor/123
+    const response = await API.post(`${API_STUDENTS_LESSON_DESCRIPTOR}/${descriptorId}`, {
+        studentIds: studentIds
+    });
+    return response.data;
+};
+
 // Mentors
 export const updateMentor = async (id, mentor) => {
     const response = await API.put(`${API_MENTORS}/${id}`, mentor);

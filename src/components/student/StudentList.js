@@ -65,6 +65,7 @@ const StudentList = () => {
     const fetchStudents = () => {
         getStudents()
             .then(data => {
+                console.log("students list", data)
                 setStudents(data);
             })
             .catch(error => {
@@ -93,7 +94,7 @@ const StudentList = () => {
                     Add Student
                 </button>
 
-                <div className="list">
+                <div className="list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
                     {students.map((student) => (
                         <StudentCard
                             key={student.id}
@@ -170,15 +171,13 @@ const StudentList = () => {
 
                     </div>
 
-                    {lessonDescriptor && lessonDescriptor.lessonInfo && (
-                        <div className="lessons-summary">
-                            <h4>Расписание:</h4>
-                            <YearCalendar
-                                year={2026}
-                                lessons={lessonDescriptor.lessonInfo.flatMap(info => info.lessons)}
-                            />
-                        </div>
-                    )}
+                    <div className="lessons-summary mt-6">
+                        <h4 className="font-semibold mb-2">Расписание:</h4>
+                        <YearCalendar
+                            year={2026}
+                            lessons={lessonDescriptor?.lessonInfo?.flatMap(info => info.lessons) || []}
+                        />
+                    </div>
                 </Modal>
             )}
         </div >
