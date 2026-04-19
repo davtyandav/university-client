@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { getStudents } from '../services/api';
+import React, {useState, useEffect} from 'react';
+import {assignDescriptorToStudents, getStudents} from '../services/api';
 import '../styles/app.css';
 
-const StudentSelect = ({ descriptorId, onClose }) => {
+const StudentSelect = ({descriptorId, onClose}) => {
 
     const [students, setStudents] = useState([]);
     const [selectedStudents, setSelectedStudents] = useState([]);
@@ -25,12 +25,26 @@ const StudentSelect = ({ descriptorId, onClose }) => {
         );
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         console.log('Selected students:', selectedStudents);
+        console.log('descriptorId', descriptorId);
 
-        // API call այստեղ
+
+        if (selectedStudents.length === 0) {
+            alert("Выберите хотя бы одного студента");
+            return;
+        }
+        try {
+            await assignDescriptorToStudents(descriptorId, selectedStudents);
+
+            console.log('Данные успешно сохранены');
+            onClose(); // Закрываем модальное окно после успеха
+        } catch (error) {
+            console.error('Ошибка при сохранении:', error);
+            alert('Не удалось сохранить данные');
+        }
     };
 
     return (

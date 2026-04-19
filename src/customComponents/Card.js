@@ -1,15 +1,16 @@
 import React from 'react'
 import avatar from '../assets/user.png';
 import DeleteButton from "../customComponents/DeleteButton";
+import "../styles/card.css"
 
-export default function Card({ student, onEdit, onDelete, onClick }) {
-  return (
-     <div
+export default function Card({student, onEdit, onDelete, onClick}) {
+    return (
+        <div
             className="card"
             onClick={() => onClick(student.user.id)}
         >
             <div className="card-avatar">
-                <img src={avatar} alt="User Avatar" />
+                <img src={avatar} alt="User Avatar"/>
             </div>
 
             <div className="card-info">
@@ -22,23 +23,22 @@ export default function Card({ student, onEdit, onDelete, onClick }) {
                 </p> */}
 
                 <div className="card-actions">
-                    <button
-                        className="edit-button"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            onEdit(student.user.id);
-                        }}
-                    >
-                        ✏️ Edit
-                    </button>
+                    {/*<button*/}
+                    {/*    className="edit-button"*/}
+                    {/*    onClick={(e) => {*/}
+                    {/*        e.stopPropagation();*/}
+                    {/*        onEdit(student.user.id);*/}
+                    {/*    }}*/}
+                    {/*>*/}
+                    {/*    ✏️ Edit*/}
+                    {/*</button>*/}
 
                     <div onClick={(e) => e.stopPropagation()}>
-                        <DeleteButton id={student.user.id} onDelete={onDelete} />
+                        <DeleteButton id={student.user.id} onDelete={onDelete}/>
                     </div>
                 </div>
             </div>
 
-            
         </div>
-  )
+    )
 }

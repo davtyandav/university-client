@@ -1,0 +1,30 @@
+.card {
+    @apply flex;
+    @apply items-center;
+    @apply gap-5 p-5 bg-white shadow-sm border rounded-lg;
+    @apply hover:shadow-md transition-all duration-200 cursor-pointer;
+}
+
+.card-avatar {
+    @apply w-16 h-16 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center;
+}
+
+.card-avatar img {
+    @apply w-full h-full object-cover;
+}
+
+.card-info {
+    @apply flex flex-col flex-1;
+}
+
+.card-name {
+    @apply text-lg font-semibold text-gray-800;
+}
+
+.card-id {
+    @apply text-sm text-gray-500 mt-1;
+}
+
+.card-actions {
+    @apply flex gap-3 mt-4;
+}

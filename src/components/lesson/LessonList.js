@@ -59,32 +59,27 @@ const LessonList = () => {
                 <p>Список пуст.</p>
             ) : (
                 lessonsDescriptor.map((descriptor) => (
-                    <div key={descriptor.id} className="card">
+                    <div key={descriptor.id} className="lesson-list">
 
                         <div className="text-center mb-5">
-                            <button
-                                onClick={() => {
-                                    setIsStudentModalOpen(true);
-                                }}
-                                className="addButton"
-                            >
+                            <button className="addButton" onClick={() => {
+                                setIsStudentModalOpen(true);
+                                setSelectedDescriptorId(descriptor.id);
+                            }}>
                                 atache students
                             </button>
                         </div>
 
                         <div className="text-center mb-5">
-                            <button
-                                onClick={() => {
-                                    setSelectedDescriptorId(descriptor.id);
-                                    setIsMonthModalOpen(true);
-                                }}
-                                className="addButton"
-                            >
+                            <button className="addButton" onClick={() => {
+                                setSelectedDescriptorId(descriptor.id);
+                                setIsMonthModalOpen(true);
+                            }}>
                                 generate lessons
                             </button>
                         </div>
 
-                        <div className="header">
+                        <div className="descriptor">
                             <div>
                                 <h2 className="title">{descriptor.title}</h2>
 
@@ -95,7 +90,7 @@ const LessonList = () => {
                             </div>
 
                             <div className="mentorInfo">
-                                <strong>Ментор:</strong> {descriptor.mentorResponse?.name || 'Не назначен'}
+                                <strong>Ментор:</strong> {descriptor.mentorResponse?.user.name || 'Не назначен'}
                             </div>
                         </div>
 
@@ -147,6 +142,7 @@ const LessonList = () => {
 
             <Modal isOpen={isStudentModalOpen} onClose={() => setIsStudentModalOpen(false)}>
                 <StudentSelect
+                    descriptorId={selectedDescriptorId}
                     onClose={() => setIsStudentModalOpen(false)}
                 />
             </Modal>

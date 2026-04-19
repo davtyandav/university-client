@@ -1,8 +1,14 @@
 body {
-    
+
     /* @apply h-screen;
     @apply m-0 p-0 font-sans;
     @apply bg-black; */
+}
+
+.list {
+    @apply grid;
+    @apply grid-cols-4;
+    @apply gap-6;
 }
 
 header {
@@ -15,20 +21,11 @@ header {
 }
 
 .content {
-    @apply  w-full 
-    px-10 mt-6
-    bg-white/70 backdrop-blur-xl
-    rounded-3xl
-    shadow-[0_20px_50px_rgba(0,0,0,0.1)]
-    border border-white/40;
-
-
+    @apply flex-1 w-full;
 }
 
-
-
 .app-wrapper {
-    @apply  w-full flex flex-col bg-gray-100;
+    @apply w-full flex flex-col bg-gray-100;
 }
 
 .main-header {
@@ -51,8 +48,8 @@ header {
     @apply h-full w-[200px];
     @apply bg-[#0a0a0a] flex flex-col items-center py-10 gap-6;
     @apply text-white text-lg shadow-lg;
-    @apply z-[1500]; 
-  
+    @apply z-[1500];
+
 }
 
 
@@ -100,38 +97,6 @@ svg {
     @apply rounded;
 }
 
-/* card */
-.card {
-    @apply flex;
-    @apply items-center;
-    @apply gap-5 p-5 bg-white shadow-sm border rounded-lg;
-    @apply hover:shadow-md transition-all duration-200 cursor-pointer;
-}
-
-.card-avatar {
-    @apply w-16 h-16 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center;
-}
-
-.card-avatar img {
-    @apply w-full h-full object-cover;
-}
-
-.card-info {
-    @apply flex flex-col flex-1;
-}
-
-.card-name {
-    @apply text-lg font-semibold text-gray-800;
-}
-
-.card-id {
-    @apply text-sm text-gray-500 mt-1;
-}
-
-.card-actions {
-    @apply flex gap-3 mt-4;
-}
-
 .edit-button {
     @apply flex items-center gap-2 px-4 py-2 text-sm font-medium bg-green-500 text-white rounded-lg hover:bg-green-600 transition;
 }
@@ -175,40 +140,6 @@ svg {
 }
 
 .login-link {
-    @apply text-blue-500 hover:text-blue-700;
-}
-
-/* Register Styles */
-.register-wrapper {
-    @apply flex items-center justify-center min-h-screen;
-}
-
-.register-form {
-    @apply bg-white p-8 rounded-lg shadow-md;
-    @apply w-full max-w-md;
-}
-
-.register-title {
-    @apply text-2xl font-bold text-center text-gray-800 mb-2;
-}
-
-.register-subtitle {
-    @apply text-gray-600 text-center mb-6;
-}
-
-.register-input {
-    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
-}
-
-.register-button {
-    @apply w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition;
-}
-
-.register-footer {
-    @apply text-center mt-4;
-}
-
-.register-link {
     @apply text-blue-500 hover:text-blue-700;
 }
 
@@ -268,11 +199,9 @@ svg {
     @apply px-5 py-2 bg-green-500 text-white rounded-md cursor-pointer text-base font-bold hover:bg-green-600 transition;
 }
 
-.card {
-    @apply bg-blue-100 rounded-xl p-10 mb-6 shadow-md max-w-3xl mx-auto flex flex-col items-center gap-4;
+.lesson-list {
+    @apply bg-white rounded-2xl p-6 mb-6 shadow-sm border border-gray-100 max-w-3xl mx-auto flex flex-col items-center gap-4;
 }
-
-
 
 .title {
     @apply text-xl text-gray-800 font-semibold;
@@ -333,61 +262,65 @@ svg {
 
 
 .modalWrapper {
-  @apply fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm;
+    @apply fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm;
 }
 
 .modalCard {
-  @apply w-full max-w-lg bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl p-8 relative border border-gray-200;
+    @apply w-full max-w-lg bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl p-8 relative border border-gray-200;
 }
 
 .closeBtn {
-  @apply absolute top-5 right-5 text-gray-400 hover:text-gray-700 text-2xl cursor-pointer transition;
+    @apply absolute top-5 right-5 text-gray-400 hover:text-gray-700 text-2xl cursor-pointer transition;
+}
+
+.descriptor {
+    @apply flex justify-between items-start border-b-2 border-gray-100 pb-4 mb-4;
 }
 
 .title {
-  @apply text-2xl font-semibold text-gray-800 mb-6;
+    @apply text-2xl font-semibold text-gray-800 mb-6;
 }
 
 .divider {
-  @apply border-b border-gray-200 mb-6;
+    @apply border-b border-gray-200 mb-6;
 }
 
 .formGroup {
-  @apply flex flex-col gap-2 mb-4;
+    @apply flex flex-col gap-2 mb-4;
 }
 
 .label {
-  @apply text-gray-600 text-base;
+    @apply text-gray-600 text-base;
 }
 
 .select {
-  @apply w-full border border-gray-200 bg-white rounded-xl px-4 py-3 text-gray-700 outline-none transition focus:ring-2 focus:ring-green-400 focus:border-transparent;
+    @apply w-full border border-gray-200 bg-white rounded-xl px-4 py-3 text-gray-700 outline-none transition focus:ring-2 focus:ring-green-400 focus:border-transparent;
 }
 
 .error {
-  @apply text-red-500 text-sm mt-1;
+    @apply text-red-500 text-sm mt-1;
 }
 
 .btnGroup {
-  @apply flex gap-4 mt-6;
+    @apply flex gap-4 mt-6;
 }
 
 .saveBtn {
-  @apply px-6 py-3 rounded-xl text-white font-medium shadow-md transition;
-  background: linear-gradient(135deg, #6b8f7a, #4e6e5d);
+    @apply px-6 py-3 rounded-xl text-white font-medium shadow-md transition;
+    background: linear-gradient(135deg, #6b8f7a, #4e6e5d);
 }
 
 .saveBtn:hover {
-  @apply opacity-90;
+    @apply opacity-90;
 }
 
 .cancelBtn {
-  @apply px-6 py-3 rounded-xl text-white font-medium shadow-md transition;
-  background: linear-gradient(135deg, #d96c6c, #b94b4b);
+    @apply px-6 py-3 rounded-xl text-white font-medium shadow-md transition;
+    background: linear-gradient(135deg, #d96c6c, #b94b4b);
 }
 
 .cancelBtn:hover {
-  @apply opacity-90;
+    @apply opacity-90;
 }
 
 /* student form */

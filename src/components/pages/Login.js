@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {login} from "../../services/api"; // getMe тут не нужен, если роль приходит в login
+import {login} from "../../services/api";
 
 const Login = ({onLoginSuccess}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(""); // Добавили стейт для ошибок
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -15,36 +15,25 @@ const Login = ({onLoginSuccess}) => {
         try {
             const res = await login({ email, password });
 
-            // Теперь мы проверяем: если res.data нет, значит res — это и есть наш объект
             const data = res.data || res;
 
-            console.log("Данные, которые мы вытащили:", data);
+            console.log("Данные от бэкенда:", data);
 
-            const token = data.token;
-            const role = data.role;
+            if (data.token) {
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("role", data.role);
+                localStorage.setItem("userName", data.userName);
+                localStorage.setItem("userLastName", data.userLastName);
 
-            if (token && role) {
-                // 1. Сохраняем в localStorage
-                localStorage.setItem("token", token);
-                localStorage.setItem("role", role);
-
-                console.log("Успех! Сохранили роль:", role);
-
-                // 2. Обязательно уведомляем App.js
                 if (onLoginSuccess) {
                     onLoginSuccess();
                 }
 
-                // 3. Переходим в профиль
                 navigate("/profile");
-            } else {
-                console.error("Поля token или role отсутствуют в:", data);
-                setError("Ошибка авторизации: сервер прислал неполные данные");
             }
-
         } catch (err) {
-            console.error("Ошибка при запросе:", err);
-            setError("Неверный email или пароль");
+            console.error("Login error", err);
+            setError("Invalid email or password");
         }
     };
 
