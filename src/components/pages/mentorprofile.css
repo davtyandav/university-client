@@ -1,0 +1,47 @@
+.profile {
+    @apply w-full space-y-6;
+}
+
+.profile-header {
+    @apply pt-4
+}
+
+.mentor-profile-info {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6
+}
+
+.mentor-profile-card {
+    @apply bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-sm
+}
+
+.mentor-profile h2 {
+    @apply text-gray-400 text-sm mb-2 font-medium
+}
+
+.mentor-profile p {
+    @apply font-semibold text-gray-700
+}
+
+.info-card {
+    @apply bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-sm
+}
+
+.info-card h3 {
+    @apply text-gray-400 text-sm mb-2 font-medium
+}
+
+.info-card p {
+    @apply font-semibold text-gray-700 text-xl
+}
+
+.lesson-group {
+    @apply space-y-6 mt-8
+}
+
+.lesson-group h2 {
+    @apply text-xl font-bold text-gray-800 border-b pb-2
+}
+
+.empty{
+    @apply p-8 text-center text-gray-400 border-2 border-dashed rounded-2xl italic
+}
