@@ -1,7 +1,7 @@
 import React from 'react'
 import YearCalendar from '../caledar/YearCalendar'
 import { useState } from 'react';
-import "./lessonDescriptor.css"
+import "../../styles/lessonDescriptor.css"
 export default function LessonDescriptor({ descriptor }) {
 
     const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +22,6 @@ export default function LessonDescriptor({ descriptor }) {
 
             </div>
 
-            {/* Список студентов этого конкретного дескриптора */}
             {isOpen &&
                 <div className="descriptor-container">
                     <p >Список студентов:</p>

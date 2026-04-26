@@ -28,19 +28,13 @@ const StudentSelect = ({descriptorId, onClose}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log('Selected students:', selectedStudents);
-        console.log('descriptorId', descriptorId);
-
-
         if (selectedStudents.length === 0) {
             alert("Выберите хотя бы одного студента");
             return;
         }
         try {
             await assignDescriptorToStudents(descriptorId, selectedStudents);
-
-            console.log('Данные успешно сохранены');
-            onClose(); // Закрываем модальное окно после успеха
+            onClose();
         } catch (error) {
             console.error('Ошибка при сохранении:', error);
             alert('Не удалось сохранить данные');

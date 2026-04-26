@@ -1,9 +1,13 @@
 import React from 'react';
 import Card from '../../customComponents/Card';
 
-const MentorCard = ({ mentor, onEdit, onDelete, onClick }) => {
+const MentorCard = ({user, onDelete, onClick}) => {
+
     return (
-        <Card student={mentor} onEdit={onEdit} onDelete={onDelete} onClick={onClick} />
+        <>
+            <Card user={user} onClick={onClick}/>
+
+        </>
     );
 };
 

@@ -4,13 +4,24 @@ const Modal = ({isOpen, onClose, children, width = "400px"}) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-            <div className="bg-white rounded-3xl shadow-2xl p-6 relative" style={{width}}>
-
-                <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 text-xl hover:text-gray-600">
-                    X
+        <div
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+            onClick={onClose}
+        >
+            <div
+                className="bg-white rounded-[2rem] shadow-2xl relative flex flex-col overflow-hidden max-h-[90vh]"
+                style={{width}}
+                onClick={(e) => e.stopPropagation()}
+            >
+                <button
+                    onClick={onClose}
+                    className="absolute top-5 right-5 z-10 text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                    ✕
                 </button>
-                {children}
+                <div className="p-8 overflow-y-auto scrollbar-hide">
+                    {children}
+                </div>
             </div>
         </div>
     );

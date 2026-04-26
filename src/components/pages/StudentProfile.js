@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {getStudentById} from '../../services/api';
 import {calculateAge} from '../../services/utils';
 import YearCalendar from "../caledar/YearCalendar";
-import Modal from "../Modal"; // Импортируем модалку
-import StudentForm from "../student/StudentForm"; // Предполагается наличие этого компонента
+import Modal from "../Modal";
+import StudentEditModal from "../student/StudentEditModal";
 
 const StudentProfile = ({userId}) => {
     const [studentData, setStudentData] = useState(null);
@@ -38,13 +38,13 @@ const StudentProfile = ({userId}) => {
         setIsEditModalOpen(false);
     };
 
-    const handleUpdateSuccess = (updatedData) => {
-        setStudentData(updatedData);
-        handleCloseModal();
-    };
+    if (loading) {
+        return <div className="p-4 text-center text-gray-500">Загрузка данных...</div>;
+    }
 
-    if (loading) return <div className="p-4 text-center text-gray-500">Загрузка данных...</div>;
-    if (!studentData) return <div className="p-4 text-center text-red-500">Данные студента не найдены</div>;
+    if (!studentData) {
+        return <div className="p-4 text-center text-red-500">Данные студента не найдены</div>;
+    }
 
     return (
         <div className="w-full space-y-6">
@@ -108,11 +108,7 @@ const StudentProfile = ({userId}) => {
             </div>
 
             <Modal isOpen={isEditModalOpen} onClose={handleCloseModal}>
-                <StudentForm
-                    student={studentData}
-                    onClose={handleCloseModal}
-                    onSuccess={handleUpdateSuccess}
-                />
+                <StudentEditModal student={studentData} onClose={handleCloseModal}/>
             </Modal>
         </div>
     );

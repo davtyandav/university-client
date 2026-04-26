@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { createMentor, updateMentor, getUsersByRole } from '../../services/api';
-import FileUploader from "../FileUploader";
+import React, {useCallback, useEffect, useState} from 'react';
+import {createMentor, getUsersByRole, updateMentor} from '../../services/api';
 
 const MentorForm = ({ mentor, onClose, onSuccess }) => {
     const [formData, setFormData] = useState({

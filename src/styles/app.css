@@ -232,6 +232,15 @@ svg {
 }
 
 .monthHeader {
+    user-select: none;
+    transition: background-color 0.2s;
+}
+
+.monthHeader:hover {
+    background-color: #f0f0f0;
+}
+
+.monthHeader {
     @apply text-base text-gray-700 font-semibold mb-2;
 }
 
@@ -354,4 +363,16 @@ svg {
 
 .cancelBtn {
     @apply px-5 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition;
+}
+
+.btn-active {
+    background-color: #dcfce7;
+    color: #166534;
+    border: 1px solid #22c55e;
+}
+
+.btn-inactive {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #ef4444;
 }

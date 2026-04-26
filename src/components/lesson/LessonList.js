@@ -1,19 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import Modal from "../Modal";
 import LessonForm from "./LessonForm";
-import {getLessonDescriptor, getStudentsByLessonDescriptor} from "../../services/api";
+import {getLessonDescriptor} from "../../services/api";
 import MountSelect from "../../customComponents/MonthForm";
 import StudentSelect from "../../customComponents/StudentSelect";
+import LessonInfoModal from "./LessonInfoModal";
 
 const LessonList = () => {
     const [lessonsDescriptor, setLessonsDescriptor] = useState([]);
-    const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedDescriptorId, setSelectedDescriptorId] = useState(null);
+    const [isLessonInfoModalOpen, setIsLessonInfoModalOpen] = useState(false);
     const [isMonthModalOpen, setIsMonthModalOpen] = useState(false);
     const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
 
+    const [selectedDescriptorId, setSelectedDescriptorId] = useState(null);
+    const [activeLessonParams, setActiveLessonParams] = useState(null);
+
+    const [expandedMonths, setExpandedMonths] = useState({});
 
     useEffect(() => {
         fetchLessons();
@@ -29,14 +34,17 @@ const LessonList = () => {
             .catch(() => setLoading(false));
     };
 
-    const fetchStudents = (lessonDescriptorId, lessonId) => {
-        setLoading(true);
-        getStudentsByLessonDescriptor(lessonDescriptorId, lessonId)
-            .then(data => {
-                setStudents(data);
-                setLoading(false);
-            })
-            .catch(() => setLoading(false));
+    const toggleMonth = (descriptorId, monthType) => {
+        const key = `${descriptorId}-${monthType}`;
+        setExpandedMonths(prev => ({
+            ...prev,
+            [key]: !prev[key]
+        }));
+    };
+
+    const handleLessonClick = (descriptorId, lessonId) => {
+        setActiveLessonParams({descriptorId, lessonId});
+        setIsLessonInfoModalOpen(true);
     };
 
     const formatDate = (dateString) => {
@@ -60,68 +68,93 @@ const LessonList = () => {
             ) : (
                 lessonsDescriptor.map((descriptor) => (
                     <div key={descriptor.id} className="lesson-list">
+                        <div className="descriptor" style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+                            <div className="mentorInfo" style={{whiteSpace: 'nowrap'}}>
+                                <strong>Ментор:</strong> {descriptor.mentorResponse?.user
+                                ? `${descriptor.mentorResponse.user.name} ${descriptor.mentorResponse.user.lastName || ''}`
+                                : 'Не назначен'}
+                            </div>
 
-                        <div className="text-center mb-5">
+                            <span style={{color: '#ccc'}}>•</span>
+
+                            <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
+                                <div className="badgeContainer" style={{display: 'flex', gap: '8px'}}>
+                                    <span className="typeBadge">{descriptor.type}</span>
+                                </div>
+
+                                <h2 className="title" style={{margin: 0, fontSize: '1.2rem'}}>
+                                    {descriptor.title}
+                                </h2>
+                            </div>
+
+                            <span style={{color: '#ccc'}}>•</span>
+
+                            <div className="badgeContainer">
+                                <span className="dayBadge">{descriptor.dayType}</span>
+                            </div>
+                        </div>
+
+                        <div className="mb-5 flex justify-between items-center w-full">
                             <button className="addButton" onClick={() => {
                                 setIsStudentModalOpen(true);
                                 setSelectedDescriptorId(descriptor.id);
                             }}>
-                                atache students
+                                Attach students in lesson
                             </button>
-                        </div>
-
-                        <div className="text-center mb-5">
+                            <div className="details">
+                                <p><strong>Дата начала:</strong> {formatDate(descriptor.data)}</p>
+                            </div>
                             <button className="addButton" onClick={() => {
                                 setSelectedDescriptorId(descriptor.id);
                                 setIsMonthModalOpen(true);
                             }}>
-                                generate lessons
+                                Generate lessons
                             </button>
                         </div>
 
-                        <div className="descriptor">
-                            <div>
-                                <h2 className="title">{descriptor.title}</h2>
-
-                                <div className="badgeContainer">
-                                    <span className="typeBadge">{descriptor.type}</span>
-                                    <span className="dayBadge">{descriptor.dayType}</span>
-                                </div>
-                            </div>
-
-                            <div className="mentorInfo">
-                                <strong>Ментор:</strong> {descriptor.mentorResponse?.user.name || 'Не назначен'}
-                            </div>
-                        </div>
-
-                        <div className="details">
-                            <p><strong>Дата:</strong> {formatDate(descriptor.data)}</p>
-                        </div>
-
                         <div className="subListSection">
-                            {descriptor.lessonInfo?.map((info, index) => (
-                                <div key={index} className="mb-6">
-                                    <h3 className="monthHeader">{info.monthType}</h3>
+                            {descriptor.lessonInfo?.map((info, index) => {
+                                const isOpen = expandedMonths[`${descriptor.id}-${info.monthType}`];
 
-                                    <div className="lessonGrid">
-                                        {info.lessons?.map((lesson) => (
-                                            <div
-                                                key={lesson.id}
-                                                className="lessonItem"
-                                                onClick={() => fetchStudents(descriptor.id, lesson.id)}
-                                            >
-                                                <div className="statusIcon">
-                                                    {lesson.completed ? '✅' : '⏳'}
-                                                </div>
+                                return (
+                                    <div key={index} className="mb-6">
+                                        <h3
+                                            className="monthHeader"
+                                            onClick={() => toggleMonth(descriptor.id, info.monthType)}
+                                            style={{
+                                                cursor: 'pointer',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '10px',
+                                                userSelect: 'none'
+                                            }}
+                                        >
+                                            <span style={{fontSize: '0.8em'}}>{isOpen ? '▼' : '▶'}</span>
+                                            {info.monthType}
+                                        </h3>
 
-                                                <span className={lesson.completed ? 'completedText' : 'pendingText'}>
-                                                    {formatDate(lesson.data)}
-                                                </span>
+                                        {isOpen && (
+                                            <div className="lessonGrid">
+                                                {info.lessons?.map((lesson) => (
+                                                    <div
+                                                        key={lesson.id}
+                                                        className="lessonItem"
+                                                        onClick={() => handleLessonClick(descriptor.id, lesson.id)}
+                                                    >
+                                                        <div className="statusIcon">
+                                                            {lesson.completed ? '✅' : '⏳'}
+                                                        </div>
+                                                        <span
+                                                            className={lesson.completed ? 'completedText' : 'pendingText'}>
+                                                            {formatDate(lesson.data)}
+                                                        </span>
+                                                    </div>
+                                                ))}
                                             </div>
-                                        ))}
+                                        )}
                                     </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
                 ))
@@ -129,6 +162,15 @@ const LessonList = () => {
 
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                 <LessonForm onClose={() => setIsModalOpen(false)}/>
+            </Modal>
+
+            <Modal isOpen={isLessonInfoModalOpen} onClose={() => setIsLessonInfoModalOpen(false)}>
+                {activeLessonParams && (
+                    <LessonInfoModal
+                        params={activeLessonParams}
+                        onClose={() => setIsLessonInfoModalOpen(false)}
+                    />
+                )}
             </Modal>
 
             <Modal isOpen={isMonthModalOpen} onClose={() => setIsMonthModalOpen(false)}>
@@ -146,7 +188,6 @@ const LessonList = () => {
                     onClose={() => setIsStudentModalOpen(false)}
                 />
             </Modal>
-
         </div>
     );
 };
