@@ -2,7 +2,7 @@ import React, {useEffect, useState, useCallback} from "react";
 import {createLessonDescriptor, getMentors} from "../../services/api";
 import "../../styles/lessonsForm.css";
 
-const LessonForm = ({onClose}) => {
+const LessonDescriptionModal = ({onClose}) => {
     const [mentors, setMentors] = useState([]);
     const [lessons, setLessons] = useState([]);
 
@@ -199,4 +199,4 @@ const LessonForm = ({onClose}) => {
     );
 };
 
-export default LessonForm;
+export default LessonDescriptionModal;

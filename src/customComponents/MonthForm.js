@@ -1,8 +1,8 @@
-import React, { useState, useCallback } from 'react';
-import { generateMount } from '../services/api';
+import React, {useState, useCallback} from 'react';
+import {generateMount} from '../services/api';
 import '../styles/form.css';
 
-const MonthSelect = ({ descriptorId, onClose }) => {
+const MonthSelect = ({descriptorId, onClose}) => {
     const [formData, setFormData] = useState({
         lessonDescriptorId: descriptorId,
         monthType: ''
@@ -16,8 +16,8 @@ const MonthSelect = ({ descriptorId, onClose }) => {
     ];
 
     const handleChange = useCallback((e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        const {name, value} = e.target;
+        setFormData(prev => ({...prev, [name]: value}));
         setError('');
     }, []);
 

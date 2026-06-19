@@ -155,7 +155,7 @@ export const createMentor = async (mentor) => {
 // --- Lesson Descriptor ---
 
 // GET http://localhost:8080/api/v1/lessonDescriptor
-export const getLessonDescriptor = async () => {
+export const getLessonDescriptors = async () => {
     const response = await API.get(API_LESSON_DESCRIPTOR);
     return response.data;
 };

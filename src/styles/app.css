@@ -46,15 +46,13 @@ header {
 .navbar {
     @apply fixed top-[110px] left-0;
     @apply h-full w-[200px];
-    @apply bg-[#0a0a0a] flex flex-col items-center py-10 gap-6;
+    @apply bg-[#0a0a0a] flex flex-col items-start py-10 gap-6;
     @apply text-white text-lg shadow-lg;
     @apply z-[1500];
-
 }
 
 
 a {
-
     @apply text-white;
     @apply hover:text-blue-400;
     @apply font-medium;
@@ -64,11 +62,9 @@ a {
     @apply hover:bg-slate-300;
     @apply px-4 py-2;
     @apply rounded-lg;
-
 }
 
 svg {
-
     @apply w-6 h-6;
     @apply text-white;
 }
@@ -77,18 +73,6 @@ svg {
     @apply p-5;
     @apply max-w-md;
     @apply mx-auto;
-}
-
-.deletebutton {
-    @apply flex items-center gap-2 px-4 py-2 text-sm font-medium bg-red-500 text-white rounded-lg hover:bg-red-600 transition;
-}
-
-.editbutton {
-    @apply bg-green-500 text-white;
-    @apply mr-10;
-    @apply px-5 py-3 rounded-lg;
-    @apply cursor-pointer;
-    @apply hover:bg-green-600 transition;
 }
 
 .month-select {
@@ -188,7 +172,20 @@ svg {
 
 /* lesson form */
 .container {
-    @apply p-8 font-sans bg-gray-100 h-screen overflow-y-auto;
+    @apply p-8 font-sans bg-gray-100;
+}
+
+.scroll-box {
+    @apply overflow-y-auto pr-2;
+    height: calc(100vh - 210px);
+}
+
+.scroll-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scroll-box::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
 }
 
 .mainTitle {

@@ -50,7 +50,6 @@
     transition-all duration-200 shadow-md shadow-rose-200;
 }
 
-/* Дополнительный стиль для кнопки "Добавить" (OK) */
 .add-btn-small {
     @apply px-4 py-1.5 rounded-lg bg-indigo-500 text-white text-xs font-bold
     hover:bg-indigo-600 transition-colors self-end;

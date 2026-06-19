@@ -4,13 +4,11 @@ import MentorCard from "./MentorCard";
 import {deleteMentor, getMentorById, getUsersByRole} from '../../services/api';
 import '../../styles/app.css';
 import MentorInfo from "./MentorInfo";
-import AttacheStudentsModal from "../../customComponents/AttacheStudentsModal";
 
 const MentorList = () => {
     const [users, setUsers] = useState([]);
     const [mentorInfo, setMentorInfo] = useState(null);
     const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
-    const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
 
     useEffect(() => {
         fetchMentors();
@@ -56,9 +54,6 @@ const MentorList = () => {
 
     return (
         <div className="panel">
-            <div className="p-5 m-5 bg-white">
-                <button className="addButton" onClick={() => setIsStudentModalOpen(true)}>Attache students</button>
-            </div>
             <div className="p-2 m-5 bg-white">
 
                 <div className="list">
@@ -78,13 +73,6 @@ const MentorList = () => {
                     <MentorInfo mentorInfo={mentorInfo}/>
                 </Modal>
             )}
-
-            <Modal isOpen={isStudentModalOpen} width="500px" onClose={() => setIsStudentModalOpen(false)}>
-                <AttacheStudentsModal
-                    mentorId={null}
-                    onClose={() => setIsStudentModalOpen(false)}
-                />
-            </Modal>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {assignDescriptorToStudents, getStudents} from '../services/api';
 import '../styles/app.css';
 
@@ -13,7 +13,9 @@ const StudentSelect = ({descriptorId, onClose}) => {
 
     const fetchStudents = () => {
         getStudents()
-            .then(data => setStudents(data))
+            .then(data => {
+                setStudents(data.filter(student => student.lessonDescriptor == null))
+            })
             .catch(error => console.log(error));
     };
 

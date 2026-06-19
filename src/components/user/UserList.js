@@ -17,9 +17,7 @@ const UserList = () => {
     };
 
     return (
-        <div className="panel">
-            <div className="p-5 m-5 bg-white shadow-sm rounded font-bold">System Users</div>
-
+        <div className="w-full">
             <div className="p-2 m-5 bg-white shadow-sm rounded">
                 <div className="list">
                     {users.map((user) => (

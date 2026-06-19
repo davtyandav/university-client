@@ -1,14 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {getStudentById} from '../../services/api';
-import {calculateAge} from '../../services/utils';
+import React, { useEffect, useState } from 'react';
+import { getStudentById } from '../../services/api';
+import { calculateAge } from '../../services/utils';
 import YearCalendar from "../caledar/YearCalendar";
 import Modal from "../Modal";
 import StudentEditModal from "../student/StudentEditModal";
+import LessonInfoModal from "../lesson/LessonInfoModal"; // Импортируем модалку информации об уроке
 
-const StudentProfile = ({userId}) => {
+const StudentProfile = ({ userId }) => {
     const [studentData, setStudentData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+    // Новые стейты для управления модальным окном урока
+    const [isLessonModalOpen, setIsLessonModalOpen] = useState(false);
+    const [selectedLesson, setSelectedLesson] = useState(null);
 
     const loadStudentData = () => {
         if (userId) {
@@ -28,6 +33,12 @@ const StudentProfile = ({userId}) => {
     useEffect(() => {
         loadStudentData();
     }, [userId]);
+
+    // Функция обработки клика на урок в календаре
+    const handleLessonClick = (lesson) => {
+        setSelectedLesson(lesson);
+        setIsLessonModalOpen(true);
+    };
 
     const handleOpenModal = (e) => {
         e.stopPropagation();
@@ -92,6 +103,7 @@ const StudentProfile = ({userId}) => {
                     )}
                 </div>
             </div>
+
             <button
                 className="edit-button bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
                 onClick={handleOpenModal}
@@ -99,16 +111,52 @@ const StudentProfile = ({userId}) => {
                 ✏️ Edit Student
             </button>
 
+            {/* Календарь занятий */}
             <div className="lessons-summary mt-6">
                 <h4 className="font-semibold mb-2">Расписание:</h4>
                 <YearCalendar
                     year={2026}
                     lessons={studentData.lessonDescriptor?.lessonInfo?.flatMap(info => info.lessons) || []}
+                    onLessonClick={handleLessonClick} // <--- ПЕРЕДАЕМ НАШУ ФУНКЦИЮ СЮДА!
                 />
             </div>
 
+            {/* Модалка редактирования профиля студента */}
             <Modal isOpen={isEditModalOpen} onClose={handleCloseModal}>
                 <StudentEditModal student={studentData} onClose={handleCloseModal}/>
+            </Modal>
+
+            {/* НОВАЯ МОДАЛКА: Детали занятия при клике на календарь */}
+            <Modal
+                isOpen={isLessonModalOpen}
+                onClose={() => setIsLessonModalOpen(false)}
+                width="500px"
+            >
+                {selectedLesson && studentData.lessonDescriptor && (
+                    <div className="flex flex-col text-gray-800">
+                        <div className="border-b pb-3 mb-4">
+                            <h2 className="text-xl font-bold text-gray-900">Информация о занятии</h2>
+                            <p className="text-sm text-gray-500 mt-1">
+                                Дата: <b>{new Date(selectedLesson.data).toLocaleDateString()}</b>
+                            </p>
+                            <p className="text-sm text-gray-500">
+                                Статус:{' '}
+                                <span
+                                    className={selectedLesson.completed ? "text-green-600 font-medium" : "text-amber-600 font-medium"}>
+                                    {selectedLesson.completed ? "Завершен" : "Не завершен"}
+                                </span>
+                            </p>
+                        </div>
+
+                        <LessonInfoModal
+                            onClose={() => setIsLessonModalOpen(false)}
+                            params={{
+                                descriptorId: studentData.lessonDescriptor?.id,
+                                lessonId: selectedLesson.id
+                            }}
+                        />
+                    </div>
+                )}
             </Modal>
         </div>
     );
