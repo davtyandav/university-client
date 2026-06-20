@@ -1,12 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import LessonDescriptor from "./../pages/LessonDescriptor";
 
 const LessonListDescriptors = ({descriptors}) => {
-
-    useEffect(() => {
-        console.log(descriptors)
-    }, []);
-
     return (
         <div className="container">
             <div className="scroll-box">

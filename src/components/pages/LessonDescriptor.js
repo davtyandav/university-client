@@ -1,28 +1,26 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import YearCalendar from '../caledar/YearCalendar';
 import Modal from '../Modal';
 import LessonInfoModal from './../lesson/LessonInfoModal';
 import "../../styles/lessonDescriptor.css";
 
-export default function LessonDescriptor({descriptor}) {
+export default function LessonDescriptor({ descriptor }) {
     const [isOpen, setIsOpen] = useState(false);
-
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedLesson, setSelectedLesson] = useState(null);
 
     const handleLessonClick = (lesson) => {
-        console.log("handleLessonClick")
-        console.log(lesson)
+        console.log("Selected Lesson:", lesson);
         setSelectedLesson(lesson);
         setIsModalOpen(true);
     };
 
     return (
-        <div className="lesson-descriptor" style={{marginBottom: '20px'}}>
+        <div className="lesson-descriptor" style={{ marginBottom: '20px' }}>
             <div
                 className="lesson-descriptor-header"
                 onClick={() => setIsOpen(!isOpen)}
-                style={{cursor: 'pointer'}}
+                style={{ cursor: 'pointer' }}
             >
                 <span>{descriptor.dayType}</span>
                 <span className="span">
@@ -56,7 +54,7 @@ export default function LessonDescriptor({descriptor}) {
                         )}
                     </div>
 
-                    <div className="lessons-summary" style={{marginTop: '20px'}}>
+                    <div className="lessons-summary" style={{ marginTop: '20px' }}>
                         <h4 className="font-semibold">Расписание:</h4>
                         <YearCalendar
                             year={2026}
@@ -70,11 +68,10 @@ export default function LessonDescriptor({descriptor}) {
             <Modal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                width="500px"
+                width="800px"
             >
                 {selectedLesson && (
                     <div className="flex flex-col text-gray-800">
-                        {/* 1. Выводим информацию об уроке, которую мы делали раньше */}
                         <div className="border-b pb-3 mb-4">
                             <h2 className="text-xl font-bold text-gray-900">Информация о занятии</h2>
                             <p className="text-sm text-gray-500 mt-1">
@@ -94,6 +91,16 @@ export default function LessonDescriptor({descriptor}) {
                             params={{
                                 descriptorId: descriptor.id,
                                 lessonId: selectedLesson.id
+                            }}
+                            initialLessonData={selectedLesson}
+                            onLessonUpdated={(updatedLesson) => {
+                                setSelectedLesson(updatedLesson);
+                                // Обновляем ссылку на объект прямо внутри структуры descriptor, чтобы календарь мгновенно обновился
+                                const foundLesson = descriptor?.lessonInfo?.flatMap(info => info.lessons)
+                                    .find(l => l.id === updatedLesson.id);
+                                if (foundLesson) {
+                                    Object.assign(foundLesson, updatedLesson);
+                                }
                             }}
                         />
                     </div>
