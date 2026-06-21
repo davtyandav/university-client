@@ -48,10 +48,7 @@ const Profile = () => {
                         <p className="text-gray-500 mt-1">{email}</p>
                     </div>
 
-                    <button
-                        className="edit-button"
-                        onClick={handleOpenPasswordModal}
-                    >
+                    <button className="edit-button" onClick={handleOpenPasswordModal}>
                         ✏️ Edit password
                     </button>
                 </div>

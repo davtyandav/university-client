@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {deleteStudent, getStudentByUserId, getUsersByRole} from '../../services/api';
+import {getStudentByUserId, getUsersByRole} from '../../services/api';
 import Modal from "../Modal";
 import StudentCard from "./StudentCard";
 import '../../styles/app.css';
@@ -36,18 +36,6 @@ const StudentList = () => {
             })
     };
 
-    const handleDelete = (id) => {
-        deleteStudent(id)
-            .then(res => {
-                console.log(" deleted student id = " + id)
-                fetchStudents();
-            })
-            .catch(error => {
-                console.log(error)
-            })
-
-    };
-
     return (
         <div className="panel">
             <div className="p-2 m-5 bg-white">
@@ -56,7 +44,6 @@ const StudentList = () => {
                         <StudentCard
                             key={user.id}
                             user={user}
-                            onDelete={handleDelete}
                             onClick={openStudentInfo}
                         />
                     ))}

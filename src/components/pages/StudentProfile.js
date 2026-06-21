@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { getStudentById } from '../../services/api';
-import { calculateAge } from '../../services/utils';
+import React, {useEffect, useState} from 'react';
+import {getStudentById} from '../../services/api';
 import YearCalendar from "../caledar/YearCalendar";
 import Modal from "../Modal";
 import StudentEditModal from "../student/StudentEditModal";
 import LessonInfoModal from "../lesson/LessonInfoModal";
 
-const StudentProfile = ({ userId }) => {
+const StudentProfile = ({userId}) => {
     const [studentData, setStudentData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -22,7 +21,7 @@ const StudentProfile = ({ userId }) => {
                     setLoading(false);
                 })
                 .catch(err => {
-                    console.error("Ошибка загрузки данных студента:", err);
+                    console.error("Error loading student data:", err);
                     setLoading(false);
                 });
         }
@@ -37,29 +36,29 @@ const StudentProfile = ({ userId }) => {
         setIsLessonModalOpen(true);
     };
 
-    if (loading) return <div className="p-4 text-center text-gray-500">Загрузка данных...</div>;
-    if (!studentData) return <div className="p-4 text-center text-red-500">Данные студента не найдены</div>;
+    if (loading) return <div className="p-4 text-center text-gray-500">Loading data...</div>;
+    if (!studentData) return <div className="p-4 text-center text-red-500">Student data not found</div>;
 
     return (
         <div className="w-full space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="info-card bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-sm">
-                    <h3 className="text-gray-400 text-sm mb-2 font-medium uppercase">Дата рождения</h3>
+                    <h3 className="text-gray-400 text-sm mb-2 font-medium uppercase">Date of Birth</h3>
                     <p className="font-semibold text-gray-700">
-                        {studentData.birthDate ? studentData.birthDate.split('T')[0] : "Не указана"}
+                        {studentData.birthDate ? studentData.birthDate.split('T')[0] : "Not specified"}
                     </p>
                 </div>
 
                 <div className="info-card bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-sm">
-                    <h3 className="text-gray-400 text-sm mb-2 font-medium uppercase">Курс</h3>
+                    <h3 className="text-gray-400 text-sm mb-2 font-medium uppercase">Course</h3>
                     <p className="font-semibold text-gray-700">
-                        {studentData.lessonDescriptor ? studentData.lessonDescriptor.title : "Не назначен"}
+                        {studentData.lessonDescriptor ? studentData.lessonDescriptor.title : "Not assigned"}
                     </p>
                 </div>
             </div>
 
             <div className="lessons-summary mt-6">
-                <h4 className="font-semibold mb-2">Расписание:</h4>
+                <h4 className="font-semibold mb-2">Schedule:</h4>
                 <YearCalendar
                     year={2026}
                     lessons={studentData.lessonDescriptor?.lessonInfo?.flatMap(info => info.lessons) || []}
@@ -75,14 +74,15 @@ const StudentProfile = ({ userId }) => {
                 {selectedLesson && studentData.lessonDescriptor && (
                     <div className="flex flex-col text-gray-800">
                         <div className="border-b pb-3 mb-4">
-                            <h2 className="text-xl font-bold text-gray-900">Информация о занятии</h2>
+                            <h2 className="text-xl font-bold text-gray-900">Lesson Information</h2>
                             <p className="text-sm text-gray-500 mt-1">
-                                Дата: <b>{new Date(selectedLesson.data).toLocaleDateString()}</b>
+                                Date: <b>{new Date(selectedLesson.data).toLocaleDateString()}</b>
                             </p>
                             <p className="text-sm text-gray-500">
-                                Статус:{' '}
-                                <span className={selectedLesson.completed ? "text-green-600 font-medium" : "text-amber-600 font-medium"}>
-                                    {selectedLesson.completed ? "Завершен" : "Не завершен"}
+                                Status:{' '}
+                                <span
+                                    className={selectedLesson.completed ? "text-green-600 font-medium" : "text-amber-600 font-medium"}>
+                                    {selectedLesson.completed ? "Completed" : "Not Completed"}
                                 </span>
                             </p>
                         </div>
@@ -92,7 +92,7 @@ const StudentProfile = ({ userId }) => {
                             params={{
                                 descriptorId: studentData.lessonDescriptor?.id,
                                 lessonId: selectedLesson.id,
-                                studentId: studentData.id // === ИСПРАВЛЕНО: Передаем ID студента ===
+                                studentId: studentData.id
                             }}
                             initialLessonData={selectedLesson}
                         />

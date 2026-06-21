@@ -1,29 +1,25 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import avatar from '../../assets/user.png';
-import { calculateAge, isBirthDate } from '../../services/utils';
+import {calculateAge, isBirthDate} from '../../services/utils';
 import YearCalendar from "../caledar/YearCalendar";
 import Modal from "../Modal";
 import LessonInfoModal from "../lesson/LessonInfoModal";
 
-const StudentInfo = ({ studentInfo }) => {
+const StudentInfo = ({studentInfo}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedLesson, setSelectedLesson] = useState(null);
 
     if (!studentInfo) return null;
 
-    const { lessonDescriptor } = studentInfo;
+    const {lessonDescriptor} = studentInfo;
 
     const handleLessonClick = (lesson) => {
-
-        console.log("Клик в StudentInfo. lesson:", lesson);
-        console.log("Дескриптор студента:", lessonDescriptor);
         setSelectedLesson(lesson);
         setIsModalOpen(true);
     };
 
     return (
         <>
-            {/* Секция профиля */}
             <div className="flex items-start mb-6">
                 <img
                     src={avatar}
@@ -44,7 +40,6 @@ const StudentInfo = ({ studentInfo }) => {
                 </div>
             </div>
 
-            {/* Детальная информация */}
             <div className="border rounded-2xl divide-y mt-6 bg-white">
                 <div className="flex justify-between items-center p-4">
                     <span className="text-gray-500">Email</span>
@@ -79,7 +74,6 @@ const StudentInfo = ({ studentInfo }) => {
                 </div>
             </div>
 
-            {/* Календарь занятий */}
             <div className="lessons-summary mt-6">
                 <h4 className="font-semibold mb-2">Расписание:</h4>
                 <YearCalendar

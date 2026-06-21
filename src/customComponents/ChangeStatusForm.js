@@ -4,14 +4,15 @@ import {updateUserStatus} from '../services/api';
 const ChangeStatusForm = ({user, newStatus, onClose, onSuccess}) => {
 
     const handleSubmit = async (e) => {
-        if (e) e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
 
         const requestData = {
             status: newStatus
         };
 
         try {
-            console.log("statsu", requestData)
             await updateUserStatus(user.id, requestData);
             onSuccess();
             onClose();

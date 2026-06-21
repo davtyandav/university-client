@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {updateUserPassword} from "../services/api";
 
-const ChangePasswordModal = ({ user, onClose, onSuccess }) => {
+const ChangePasswordModal = ({user, onClose, onSuccess}) => {
     const [formData, setFormData] = useState({
         oldPassword: '',
         newPassword: '',
@@ -10,7 +11,7 @@ const ChangePasswordModal = ({ user, onClose, onSuccess }) => {
     const [error, setError] = useState('');
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData({...formData, [e.target.name]: e.target.value});
         if (error) setError('');
     };
 
@@ -35,11 +36,10 @@ const ChangePasswordModal = ({ user, onClose, onSuccess }) => {
         try {
 
             console.log(user)
-            // Отправляем на сервер старый и новый пароли
-            // await updateUserPassword(user.id, {
-            //     oldPassword: formData.oldPassword,
-            //     newPassword: formData.newPassword
-            // });
+            await updateUserPassword(user.id, {
+                oldPassword: formData.oldPassword,
+                newPassword: formData.newPassword
+            });
             onSuccess();
             onClose();
         } catch (err) {
@@ -71,7 +71,7 @@ const ChangePasswordModal = ({ user, onClose, onSuccess }) => {
                     />
                 </div>
 
-                <hr className="border-gray-100" />
+                <hr className="border-gray-100"/>
 
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Новый пароль</label>

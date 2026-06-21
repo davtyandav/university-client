@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import YearCalendar from '../caledar/YearCalendar';
 import Modal from '../Modal';
 import LessonInfoModal from './../lesson/LessonInfoModal';
 import "../../styles/lessonDescriptor.css";
 
-export default function LessonDescriptor({ descriptor }) {
+export default function LessonDescriptor({descriptor}) {
     const [isOpen, setIsOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedLesson, setSelectedLesson] = useState(null);
@@ -16,11 +16,11 @@ export default function LessonDescriptor({ descriptor }) {
     };
 
     return (
-        <div className="lesson-descriptor" style={{ marginBottom: '20px' }}>
+        <div className="lesson-descriptor" style={{marginBottom: '20px'}}>
             <div
                 className="lesson-descriptor-header"
                 onClick={() => setIsOpen(!isOpen)}
-                style={{ cursor: 'pointer' }}
+                style={{cursor: 'pointer'}}
             >
                 <span>{descriptor.dayType}</span>
                 <span className="span">
@@ -31,7 +31,7 @@ export default function LessonDescriptor({ descriptor }) {
 
             {isOpen && (
                 <div className="descriptor-container">
-                    <p><b>Список студентов курса:</b></p>
+                    <p><b>Course Student List:</b></p>
                     <div className="descriptor-container-students">
                         {descriptor.studentResponses && descriptor.studentResponses.length > 0 ? (
                             descriptor.studentResponses.map((student) => (
@@ -50,12 +50,12 @@ export default function LessonDescriptor({ descriptor }) {
                                 </div>
                             ))
                         ) : (
-                            <p className="empty">На этот курс студенты не назначены</p>
+                            <p className="empty">No students are assigned to this course</p>
                         )}
                     </div>
 
-                    <div className="lessons-summary" style={{ marginTop: '20px' }}>
-                        <h4 className="font-semibold">Расписание:</h4>
+                    <div className="lessons-summary" style={{marginTop: '20px'}}>
+                        <h4 className="font-semibold">Schedule:</h4>
                         <YearCalendar
                             year={2026}
                             lessons={descriptor?.lessonInfo?.flatMap(info => info.lessons) || []}
@@ -73,15 +73,15 @@ export default function LessonDescriptor({ descriptor }) {
                 {selectedLesson && (
                     <div className="flex flex-col text-gray-800">
                         <div className="border-b pb-3 mb-4">
-                            <h2 className="text-xl font-bold text-gray-900">Информация о занятии</h2>
+                            <h2 className="text-xl font-bold text-gray-900">Lesson Information</h2>
                             <p className="text-sm text-gray-500 mt-1">
-                                Дата: <b>{new Date(selectedLesson.data).toLocaleDateString()}</b>
+                                Date: <b>{new Date(selectedLesson.data).toLocaleDateString()}</b>
                             </p>
                             <p className="text-sm text-gray-500">
-                                Статус:{' '}
+                                Status:{' '}
                                 <span
                                     className={selectedLesson.completed ? "text-green-600 font-medium" : "text-amber-600 font-medium"}>
-                                    {selectedLesson.completed ? "Завершен" : "Не завершен"}
+                                    {selectedLesson.completed ? "Completed" : "Not Completed"}
                                 </span>
                             </p>
                         </div>
@@ -95,7 +95,6 @@ export default function LessonDescriptor({ descriptor }) {
                             initialLessonData={selectedLesson}
                             onLessonUpdated={(updatedLesson) => {
                                 setSelectedLesson(updatedLesson);
-                                // Обновляем ссылку на объект прямо внутри структуры descriptor, чтобы календарь мгновенно обновился
                                 const foundLesson = descriptor?.lessonInfo?.flatMap(info => info.lessons)
                                     .find(l => l.id === updatedLesson.id);
                                 if (foundLesson) {

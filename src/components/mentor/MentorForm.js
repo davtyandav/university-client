@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {createMentor, getUsersByRole, updateMentor} from '../../services/api';
 
-const MentorForm = ({ mentor, onClose, onSuccess }) => {
+const MentorForm = ({mentor, onClose, onSuccess}) => {
     const [formData, setFormData] = useState({
         userId: '',
         birthDate: '',
@@ -30,13 +30,13 @@ const MentorForm = ({ mentor, onClose, onSuccess }) => {
                 birthDate: mentor.birthDate ? mentor.birthDate.split('T')[0] : '',
             });
         } else {
-            setFormData({ userId: '', birthDate: '' });
+            setFormData({userId: '', birthDate: ''});
         }
     }, [mentor]);
 
     const handleChange = useCallback((e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({ ...prevState, [name]: value }));
+        const {name, value} = e.target;
+        setFormData(prevState => ({...prevState, [name]: value}));
     }, []);
 
     const handleSubmit = async (e) => {
@@ -112,13 +112,6 @@ const MentorForm = ({ mentor, onClose, onSuccess }) => {
                 <button className="saveBtn" type="button" onClick={handleSubmit}>Save</button>
                 <button className="cancelBtn" type="button" onClick={onClose}>Cancel</button>
             </div>
-
-            {/*{mentor && (*/}
-            {/*    <div className="mt-6 border-t pt-4">*/}
-            {/*        <p className="text-sm text-gray-500 mb-2">Documents & Photo:</p>*/}
-            {/*        <FileUploader mentorId={mentor.id} />*/}
-            {/*    </div>*/}
-            {/*)}*/}
         </div>
     );
 };

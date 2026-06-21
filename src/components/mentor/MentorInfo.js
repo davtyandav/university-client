@@ -20,15 +20,11 @@ const MentorInfo = ({mentorInfo}) => {
                 </div>
             </div>
 
-            {mentorInfo.lessonDescriptors?.length > 0 ? (
-                mentorInfo.lessonDescriptors.map((descriptor) => (
-                    <LessonDescriptor descriptor={descriptor}/>
-                ))
-            ) : (
-                <div className="p-10 text-center text-gray-400 border-2 border-dashed rounded-2xl">
+            {mentorInfo.lessonDescriptors?.length > 0
+                ? (mentorInfo.lessonDescriptors.map((descriptor) => (<LessonDescriptor descriptor={descriptor}/>)))
+                : (<div className="p-10 text-center text-gray-400 border-2 border-dashed rounded-2xl">
                     No active lesson descriptors
-                </div>
-            )}
+                </div>)}
         </div>
     );
 };

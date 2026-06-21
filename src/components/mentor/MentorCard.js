@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from '../../customComponents/Card';
 
-const MentorCard = ({user, onDelete, onClick}) => {
+const MentorCard = ({user, onClick}) => {
 
     return (
         <>

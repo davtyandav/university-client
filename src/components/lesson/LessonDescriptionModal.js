@@ -26,7 +26,7 @@ const LessonDescriptionModal = ({onClose}) => {
     useEffect(() => {
         getMentors()
             .then(data => setMentors(data))
-            .catch(err => console.error("Ошибка загрузки менторов", err));
+            .catch(err => console.error("Failed to load mentors:", err));
     }, []);
 
     const handleChange = useCallback((e) => {
@@ -71,8 +71,8 @@ const LessonDescriptionModal = ({onClose}) => {
             onClose();
         } catch (error) {
             console.error(error);
-            const serverMessage = error.response?.data?.message || "Ошибка валидации данных";
-            alert("Сервер не принял данные: " + serverMessage);
+            const serverMessage = error.response?.data?.message || "Data validation error";
+            alert("The server rejected the data: " + serverMessage);
         }
     };
 
@@ -83,12 +83,12 @@ const LessonDescriptionModal = ({onClose}) => {
                 onClick={(e) => e.stopPropagation()}
             >
                 <h2 className="lesson-form-title">
-                    Добавить учебный план
+                    Add Curriculum Plan
                 </h2>
 
                 <form onSubmit={handleSubmit} className="lesson-form">
 
-                    <label>Название занятия</label>
+                    <label>Lesson Title</label>
                     <input
                         name="title"
                         value={formData.title}

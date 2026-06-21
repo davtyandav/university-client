@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import Modal from "../Modal";
 import MentorCard from "./MentorCard";
-import {deleteMentor, getMentorById, getUsersByRole} from '../../services/api';
-import '../../styles/app.css';
+import {getMentorById, getUsersByRole} from '../../services/api';
 import MentorInfo from "./MentorInfo";
+import '../../styles/app.css';
 
 const MentorList = () => {
     const [users, setUsers] = useState([]);
@@ -41,17 +41,6 @@ const MentorList = () => {
             })
     };
 
-    const handleDelete = (id) => {
-        deleteMentor(id)
-            .then(() => {
-                console.log("Deleted mentor id = " + id);
-                fetchMentors();
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    };
-
     return (
         <div className="panel">
             <div className="p-2 m-5 bg-white">
@@ -61,7 +50,6 @@ const MentorList = () => {
                         <MentorCard
                             key={user.id}
                             user={user}
-                            onDelete={handleDelete}
                             onClick={openMentorInfo}
                         />
                     ))}

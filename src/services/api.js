@@ -217,3 +217,15 @@ export const getMe = async () => {
     const response = await API.get(API_ME);
     return response.data;
 };
+
+export const updateUserPassword = async (id, passwordData) => {
+    const response = await API.put(`${API_USERS}/${id}/password`, passwordData);
+    return response.data;
+};
+
+// POST http://localhost:8080/api/v1/salaries/calculate
+export const calculateSalary = async (salaryData) => {
+    // Явно используем BASE_URL, чтобы запрос шёл на 8080/api/v1
+    const response = await API.post(`${BASE_URL}/salaries/calculate`, salaryData);
+    return response.data;
+};

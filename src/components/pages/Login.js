@@ -13,7 +13,7 @@ const Login = ({onLoginSuccess}) => {
         setError("");
 
         try {
-            const res = await login({ email, password });
+            const res = await login({email, password});
 
             const data = res.data || res;
 
@@ -43,7 +43,6 @@ const Login = ({onLoginSuccess}) => {
                 <h2 className="login-title">Welcome Back</h2>
                 <p className="login-subtitle">Please login to your account</p>
 
-                {/* Выводим ошибку, если она есть */}
                 {error && (
                     <div style={{
                         color: '#721c24',

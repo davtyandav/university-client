@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getUsers, toggleUserStatus} from '../../services/api'; // Предположим, ты добавил метод смены статуса
+import {getUsers} from '../../services/api';
 import avatar from '../../assets/user.png';
 import '../../styles/app.css';
 
