@@ -13,7 +13,8 @@ const ROLES = '/roles';
 const LOGIN = '/auth/login';
 const REGISTER = '/auth/register';
 const ME = '/users/auth/me';
-const SEARCH = '/search'
+const SEARCH = '/search';
+const SALARIES = '/salaries';
 
 const API_USERS_BY_ROLE = BASE_URL + USERS + ROLE;
 const API_USERS = BASE_URL + USERS;
@@ -28,6 +29,7 @@ const API_REGISTER = BASE_URL + REGISTER;
 const API_LOGIN = BASE_URL + LOGIN;
 const API_ME = BASE_URL + ME;
 const API_STUDENTS_SEARCH = API_STUDENTS + SEARCH;
+const API_SALARIES = BASE_URL + SALARIES;
 
 const API = axios.create();
 
@@ -223,9 +225,60 @@ export const updateUserPassword = async (id, passwordData) => {
     return response.data;
 };
 
-// POST http://localhost:8080/api/v1/salaries/calculate
-export const calculateSalary = async (salaryData) => {
-    // Явно используем BASE_URL, чтобы запрос шёл на 8080/api/v1
-    const response = await API.post(`${BASE_URL}/salaries/calculate`, salaryData);
+// --- Salaries & Financial Reports ---
+
+// GET http://localhost:8080/api/v1/salaries/calculate?mentorId=...&start=...&end=...
+export const calculateSalary = async ({ mentorId, start, end }) => {
+    const response = await API.get(`${API_SALARIES}/calculate`, {
+        params: { mentorId, start, end }
+    });
     return response.data;
+};
+
+// POST http://localhost:8080/api/v1/salaries/report?mentorId=...&start=...&end=...
+export const saveSalaryReportApi = async ({ mentorId, start, end }) => {
+    const response = await API.post(`${API_SALARIES}/report`, null, {
+        params: { mentorId, start, end }
+    });
+    return response.data;
+};
+
+// GET http://localhost:8080/api/v1/salaries/mentor/{mentorId}/reports
+export const getMentorReportsApi = async (mentorId) => {
+    const response = await API.get(`${API_SALARIES}/mentor/${mentorId}/reports`);
+    return response.data;
+};
+
+// DELETE http://localhost:8080/api/v1/salaries/reports/{id}
+export const deleteSalaryReportApi = async (reportId) => {
+    const response = await API.delete(`${API_SALARIES}/reports/${reportId}`);
+    return response.data;
+};
+
+export const downloadSalaryReportFile = async (reportId) => {
+    try {
+        const response = await API.get(`${BASE_URL}/salaries/reports/${reportId}/download`, {
+            responseType: 'arraybuffer' // Переключаем на arraybuffer для идеальной совместимости с потоками байт
+        });
+
+        // Создаем Blob из буфера ответа
+        const blob = new Blob([response.data], { type: 'application/pdf' });
+
+        // Создаем безопасную ссылку для скачивания
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = `Salary_Report_${reportId}.pdf`;
+
+        // Добавляем ссылку в DOM, кликаем и сразу удаляем
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Освобождаем память браузера
+        window.URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+        console.error("Critical download error in API layer:", error);
+        throw error; // Пробрасываем ошибку дальше в компонент UI
+    }
 };
