@@ -1,31 +1,52 @@
-body {
+/* ==========================================================================
+   ГЛОБАЛЬНАЯ СТРУКТУРА (КОМПАКТНЫЕ ФИКСИРОВАННЫЕ ШАПКА И ФУТЕР)
+   ========================================================================== */
 
-    /* @apply h-screen;
-    @apply m-0 p-0 font-sans;
-    @apply bg-black; */
+html, body, #root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* Запрещаем скролл самого окна браузера */
+    @apply font-sans;
+}
+
+.app-wrapper {
+    @apply w-full h-full flex flex-col bg-gray-100 overflow-hidden;
+}
+
+/* ИСПРАВЛЕНО: Заменили цвет #0a0a0a на мягкий графитовый bg-slate-800 */
+header {
+    @apply fixed top-0 left-0 z-[0] h-20 w-full bg-slate-800 text-white flex justify-between items-center p-4 shadow-md;
+}
+
+/* mt-20 (80px под новую шапку). Высота рассчитывается как 100vh - 80px (хедер) - 140px (футер) = 220px */
+main.content {
+    @apply flex-grow w-full mt-20 flex flex-row overflow-hidden relative pt-0;
+    height: calc(100vh - 220px) !important;
+}
+
+/* ИСПРАВЛЕНО: Заменили цвет #0a0a0a на мягкий графитовый bg-slate-800 */
+.navbar {
+    @apply fixed top-20 left-0;
+    height: calc(100vh - 220px) !important;
+    @apply w-[200px] bg-slate-800 flex flex-col items-start py-10 gap-6 text-white text-lg shadow-lg z-[1500];
+}
+
+/* top-20 (80px), подстроен расчет высоты, чтобы контент не уходил под футер */
+.panel {
+    @apply fixed left-[200px] top-20 right-0;
+    height: calc(100vh - 220px) !important;
+    @apply bg-gray-200 z-[1000] overflow-y-auto;
+}
+
+.panel .content {
+    @apply w-full p-6;
 }
 
 .list {
     @apply grid;
     @apply grid-cols-4;
     @apply gap-6;
-}
-
-header {
-    @apply fixed top-0 left-0 z-50 h-40 w-full bg-[#0a0a0a] text-white flex justify-between items-center p-4;
-}
-
-.panel {
-    @apply fixed left-[200px] h-[calc(100vh-60px)] right-0
-    bg-gray-200 z-[1000];
-}
-
-.content {
-    @apply flex-1 w-full;
-}
-
-.app-wrapper {
-    @apply w-full flex flex-col bg-gray-100;
 }
 
 .main-header {
@@ -42,15 +63,6 @@ header {
 .logo img {
     @apply h-10 w-auto;
 }
-
-.navbar {
-    @apply fixed top-[110px] left-0;
-    @apply h-full w-[200px];
-    @apply bg-[#0a0a0a] flex flex-col items-start py-10 gap-6;
-    @apply text-white text-lg shadow-lg;
-    @apply z-[1500];
-}
-
 
 a {
     @apply text-white;
@@ -144,12 +156,15 @@ svg {
     @apply bg-blue-600 text-white px-4 py-2 rounded-xl shadow hover:bg-blue-700 transition;
 }
 
+.mentor-btn:hover {
+    @apply bg-blue-700;
+}
+
 .mentor-list {
     @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
 }
 
 /* INFO MODAL */
-
 .mentor-info {
     @apply flex flex-col items-center text-center space-y-3;
 }
@@ -265,7 +280,6 @@ svg {
 .emptyText {
     @apply text-sm text-gray-400 italic;
 }
-
 
 .modalWrapper {
     @apply fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm;

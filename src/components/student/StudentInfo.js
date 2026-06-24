@@ -1,17 +1,18 @@
-import React, {useState} from 'react';
+// StudentInfo.jsx
+import React, { useState } from 'react';
 import avatar from '../../assets/user.png';
-import {calculateAge, isBirthDate} from '../../services/utils';
+import { calculateAge, isBirthDate } from '../../services/utils';
 import YearCalendar from "../caledar/YearCalendar";
 import Modal from "../Modal";
 import LessonInfoModal from "../lesson/LessonInfoModal";
 
-const StudentInfo = ({studentInfo}) => {
+const StudentInfo = ({ studentInfo }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedLesson, setSelectedLesson] = useState(null);
 
     if (!studentInfo) return null;
 
-    const {lessonDescriptor} = studentInfo;
+    const { lessonDescriptor } = studentInfo;
 
     const handleLessonClick = (lesson) => {
         setSelectedLesson(lesson);
@@ -19,39 +20,42 @@ const StudentInfo = ({studentInfo}) => {
     };
 
     return (
-        <>
-            <div className="flex items-start mb-6">
+        <div className="flex flex-col text-left w-full relative">
+            <div className="flex items-center gap-5 pb-5 border-b border-gray-100 relative">
                 <img
                     src={avatar}
                     alt="avatar"
-                    className="w-20 h-20 rounded-full border-2 border-gray-200"
+                    className="w-16 h-16 rounded-full border border-gray-200 bg-white shrink-0"
                 />
-
-                <div className="flex-1 flex flex-col justify-center items-center">
-                    <h2 className="text-xl font-semibold text-center">
+                <div className="flex flex-col justify-center">
+                    <h2 className="text-xl font-bold text-gray-800 m-0">
                         {studentInfo.user?.name} {studentInfo.user?.lastName}
                     </h2>
-                    <p className="text-gray-400 text-sm text-center">
-                        {calculateAge(studentInfo.birthDate)} years old
-                    </p>
-                    <p className="text-sm mt-1">
-                        {isBirthDate(studentInfo.birthDate) ? "🎉 Сегодня день рождения!" : ""}
-                    </p>
+                    <div className="flex items-center gap-2 mt-1">
+                        <p className="text-gray-500 text-sm m-0">
+                            {calculateAge(studentInfo.birthDate)} years old
+                        </p>
+                        {isBirthDate(studentInfo.birthDate) && (
+                            <span className="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-medium animate-pulse">
+                                🎉 День рождения!
+                            </span>
+                        )}
+                    </div>
                 </div>
             </div>
 
-            <div className="border rounded-2xl divide-y mt-6 bg-white">
-                <div className="flex justify-between items-center p-4">
-                    <span className="text-gray-500">Email</span>
-                    <div className="flex items-center gap-2">
+            <div className="border border-gray-200 rounded-xl divide-y divide-gray-100 mt-5 bg-white shadow-sm overflow-hidden">
+                <div className="flex justify-between items-center p-3.5 text-sm">
+                    <span className="font-medium text-gray-400 uppercase tracking-wider text-[11px]">Email</span>
+                    <div className="flex items-center gap-2 font-semibold text-gray-700">
                         <span>{studentInfo.user?.email}</span>
                         <span className="text-gray-300">›</span>
                     </div>
                 </div>
 
-                <div className="flex justify-between items-center p-4">
-                    <span className="text-gray-500">Lesson Info</span>
-                    <div className="flex items-center gap-2">
+                <div className="flex justify-between items-center p-3.5 text-sm">
+                    <span className="font-medium text-gray-400 uppercase tracking-wider text-[11px]">Lesson Info</span>
+                    <div className="flex items-center gap-2 font-semibold text-gray-700">
                         <span>
                             {lessonDescriptor
                                 ? `${lessonDescriptor.type} ${lessonDescriptor.title}`
@@ -61,9 +65,9 @@ const StudentInfo = ({studentInfo}) => {
                     </div>
                 </div>
 
-                <div className="flex justify-between items-center p-4">
-                    <span className="text-gray-500">Mentor</span>
-                    <div className="flex items-center gap-2">
+                <div className="flex justify-between items-center p-3.5 text-sm">
+                    <span className="font-medium text-gray-400 uppercase tracking-wider text-[11px]">Mentor</span>
+                    <div className="flex items-center gap-2 font-semibold text-gray-700">
                         <span>
                             {studentInfo.mentor
                                 ? `${studentInfo.mentor.user?.name} ${studentInfo.mentor.user?.lastName}`
@@ -74,13 +78,15 @@ const StudentInfo = ({studentInfo}) => {
                 </div>
             </div>
 
-            <div className="lessons-summary mt-6">
-                <h4 className="font-semibold mb-2">Расписание:</h4>
-                <YearCalendar
-                    year={2026}
-                    lessons={lessonDescriptor?.lessonInfo?.flatMap(info => info.lessons) || []}
-                    onLessonClick={handleLessonClick}
-                />
+            <div className="lessons-summary mt-5">
+                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Расписание:</h4>
+                <div className="w-full overflow-x-auto rounded-xl border border-gray-200 bg-white p-2 shadow-sm">
+                    <YearCalendar
+                        year={2026}
+                        lessons={lessonDescriptor?.lessonInfo?.flatMap(info => info.lessons) || []}
+                        onLessonClick={handleLessonClick}
+                    />
+                </div>
             </div>
 
             <Modal
@@ -114,7 +120,7 @@ const StudentInfo = ({studentInfo}) => {
                     </div>
                 )}
             </Modal>
-        </>
+        </div>
     );
 };
 

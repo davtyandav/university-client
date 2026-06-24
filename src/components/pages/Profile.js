@@ -35,7 +35,7 @@ const Profile = () => {
 
 
     return (
-        <div className="max-w-4xl mx-auto mt-10 px-4">
+        <div className="max-w-4xl mx-auto mt-5 mb-5 px-4 overflow-auto max-h-[calc(100vh-240px)]">
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
                 <div className="flex items-center gap-6 mb-8 border-b pb-6">
                     <img src={avatarPlaceholder} className="w-24 h-24 rounded-full border shadow-sm" alt="avatar"/>

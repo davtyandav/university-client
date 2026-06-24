@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {Navigate, NavLink, Route, Routes} from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import StudentList from "../student/StudentList";
 import LessonDescriptorsInfo from "../lesson/LessonDescriptorsInfo";
 import MentorList from "../mentor/MentorList";
 import DescriptorToolbar from "./DescriptorToolbar";
-import {getLessonDescriptors} from "../../services/api";
+import { getLessonDescriptors } from "../../services/api";
 import SalaryReportsInfo from "../lesson/SalaryReportsInfo";
+import Footer from "../pages/Footer";
 
 const Admin = () => {
     const [lessonsDescriptor, setLessonsDescriptor] = useState([]);
@@ -28,7 +29,7 @@ const Admin = () => {
     if (loading) return <div className="p-5">Загрузка данных админ-панели...</div>;
 
     return (
-        <div className="w-full h-screen">
+        <div className="w-full h-full flex flex-row">
             <aside className="navbar">
                 <NavLink to="/admin/students">Students</NavLink>
                 <NavLink to="/admin/mentors">Mentors</NavLink>
@@ -38,18 +39,25 @@ const Admin = () => {
             </aside>
             <section className="panel">
                 <div className="content">
-                    <Routes>
-                        <Route index element={<Navigate to="students"/>}/>
-                        <Route path="students" element={<StudentList/>}/>
-                        <Route path="lessonDescriptors" element={
-                            <LessonDescriptorsInfo descriptors={lessonsDescriptor} onRefresh={fetchLessons}/>}/>
-                        <Route path="salaryReports" element={<SalaryReportsInfo/>}/>
-                        <Route path="mentors" element={<MentorList/>}/>
-                        <Route path="toolBar" element={
-                            <DescriptorToolbar descriptors={lessonsDescriptor} onRefresh={fetchLessons}/>}/>
-                    </Routes>
+
+                    <div className="flex-grow w-full">
+                        <Routes>
+                            <Route index element={<Navigate to="students" />} />
+                            <Route path="students" element={<StudentList />} />
+                            <Route path="lessonDescriptors" element={
+                                <LessonDescriptorsInfo descriptors={lessonsDescriptor} onRefresh={fetchLessons} />
+                            } />
+                            <Route path="salaryReports" element={<SalaryReportsInfo />} />
+                            <Route path="mentors" element={<MentorList />} />
+                            <Route path="toolBar" element={
+                                <DescriptorToolbar descriptors={lessonsDescriptor} onRefresh={fetchLessons} />
+                            } />
+                        </Routes>
+                    </div>
+                    <Footer />
                 </div>
             </section>
+
         </div>
     );
 };

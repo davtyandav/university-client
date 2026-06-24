@@ -15,6 +15,8 @@ const REGISTER = '/auth/register';
 const ME = '/users/auth/me';
 const SEARCH = '/search';
 const SALARIES = '/salaries';
+const COURSES = '/courses';
+const API_COURSES = BASE_URL + COURSES;
 
 const API_USERS_BY_ROLE = BASE_URL + USERS + ROLE;
 const API_USERS = BASE_URL + USERS;
@@ -228,17 +230,17 @@ export const updateUserPassword = async (id, passwordData) => {
 // --- Salaries & Financial Reports ---
 
 // GET http://localhost:8080/api/v1/salaries/calculate?mentorId=...&start=...&end=...
-export const calculateSalary = async ({ mentorId, start, end }) => {
+export const calculateSalary = async ({mentorId, start, end}) => {
     const response = await API.get(`${API_SALARIES}/calculate`, {
-        params: { mentorId, start, end }
+        params: {mentorId, start, end}
     });
     return response.data;
 };
 
 // POST http://localhost:8080/api/v1/salaries/report?mentorId=...&start=...&end=...
-export const saveSalaryReportApi = async ({ mentorId, start, end }) => {
+export const saveSalaryReportApi = async ({mentorId, start, end}) => {
     const response = await API.post(`${API_SALARIES}/report`, null, {
-        params: { mentorId, start, end }
+        params: {mentorId, start, end}
     });
     return response.data;
 };
@@ -262,7 +264,7 @@ export const downloadSalaryReportFile = async (reportId) => {
         });
 
         // Создаем Blob из буфера ответа
-        const blob = new Blob([response.data], { type: 'application/pdf' });
+        const blob = new Blob([response.data], {type: 'application/pdf'});
 
         // Создаем безопасную ссылку для скачивания
         const downloadUrl = window.URL.createObjectURL(blob);
@@ -281,4 +283,16 @@ export const downloadSalaryReportFile = async (reportId) => {
         console.error("Critical download error in API layer:", error);
         throw error; // Пробрасываем ошибку дальше в компонент UI
     }
+};
+
+// POST http://localhost:8080/api/v1/courses
+export const createCourse = async (courseData) => {
+    const response = await API.post(API_COURSES, courseData);
+    return response.data;
+};
+
+// GET http://localhost:8080/api/v1/courses
+export const getCourses = async () => {
+    const response = await API.get(API_COURSES);
+    return response.data;
 };

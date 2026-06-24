@@ -7,7 +7,7 @@ const MentorInfo = ({mentorInfo}) => {
     if (!mentorInfo) return null;
 
     return (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 ">
             <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
                 <img src={avatar} alt="avatar" className="w-16 h-16 rounded-full border-2 border-white"/>
                 <div>

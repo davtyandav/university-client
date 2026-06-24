@@ -42,7 +42,7 @@ const MentorList = () => {
     };
 
     return (
-        <div className="panel">
+        <div className="w-full">
             <div className="p-2 m-5 bg-white">
 
                 <div className="list">

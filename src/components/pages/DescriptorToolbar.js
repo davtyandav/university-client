@@ -4,11 +4,13 @@ import LessonDescriptionModal from "../lesson/LessonDescriptionModal";
 import MonthSelect from "../../customComponents/MonthForm";
 import StudentSelect from "../../customComponents/StudentSelect";
 import SalaryModal from "../SalaryModal";
+import CourseCreateModal from "../../customComponents/CourseCreateModal";
 import { getMentors } from '../../services/api';
 import './../../styles/descriptorToolbar.css';
 
 const DescriptorToolbar = ({ descriptors, onRefresh }) => {
     const [mentors, setMentors] = useState([]);
+    const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
     const [isDescriptorModalOpen, setIsDescriptorModalOpen] = useState(false);
     const [isMonthModalOpen, setIsMonthModalOpen] = useState(false);
     const [isLessonStudentModalOpen, setIsLessonStudentModalOpen] = useState(false);
@@ -33,6 +35,23 @@ const DescriptorToolbar = ({ descriptors, onRefresh }) => {
     return (
         <div className="toolbar-container">
             <h2 className="toolbar-title">Quick Management Toolbar</h2>
+
+            {isAdmin && (
+                <div className="toolbar-section bg-slate-50 border-l-4 border-blue-500">
+                    <h3 className="section-title text-blue-900">Global Course Directory</h3>
+                    <div className="flex-container">
+                        <p className="text-xs text-slate-500 max-w-md">
+                            Создание общих образовательных направлений (например: Java Starter, Web Design), к которым затем привязываются группы и расписание.
+                        </p>
+                        <button
+                            onClick={() => setIsCourseModalOpen(true)}
+                            className="addButton bg-blue-600 text-white hover:bg-blue-700 transition"
+                        >
+                            ✨ Create New Course
+                        </button>
+                    </div>
+                </div>
+            )}
 
             <div className="toolbar-section bg-[#eef2f7]">
                 <div className="flex-container">
@@ -130,13 +149,18 @@ const DescriptorToolbar = ({ descriptors, onRefresh }) => {
                 </div>
             )}
 
-            <Modal isOpen={isDescriptorModalOpen} onClose={() => setIsDescriptorModalOpen(false)}>
+            <Modal isOpen={isCourseModalOpen} onClose={() => setIsCourseModalOpen(false)}>
+                <CourseCreateModal
+                    onClose={() => setIsCourseModalOpen(false)}
+                    onRefresh={onRefresh}
+                />
+            </Modal>
+
+            <Modal isOpen={isDescriptorModalOpen} onClose={() => setIsDescriptorModalOpen(false)} width="500px">
                 <LessonDescriptionModal
                     onClose={() => {
                         setIsDescriptorModalOpen(false);
-                        if (onRefresh) {
-                            onRefresh();
-                        }
+                        if (onRefresh) onRefresh();
                     }}
                 />
             </Modal>

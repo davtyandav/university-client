@@ -3,13 +3,14 @@
     @apply fixed inset-0;
     @apply bg-black bg-opacity-50;
     @apply flex justify-center items-center;
-    @apply z-[1000];
+    z-index: 3000 !important; /* ИСПРАВЛЕНО: Вместо z-[1000] теперь гарантированно выше хедера и футера */
 }
 
 .modal-content {
     @apply bg-white p-5 rounded-lg relative;
     @apply w-1/2 max-w-[1000px];
-    @apply max-h-[60vh] overflow-y-auto;
+    max-height: 85vh !important; /* ИСПРАВЛЕНО: Вместо 60vh даем контенту и календарю полностью поместиться без разрывов */
+    @apply overflow-y-auto;
 }
 
 .modal-close {

@@ -1,5 +1,7 @@
 .footer {
-  @apply w-full bg-black text-white pt-16;
+  @apply w-full bg-slate-800 text-white pt-16 z-[0];
+  @apply fixed bottom-0 left-0 right-0 bg-slate-800 text-white w-full shrink-0;
+  height: 140px;
 }
 
 .footer-container {
@@ -14,7 +16,6 @@
   @apply text-gray-400 mb-2 leading-relaxed;
 }
 
-
 .footer-links {
   @apply space-y-2 text-gray-400;
 }
@@ -22,7 +23,6 @@
 .footer-links li {
   @apply cursor-pointer transition hover:text-white;
 }
-
 
 .footer-bottom {
   @apply border-t border-white/10 text-center py-6 text-gray-500 text-sm;

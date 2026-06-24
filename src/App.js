@@ -1,33 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, NavLink, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, NavLink, Navigate, useNavigate, useLocation } from "react-router-dom";
 import Home from "./components/pages/Home";
 import Admin from "./components/pages/Admin";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import UserList from "./components/user/UserList";
 import Profile from "./components/pages/Profile";
-
+import Footer from "./components/pages/Footer";
 
 const App = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [role, setRole] = useState(localStorage.getItem('role'));
     const [name, setName] = useState(() => localStorage.getItem('userName') || "");
     const [lastName, setLastName] = useState(() => localStorage.getItem('userLastName') || "");
 
-    console.log(localStorage)
     const handleLoginSuccess = () => {
-        const savedToken = localStorage.getItem('token');
-        const savedRole = localStorage.getItem('role');
-        const savedName = localStorage.getItem('userName');
-        const savedLastName = localStorage.getItem('userLastName');
-
-        console.log("Login Success! Updating App state:", {savedToken, savedRole, savedName, savedLastName});
-
-        setToken(savedToken);
-        setRole(savedRole);
-        setName(savedName);
-        setLastName(savedLastName);
+        setToken(localStorage.getItem('token'));
+        setRole(localStorage.getItem('role'));
+        setName(localStorage.getItem('userName'));
+        setLastName(localStorage.getItem('userLastName'));
     };
 
     const handleLogout = () => {
@@ -39,24 +32,12 @@ const App = () => {
         navigate("/login");
     };
 
-    useEffect(() => {
-        console.log("Render App - Current Role:", role);
-    }, [role, token]);
+    const isAdmin = role === 'ADMIN';
 
-    useEffect(() => {
-        console.log("Current user data:", {name, lastName});
-    }, [name, lastName]);
+    // Проверяем, находимся ли мы в админке, чтобы скрыть глобальный футер
+    const isAdminPage = location.pathname.startsWith('/admin');
 
-    const isAdmin = role === 'ADMIN' || role === 'ADMIN';
-
-    const isManager = role === 'MANAGER' || role === 'MANAGER';
-
-    const getInitials = (name, lastName) => {
-        const first = name ? name.charAt(0).toUpperCase() : '';
-        const last = lastName ? lastName.charAt(0).toUpperCase() : '';
-        return first + last;
-    };
-
+    const getInitials = (n, ln) => (n ? n.charAt(0).toUpperCase() : '') + (ln ? ln.charAt(0).toUpperCase() : '');
     const getRandomColor = (seed) => {
         const colors = ['#EF4444', '#F59E0B', '#10B981', '#3B82F6', '#6366F1', '#8B5CF6', '#EC4899'];
         const charCodeSum = seed.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
@@ -65,19 +46,15 @@ const App = () => {
 
     return (
         <div className="app-wrapper">
-            <header >
+            <header>
                 <div className="header-left">
                     <div className="logo">
                         <img src="/logo.png" alt="Logo" style={{ height: '40px' }} />
                     </div>
                     <nav className="header-nav">
                         <NavLink to="/">Home</NavLink>
-
-                        {isAdmin && (
-                            <NavLink to="/admin">Admin Panel</NavLink>
-                        )}
-
-                        {<NavLink to="/users">Users List</NavLink>}
+                        {isAdmin && <NavLink to="/admin">Admin Panel</NavLink>}
+                        <NavLink to="/users">Users List</NavLink>
                     </nav>
                 </div>
 
@@ -90,7 +67,7 @@ const App = () => {
                             <NavLink to="/profile">
                                 <div
                                     className="flex items-center justify-center w-10 h-10 rounded-full text-white font-bold text-sm border-2 border-white/20"
-                                    style={{backgroundColor: getRandomColor(name + lastName)}}
+                                    style={{ backgroundColor: getRandomColor(name + lastName) }}
                                 >
                                     {getInitials(name, lastName)}
                                 </div>
@@ -98,45 +75,25 @@ const App = () => {
                             <button onClick={handleLogout} className="logout-btn">Logout</button>
                         </>
                     ) : (
-                        <>
-                            <NavLink to="/login">Login</NavLink>
-                        </>
+                        <NavLink to="/login">Login</NavLink>
                     )}
                 </div>
             </header>
 
-            <main className="content pt-40">
+            <main className="content">
                 <Routes>
                     <Route path="/" element={<Home />} />
-
-                    <Route
-                        path="/login"
-                        element={<Login onLoginSuccess={handleLoginSuccess} />}
-                    />
-
-                    <Route
-                        path="/register"
-                        element={isAdmin ? <Register /> : <Navigate to="/" />}
-                    />
-
-                    <Route
-                        path="/profile"
-                        element={token ? <Profile /> : <Navigate to="/login" />}
-                    />
-
-                    <Route
-                        path="/admin/*"
-                        element={isAdmin ? <Admin /> : <Navigate to="/" />}
-                    />
-
-                    <Route
-                        path="/users/*"
-                        element={<UserList />}
-                    />
-
+                    <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+                    <Route path="/register" element={isAdmin ? <Register /> : <Navigate to="/" />} />
+                    <Route path="/profile" element={token ? <Profile /> : <Navigate to="/login" />} />
+                    <Route path="/admin/*" element={isAdmin ? <Admin /> : <Navigate to="/" />} />
+                    <Route path="/users/*" element={<UserList />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </main>
+
+            {/* Рендерим футер везде, кроме админки */}
+            {!isAdminPage && <Footer />}
         </div>
     );
 };
