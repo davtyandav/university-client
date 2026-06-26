@@ -68,14 +68,14 @@ const CourseCreateModal = ({ onClose, onRefresh }) => {
                     type="button"
                     onClick={onClose}
                     disabled={loading}
-                    className="bg-white border border-slate-200 text-slate-700 font-medium text-xs px-3 py-2 rounded hover:bg-slate-50 transition active:scale-95"
+                    className="cancelBtn"
                 >
                     Cancel
                 </button>
                 <button
                     type="submit"
                     disabled={loading}
-                    className="bg-blue-600 text-white font-semibold text-xs px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50 transition active:scale-95 shadow-sm"
+                    className="saveBtn"
                 >
                     {loading ? "Saving..." : "Save Course"}
                 </button>

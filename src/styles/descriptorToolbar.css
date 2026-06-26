@@ -1,84 +1,60 @@
 .toolbar-container {
-    padding: 30px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    margin-top: 20px;
+    @apply p-[30px] bg-[#f8f9fa] rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.05)] mt-5;
 }
 
 .toolbar-title {
-    margin-bottom: 20px;
-    text-align: center;
+    @apply mb-5 text-center;
 }
 
 .toolbar-section {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 6px;
-    margin-bottom: 15px;
-    border: 1px solid #e9ecef;
+    @apply bg-white p-5 rounded-[6px] mb-[15px] border border-[#e9ecef];
+}
+
+.toolbar-section-admin {
+    @apply toolbar-section bg-slate-50 border-l-4 border-blue-500;
+}
+
+.toolbar-section-highlight {
+    @apply toolbar-section bg-[#eef2f7];
 }
 
 .section-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: #495057;
+    @apply text-[1.1rem] font-semibold mb-3 text-[#495057];
+}
+
+.section-title-admin {
+    @apply  text-green-900;
 }
 
 .flex-container {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    flex-wrap: wrap;
+    @apply flex gap-[15px] items-center flex-wrap;
 }
 
 .toolbar-select {
-    padding: 8px 12px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    cursor: pointer;
+    @apply py-2 px-3 rounded border border-[#ccc] bg-white cursor-pointer focus:outline-none;
 }
 
 .toolbar-label {
-    font-weight: bold;
+    @apply font-bold;
 }
 
 .divider {
-    color: #ccc;
+    @apply text-[#ccc];
 }
 
-/* Кнопки */
+.error-message {
+    @apply text-[#dc3545];
+}
+
+/* Buttons */
 .addButton {
-    padding: 8px 16px;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: all 0.2s ease;
+    @apply py-2 px-4 text-white border-none rounded font-medium transition-all duration-200 ease-in-out cursor-pointer;
 }
 
 .btn-green {
-    background-color: #28a745;
-    cursor: pointer;
-}
-
-.btn-green:hover {
-    background-color: #218838;
-}
-
-.btn-blue {
-    background-color: #28a745;
-    cursor: pointer;
-}
-
-.btn-blue:hover {
-    background-color: #28a745;
+    @apply bg-[#28a745] hover:bg-[#218838];
 }
 
 .addButton:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background-color: #6c757d !important;
+    @apply opacity-50 cursor-not-allowed bg-[#6c757d] !important;
 }

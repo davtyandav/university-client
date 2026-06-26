@@ -37,15 +37,15 @@ const DescriptorToolbar = ({ descriptors, onRefresh }) => {
             <h2 className="toolbar-title">Quick Management Toolbar</h2>
 
             {isAdmin && (
-                <div className="toolbar-section bg-slate-50 border-l-4 border-blue-500">
-                    <h3 className="section-title text-blue-900">Global Course Directory</h3>
+                <div className="toolbar-section-admin">
+                    <h3 className="section-title-admin">Global Course Directory</h3>
                     <div className="flex-container">
                         <p className="text-xs text-slate-500 max-w-md">
-                            Создание общих образовательных направлений (например: Java Starter, Web Design), к которым затем привязываются группы и расписание.
+                            Creation of common educational directions
                         </p>
                         <button
                             onClick={() => setIsCourseModalOpen(true)}
-                            className="addButton bg-blue-600 text-white hover:bg-blue-700 transition"
+                            className="addButton"
                         >
                             ✨ Create New Course
                         </button>
@@ -53,10 +53,10 @@ const DescriptorToolbar = ({ descriptors, onRefresh }) => {
                 </div>
             )}
 
-            <div className="toolbar-section bg-[#eef2f7]">
+            <div className="toolbar-section-highlight">
                 <div className="flex-container">
                     <div className="flex items-center gap-2">
-                        <label htmlFor="toolbar-select" className="toolbar-label">
+                        <label htmlFor="toolbar-select" className="section-title-admin">
                             Select Course (Descriptor):
                         </label>
                         <select
@@ -86,40 +86,40 @@ const DescriptorToolbar = ({ descriptors, onRefresh }) => {
             </div>
 
             <div className="toolbar-section">
-                <h3 className="section-title">Course Students Management</h3>
+                <h3 className="section-title-admin">Course Students Management</h3>
                 <div className="flex-container">
                     <button
-                        className="addButton btn-blue"
+                        className="addButton btn-green"
                         onClick={() => setIsLessonStudentModalOpen(true)}
                         disabled={!selectedDescriptorId}
                     >
                         Attach students in lesson
                     </button>
                     {!selectedDescriptorId && (
-                        <small className="text-[#dc3545]">* Please select a course above first</small>
+                        <small className="error-message">* Please select a course above first</small>
                     )}
                 </div>
             </div>
 
             <div className="toolbar-section">
-                <h3 className="section-title">Schedule Generation</h3>
+                <h3 className="section-title-admin">Schedule Generation</h3>
                 <div className="flex-container">
                     <button
-                        className="addButton btn-blue"
+                        className="addButton btn-green"
                         onClick={() => setIsMonthModalOpen(true)}
                         disabled={!selectedDescriptorId}
                     >
                         Generate lessons
                     </button>
                     {!selectedDescriptorId && (
-                        <small className="text-[#dc3545]">* Please select a course above first</small>
+                        <small className="error-message">* Please select a course above first</small>
                     )}
                 </div>
             </div>
 
             {isAdmin && (
                 <div className="toolbar-section">
-                    <h3 className="section-title">Financial Management</h3>
+                    <h3 className="section-title-admin">Financial Management</h3>
                     <div className="flex-container">
                         <div className="flex items-center gap-2">
                             <label htmlFor="mentor-salary-select" className="toolbar-label">Select Mentor:</label>
@@ -139,7 +139,7 @@ const DescriptorToolbar = ({ descriptors, onRefresh }) => {
                         </div>
 
                         <button
-                            className="addButton bg-emerald-600 text-white hover:bg-emerald-700 transition disabled:opacity-50"
+                            className="addButton btn-green"
                             onClick={() => setIsSalaryModalOpen(true)}
                             disabled={!selectedMentorId}
                         >
