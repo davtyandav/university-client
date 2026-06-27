@@ -204,9 +204,13 @@ export const getUsersByRole = async (role) => {
     return response.data;
 };
 
-// GET http://localhost:8080/api/v1/users
-export const getUsers = async () => {
-    const response = await API.get(API_USERS);
+export const getUsers = async (page, search) => {
+    const response = await API.get(API_USERS, {
+        params: {
+            page: page,
+            search: search
+        }
+    });
     return response.data;
 };
 

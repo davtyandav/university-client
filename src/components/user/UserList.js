@@ -1,46 +1,68 @@
-import React, {useEffect, useState} from 'react';
-import {getUsers} from '../../services/api';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { getUsers } from '../../services/api';
 import SearchInput from '../../customComponents/SearchInput';
+import Pagination from '../../customComponents/Pagination';
 import avatar from '../../assets/user.png';
 import '../../styles/app.css';
 
 const UserList = () => {
     const [users, setUsers] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [totalPages, setTotalPages] = useState(1);
+
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const currentPage = parseInt(searchParams.get('page')) || 1;
+    const searchTerm = searchParams.get('search') || '';
 
     useEffect(() => {
-        fetchUsers();
-    }, []);
+        const delayDebounceFn = setTimeout(() => {
+            fetchUsersServerSide(currentPage, searchTerm);
+        }, 400);
 
-    const fetchUsers = () => {
-        getUsers()
-            .then(data => setUsers(data))
-            .catch(err => console.error("Error loading users:", err));
+        return () => clearTimeout(delayDebounceFn);
+    }, [currentPage, searchTerm]);
+
+    const fetchUsersServerSide = (page, search) => {
+        getUsers(page, search)
+            .then(response => {
+                setUsers(response.data || []);
+                setTotalPages(response.totalPages || 1);
+            })
+            .catch(err => console.error("Error loading users from server:", err));
     };
 
-    const filteredUsers = users.filter(user => {
-        const search = searchTerm.toLowerCase();
-        return (
-            user.name?.toLowerCase().includes(search) ||
-            user.lastName?.toLowerCase().includes(search) ||
-            user.email?.toLowerCase().includes(search)
-        );
-    });
+    const handleSearchChange = (newSearchTerm) => {
+        const newParams = new URLSearchParams(searchParams);
+        if (newSearchTerm) {
+            newParams.set('search', newSearchTerm);
+        } else {
+            newParams.delete('search');
+        }
+        newParams.set('page', '1');
+        setSearchParams(newParams);
+    };
+
+    const handlePageChange = (pageNumber) => {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set('page', pageNumber.toString());
+        setSearchParams(newParams);
+    };
 
     return (
         <div className="w-full">
             <div className="mx-5 mt-5">
                 <SearchInput
                     value={searchTerm}
-                    onChange={setSearchTerm}
+                    onChange={handleSearchChange}
                     placeholder="Search by first name, last name, or email..."
                 />
             </div>
 
             <div className="p-2 m-5 bg-white shadow-sm rounded">
                 <div className="list">
-                    {filteredUsers.length > 0 ? (
-                        filteredUsers.map((user) => (
+                    {users.length > 0 ? (
+                        users.map((user) => (
                             <div key={user.id}
                                  className="user-card-item flex justify-between items-center p-3 border-b hover:bg-gray-50 cursor-pointer">
                                 <div className="flex items-center gap-3">
@@ -55,10 +77,16 @@ const UserList = () => {
                         ))
                     ) : (
                         <div className="p-3 text-center text-gray-500">
-                            Пользователи не найдены
+                            No users found
                         </div>
                     )}
                 </div>
+
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                />
             </div>
         </div>
     );
