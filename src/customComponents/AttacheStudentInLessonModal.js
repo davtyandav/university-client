@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {assignDescriptorToStudents, getStudents} from '../services/api';
 import '../styles/app.css';
 
-const StudentSelect = ({descriptorId, onClose}) => {
+const AttacheStudentInLessonModal = ({descriptorId, onClose}) => {
 
     const [students, setStudents] = useState([]);
     const [selectedStudents, setSelectedStudents] = useState([]);
@@ -78,4 +78,4 @@ const StudentSelect = ({descriptorId, onClose}) => {
     );
 };
 
-export default StudentSelect;
+export default AttacheStudentInLessonModal;

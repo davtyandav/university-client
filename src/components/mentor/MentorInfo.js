@@ -15,7 +15,7 @@ const MentorInfo = ({mentorInfo}) => {
                         {mentorInfo.user.name} {mentorInfo.user.lastName}
                     </h2>
                     <p className="text-gray-500 text-sm">
-                        {calculateAge(mentorInfo.birthDate)} years old
+                        {calculateAge(mentorInfo.birthDate)}
                     </p>
                 </div>
             </div>

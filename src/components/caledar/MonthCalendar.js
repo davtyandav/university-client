@@ -7,11 +7,15 @@ const MonthCalendar = ({month, year, lessons, onLessonClick}) => {
 
     const getStatusClass = (lesson) => {
         if (!lesson) return "";
-        return lesson.completed ? "completed" : "not-completed";
+        return lesson.completed
+            ? "completed"
+            : "not-completed";
     };
 
     const isToday = (day) => {
-        return day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+        return day === today.getDate()
+            && month === today.getMonth()
+            && year === today.getFullYear();
     };
 
     return (
@@ -32,7 +36,6 @@ const MonthCalendar = ({month, year, lessons, onLessonClick}) => {
                 {days.map((week, weekIndex) => (
                     <tr key={weekIndex}>
                         {week.map((day, dayIndex) => {
-                            // Оптимально ищем урок один раз для текущего дня
                             const currentLesson = day
                                 ? lessons.find(lesson => {
                                     const lessonDate = new Date(lesson.data);
@@ -50,11 +53,7 @@ const MonthCalendar = ({month, year, lessons, onLessonClick}) => {
                                     className={`${day ? statusClass : "empty"} 
                                                     ${dayIndex === 5 || dayIndex === 6 ? "weekend" : ""} 
                                                     ${isToday(day) ? "today" : ""}`}
-
-                                    // Клик срабатывает только если это день с уроком
                                     onClick={() => day && currentLesson && onLessonClick(currentLesson)}
-
-                                    // Если есть урок, делаем ячейку интерактивной на вид
                                     style={{cursor: (day && currentLesson) ? 'pointer' : 'default'}}
                                 >
                                     {day && (

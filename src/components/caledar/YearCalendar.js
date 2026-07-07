@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import MonthCalendar from "./MonthCalendar";
 import "../../styles/calendar.css";
 
-// Принимаем проп onLessonClick и передаем его глубже
-const YearCalendar = ({ year, lessons, onLessonClick }) => {
+const YearCalendar = ({year, lessons, onLessonClick}) => {
     const months = [
         "January", "February", "March", "April",
         "May", "June", "July", "August",
@@ -11,7 +10,6 @@ const YearCalendar = ({ year, lessons, onLessonClick }) => {
     ];
 
     const currentMonth = new Date().getMonth();
-    const currentYear = new Date().getFullYear();
 
     const [selectedMonth, setSelectedMonth] = useState(currentMonth);
 
@@ -32,7 +30,6 @@ const YearCalendar = ({ year, lessons, onLessonClick }) => {
                     </option>
                 ))}
             </select>
-            {/* Передаем функцию в компонент месяца */}
             <MonthCalendar
                 month={selectedMonth}
                 year={year}

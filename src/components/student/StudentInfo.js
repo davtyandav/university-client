@@ -1,18 +1,17 @@
-// StudentInfo.jsx
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import avatar from '../../assets/user.png';
-import { calculateAge, isBirthDate } from '../../services/utils';
+import {calculateAge, isBirthDate} from '../../services/utils';
 import YearCalendar from "../caledar/YearCalendar";
 import Modal from "../Modal";
 import LessonInfoModal from "../lesson/LessonInfoModal";
 
-const StudentInfo = ({ studentInfo }) => {
+const StudentInfo = ({studentInfo}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedLesson, setSelectedLesson] = useState(null);
 
     if (!studentInfo) return null;
 
-    const { lessonDescriptor } = studentInfo;
+    const {lessonDescriptor} = studentInfo;
 
     const handleLessonClick = (lesson) => {
         setSelectedLesson(lesson);
@@ -33,10 +32,11 @@ const StudentInfo = ({ studentInfo }) => {
                     </h2>
                     <div className="flex items-center gap-2 mt-1">
                         <p className="text-gray-500 text-sm m-0">
-                            {calculateAge(studentInfo.birthDate)} years old
+                            {calculateAge(studentInfo.birthDate)}
                         </p>
                         {isBirthDate(studentInfo.birthDate) && (
-                            <span className="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-medium animate-pulse">
+                            <span
+                                className="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-medium animate-pulse">
                                 🎉 День рождения!
                             </span>
                         )}
@@ -44,7 +44,8 @@ const StudentInfo = ({ studentInfo }) => {
                 </div>
             </div>
 
-            <div className="border border-gray-200 rounded-xl divide-y divide-gray-100 mt-5 bg-white shadow-sm overflow-hidden">
+            <div
+                className="border border-gray-200 rounded-xl divide-y divide-gray-100 mt-5 bg-white shadow-sm overflow-hidden">
                 <div className="flex justify-between items-center p-3.5 text-sm">
                     <span className="font-medium text-gray-400 uppercase tracking-wider text-[11px]">Email</span>
                     <div className="flex items-center gap-2 font-semibold text-gray-700">

@@ -86,7 +86,7 @@ const MentorProfile = ({ userId }) => {
                     <h3>Date of Birth</h3>
                     <p>
                         {mentorData.birthDate ? mentorData.birthDate.split('T')[0] : "Not specified"}
-                        {mentorData.birthDate && ` (${calculateAge(mentorData.birthDate)} years old)`}
+                        {mentorData.birthDate && calculateAge(mentorData.birthDate)}
                     </p>
                 </div>
 

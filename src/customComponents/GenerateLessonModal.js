@@ -2,7 +2,7 @@ import React, {useState, useCallback} from 'react';
 import {generateMount} from '../services/api';
 import '../styles/form.css';
 
-const MonthSelect = ({descriptorId, onClose}) => {
+const GenerateLessonModal = ({descriptorId, onClose}) => {
     const [formData, setFormData] = useState({
         lessonDescriptorId: descriptorId,
         monthType: ''
@@ -71,11 +71,11 @@ const MonthSelect = ({descriptorId, onClose}) => {
 
                     <div className="btnGroup">
                         <button type="submit" className="saveBtn">
-                            Сгенерировать
+                            generate
                         </button>
 
                         <button type="button" onClick={onClose} className="cancelBtn">
-                            Отмена
+                            cancel
                         </button>
                     </div>
 
@@ -85,4 +85,4 @@ const MonthSelect = ({descriptorId, onClose}) => {
     );
 };
 
-export default MonthSelect;
+export default GenerateLessonModal;

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Modal from "../Modal";
 import LessonDescriptionModal from "../lesson/LessonDescriptionModal";
-import MonthSelect from "../../customComponents/MonthForm";
-import StudentSelect from "../../customComponents/StudentSelect";
+import GenerateLessonModal from "../../customComponents/GenerateLessonModal";
+import AttacheStudentInLessonModal from "../../customComponents/AttacheStudentInLessonModal";
 import SalaryModal from "../SalaryModal";
 import CourseCreateModal from "../../customComponents/CourseCreateModal";
 import { getMentors } from '../../services/api';
@@ -167,7 +167,7 @@ const DescriptorToolbar = ({ descriptors, onRefresh }) => {
 
             <Modal isOpen={isMonthModalOpen} onClose={() => setIsMonthModalOpen(false)}>
                 {selectedDescriptorId && (
-                    <MonthSelect
+                    <GenerateLessonModal
                         descriptorId={selectedDescriptorId}
                         onClose={() => setIsMonthModalOpen(false)}
                     />
@@ -176,7 +176,7 @@ const DescriptorToolbar = ({ descriptors, onRefresh }) => {
 
             <Modal isOpen={isLessonStudentModalOpen} onClose={() => setIsLessonStudentModalOpen(false)}>
                 {selectedDescriptorId && (
-                    <StudentSelect
+                    <AttacheStudentInLessonModal
                         descriptorId={selectedDescriptorId}
                         onClose={() => setIsLessonStudentModalOpen(false)}
                     />
