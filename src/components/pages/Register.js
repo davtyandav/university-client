@@ -16,22 +16,13 @@ const Register = () => {
     }, []);
 
     const fetchRoles = () => {
-        // getRoles()
-        //     .then(data => {
-        //         setRoles(data);
-        //     })
-        //     .catch(error => {
-        //         console.log(error)
-        //     })
-
-        const staticRoles = [
-            {id: 1, name: 'STUDENT', label: 'Студент'},
-            {id: 2, name: 'MENTOR', label: 'Ментор'},
-            {id: 3, name: 'ADMIN', label: 'Администратор'}
-        ];
-
-        setRoles(staticRoles);
-
+         getRoles()
+             .then(data => {
+                 setRoles(data);
+            })
+            .catch(error => {
+                console.log(error)
+            })
     };
 
     const handleSubmit = async (e) => {
@@ -106,8 +97,8 @@ const Register = () => {
                 >
                     <option value="" disabled>Select your role</option>
                     {roles.map((role) => (
-                        <option key={role.id} value={role.name}>
-                            {role.label}
+                        <option key={role.id} value={role.label}>
+                            {role.value}
                         </option>
                     ))}
                 </select>

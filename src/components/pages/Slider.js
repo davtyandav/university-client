@@ -1,10 +1,24 @@
-import {useState, useEffect} from "react";
+import { useEffect, useState } from "react";
 import '../../styles/Slider.css';
 
 const slides = [
-    {image: "/img/Aren.jpg"},
-    {image: "/img/Davit.jpg"},
-    {image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2"},
+    {
+        image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1600&auto=format&fit=crop",
+        title: "Welcome to Our University",
+        description: "Modern education. Real skills. Strong future."
+    },
+    {
+        // Студенты в современных аудиториях / работа за ноутбуками
+        image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1600&auto=format&fit=crop",
+        title: "Innovations & Academic Excellence",
+        description: "Discover new opportunities in world-class laboratories."
+    },
+    {
+        // Студенческий кампус / общение на территории вуза
+        image: "https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?q=80&w=1600&auto=format&fit=crop",
+        title: "Your Pathway to Success",
+        description: "Join a community of professional leaders and experts."
+    },
 ];
 
 export default function Slider() {
@@ -28,10 +42,10 @@ export default function Slider() {
                 <div className="slid-cont"/>
                 <div className="slid-content">
                     <h1>
-                        Welcome to Our College
+                        {slides[index].title}
                     </h1>
                     <p>
-                        Modern education. Real skills. Strong future.
+                        {slides[index].description}
                     </p>
                     <button>
                         Explore Programs

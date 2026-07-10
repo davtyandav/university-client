@@ -1,26 +1,21 @@
 import React from "react";
 import {getMonthDays} from "../../services/utils";
 
-const MonthCalendar = ({month, year, lessons}) => {
+const MonthCalendar = ({month, year, lessons, onLessonClick}) => {
     const days = getMonthDays(month, year);
     const today = new Date();
 
-    const getLessonStatus = (day) => {
-        if (!day) return "";
-
-        const lesson = lessons.find(lesson => {
-            const lessonDate = new Date(lesson.data);
-            return lessonDate.getDate() === day && lessonDate.getMonth() === month && lessonDate.getFullYear() === year;
-        });
-        if (lesson) {
-            console.log(lesson);
-            return lesson.completed ? "completed" : "not-completed";
-        }
-        return "";
+    const getStatusClass = (lesson) => {
+        if (!lesson) return "";
+        return lesson.completed
+            ? "completed"
+            : "not-completed";
     };
 
     const isToday = (day) => {
-        return day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+        return day === today.getDate()
+            && month === today.getMonth()
+            && year === today.getFullYear();
     };
 
     return (
@@ -40,24 +35,38 @@ const MonthCalendar = ({month, year, lessons}) => {
                 <tbody>
                 {days.map((week, weekIndex) => (
                     <tr key={weekIndex}>
-                        {week.map((day, dayIndex) => (
-                            <td
-                                key={dayIndex}
-                                className={`${day ? getLessonStatus(day) : "empty"} 
-                                            ${dayIndex === 5 || dayIndex === 6 ? "weekend" : ""} 
-                                            ${isToday(day) ? "today" : ""}`}
-                            >
-                                {day && (
-                                    <div className="cell-content">
-                                        <span className="status-icon">
-                                               {getLessonStatus(day) === "completed" ? "✔" : getLessonStatus(day) === "not-completed" ? "_" : ""}
-                                        </span>
-                                        <span>{day}</span>
-                                    </div>
-                                )}
-                            </td>
+                        {week.map((day, dayIndex) => {
+                            const currentLesson = day
+                                ? lessons.find(lesson => {
+                                    const lessonDate = new Date(lesson.data);
+                                    return lessonDate.getDate() === day &&
+                                        lessonDate.getMonth() === month &&
+                                        lessonDate.getFullYear() === year;
+                                })
+                                : null;
 
-                        ))}
+                            const statusClass = getStatusClass(currentLesson);
+
+                            return (
+                                <td
+                                    key={dayIndex}
+                                    className={`${day ? statusClass : "empty"} 
+                                                    ${dayIndex === 5 || dayIndex === 6 ? "weekend" : ""} 
+                                                    ${isToday(day) ? "today" : ""}`}
+                                    onClick={() => day && currentLesson && onLessonClick(currentLesson)}
+                                    style={{cursor: (day && currentLesson) ? 'pointer' : 'default'}}
+                                >
+                                    {day && (
+                                        <div className="cell-content">
+                                                <span className="status-icon">
+                                                    {statusClass === "completed" ? "✔" : statusClass === "not-completed" ? "_" : ""}
+                                                </span>
+                                            <span>{day}</span>
+                                        </div>
+                                    )}
+                                </td>
+                            );
+                        })}
                     </tr>
                 ))}
                 </tbody>

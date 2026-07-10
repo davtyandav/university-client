@@ -1,4 +1,7 @@
 export const calculateAge = (birthDateString) => {
+    if (!birthDateString) {
+        return "date of birth not specified"
+    }
     const birthDate = new Date(birthDateString);
     const today = new Date();
 
@@ -10,10 +13,13 @@ export const calculateAge = (birthDateString) => {
         age--;
     }
 
-    return age;
+    return age + " years old";
 };
 
 export const isBirthDate = (birthDateString) => {
+    if (!birthDateString) {
+        return ""
+    }
     const birthDate = new Date(birthDateString);
     const today = new Date();
 

@@ -4,10 +4,14 @@ import avatarPlaceholder from '../../assets/user.png';
 import StudentProfile from './StudentProfile';
 import MentorProfile from './MentorProfile';
 import AdminProfile from './AdminProfile';
+import Modal from "../Modal";
+import ChangePasswordModal from "../../customComponents/ChangePasswordModal";
 
 const Profile = () => {
     const [profileData, setProfileData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isEditPasswordModalOpen, setIsEditPasswordModalOpen] = useState(false);
+
 
     useEffect(() => {
         getMe()
@@ -24,8 +28,14 @@ const Profile = () => {
 
     const {role, name, lastName, email, id} = profileData;
 
+    const handleOpenPasswordModal = (e) => {
+        e.stopPropagation();
+        setIsEditPasswordModalOpen(true);
+    };
+
+
     return (
-        <div className="max-w-4xl mx-auto mt-10 px-4">
+        <div className="max-w-4xl mx-auto mt-5 mb-5 px-4 overflow-auto max-h-[calc(100vh-240px)]">
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
                 <div className="flex items-center gap-6 mb-8 border-b pb-6">
                     <img src={avatarPlaceholder} className="w-24 h-24 rounded-full border shadow-sm" alt="avatar"/>
@@ -37,6 +47,10 @@ const Profile = () => {
                         </span>
                         <p className="text-gray-500 mt-1">{email}</p>
                     </div>
+
+                    <button className="edit-button" onClick={handleOpenPasswordModal}>
+                        ✏️ Edit password
+                    </button>
                 </div>
 
                 <div className="grid grid-cols-1 gap-6">
@@ -45,6 +59,15 @@ const Profile = () => {
                     {role.includes('ADMIN') && <AdminProfile/>}
                 </div>
 
+                <Modal isOpen={isEditPasswordModalOpen} onClose={() => setIsEditPasswordModalOpen(false)}>
+                    <ChangePasswordModal
+                        user={profileData}
+                        onClose={() => setIsEditPasswordModalOpen(false)}
+                        onSuccess={() => {
+                            setIsEditPasswordModalOpen(false);
+                        }}
+                    />
+                </Modal>
             </div>
         </div>
     );

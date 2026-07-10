@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {assignDescriptorToStudents, getStudents} from '../services/api';
 import '../styles/app.css';
 
-const StudentSelect = ({descriptorId, onClose}) => {
+const AttacheStudentInLessonModal = ({descriptorId, onClose}) => {
 
     const [students, setStudents] = useState([]);
     const [selectedStudents, setSelectedStudents] = useState([]);
@@ -13,7 +13,9 @@ const StudentSelect = ({descriptorId, onClose}) => {
 
     const fetchStudents = () => {
         getStudents()
-            .then(data => setStudents(data))
+            .then(data => {
+                setStudents(data.filter(student => student.lessonDescriptor == null))
+            })
             .catch(error => console.log(error));
     };
 
@@ -28,19 +30,13 @@ const StudentSelect = ({descriptorId, onClose}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log('Selected students:', selectedStudents);
-        console.log('descriptorId', descriptorId);
-
-
         if (selectedStudents.length === 0) {
             alert("Выберите хотя бы одного студента");
             return;
         }
         try {
             await assignDescriptorToStudents(descriptorId, selectedStudents);
-
-            console.log('Данные успешно сохранены');
-            onClose(); // Закрываем модальное окно после успеха
+            onClose();
         } catch (error) {
             console.error('Ошибка при сохранении:', error);
             alert('Не удалось сохранить данные');
@@ -82,4 +78,4 @@ const StudentSelect = ({descriptorId, onClose}) => {
     );
 };
 
-export default StudentSelect;
+export default AttacheStudentInLessonModal;

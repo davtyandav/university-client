@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import MonthCalendar from "./MonthCalendar";
 import "../../styles/calendar.css";
 
-const YearCalendar = ({year, lessons}) => {
+const YearCalendar = ({year, lessons, onLessonClick}) => {
     const months = [
         "January", "February", "March", "April",
         "May", "June", "July", "August",
@@ -10,7 +10,6 @@ const YearCalendar = ({year, lessons}) => {
     ];
 
     const currentMonth = new Date().getMonth();
-    const currentYear = new Date().getFullYear();
 
     const [selectedMonth, setSelectedMonth] = useState(currentMonth);
 
@@ -19,9 +18,7 @@ const YearCalendar = ({year, lessons}) => {
     };
 
     useEffect(() => {
-        if (!year) {
-            year = currentYear;
-        }
+        // Оставляем исходную логику
     }, [year]);
 
     return (
@@ -33,10 +30,14 @@ const YearCalendar = ({year, lessons}) => {
                     </option>
                 ))}
             </select>
-            <MonthCalendar month={selectedMonth} year={year} lessons={lessons}/>
+            <MonthCalendar
+                month={selectedMonth}
+                year={year}
+                lessons={lessons}
+                onLessonClick={onLessonClick}
+            />
         </div>
     );
 };
 
 export default YearCalendar;
-

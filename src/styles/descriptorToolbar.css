@@ -1,0 +1,60 @@
+.toolbar-container {
+    @apply p-[30px] bg-[#f8f9fa] rounded-lg shadow-[0_2px_8px_rgba(0,0,0,0.05)] mt-5;
+}
+
+.toolbar-title {
+    @apply mb-5 text-center;
+}
+
+.toolbar-section {
+    @apply bg-white p-5 rounded-[6px] mb-[15px] border border-[#e9ecef];
+}
+
+.toolbar-section-admin {
+    @apply toolbar-section bg-slate-50 border-l-4 border-blue-500;
+}
+
+.toolbar-section-highlight {
+    @apply toolbar-section bg-[#eef2f7];
+}
+
+.section-title {
+    @apply text-[1.1rem] font-semibold mb-3 text-[#495057];
+}
+
+.section-title-admin {
+    @apply  text-green-900;
+}
+
+.flex-container {
+    @apply flex gap-[15px] items-center flex-wrap;
+}
+
+.toolbar-select {
+    @apply py-2 px-3 rounded border border-[#ccc] bg-white cursor-pointer focus:outline-none;
+}
+
+.toolbar-label {
+    @apply font-bold;
+}
+
+.divider {
+    @apply text-[#ccc];
+}
+
+.error-message {
+    @apply text-[#dc3545];
+}
+
+/* Buttons */
+.addButton {
+    @apply py-2 px-4 text-white border-none rounded font-medium transition-all duration-200 ease-in-out cursor-pointer;
+}
+
+.btn-green {
+    @apply bg-[#28a745] hover:bg-[#218838];
+}
+
+.addButton:disabled {
+    @apply opacity-50 cursor-not-allowed bg-[#6c757d] !important;
+}
